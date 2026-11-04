@@ -1,0 +1,1614 @@
+@import "tailwindcss";
+
+/* Mode Gelap (Default sesuai arahan referensi Dribbble #27351948 & Opsi A R-37). */
+:root,
+[data-theme="dark"] {
+  --bg-primary: #050606;
+  --bg-secondary: #0D1214;
+  --bg-surface: #0D1214;
+  --bg-elevated: #131A1D;
+  --text-primary: #F8FAFA;
+  --text-secondary: #9EACAF;
+  --accent: #38B29A;
+  --accent-hover: #52C7B0;
+  --accent-contrast: #050606;
+  --accent-subtle: #132A28;
+  --cta-primary-bg: #F8FAFA;
+  --cta-primary-hover: #DDE6E8;
+  --cta-primary-text: #050606;
+  --border-subtle: #1D282C;
+  --border-strong: #6D8488;
+  --hero-atmosphere: radial-gradient(ellipse 80% 55% at 50% -10%, rgba(46, 72, 77, 0.72) 0%, rgba(19, 42, 40, 0.28) 52%, rgba(5, 6, 6, 0) 100%);
+  --icon-focus-glow: 0 0 22px rgba(56, 178, 154, 0.28);
+  --status-error-bg: #321615;
+  --status-error-text: #F9B8B2;
+  --status-error-border: #E06C62;
+  --status-success-bg: #132E28;
+  --status-success-text: #8AE5D1;
+  --status-success-border: #38B29A;
+  --placeholder-bg: #131E21;
+  --placeholder-text: #F8FAFA;
+  --placeholder-border: #6D8488;
+  --overlay-scrim: rgba(3, 5, 5, 0.82);
+  --elevated-shadow: 0 24px 56px rgba(0, 0, 0, 0.65);
+  --font-sans: "Helvetica Neue", Helvetica, Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-pill: 9999px;
+  --container-max: 1240px;
+}
+
+/* Mode Terang (Tetap tersedia dan memenuhi rasio kontras WCAG AA/AAA sesuai R-34). */
+[data-theme="light"] {
+  --bg-primary: #F8FAFA;
+  --bg-secondary: #EEF2F3;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #E3EAEB;
+  --text-primary: #0B1112;
+  --text-secondary: #394B4E;
+  --accent: #0D6859;
+  --accent-hover: #094F43;
+  --accent-contrast: #FFFFFF;
+  --accent-subtle: #DCF0EC;
+  --cta-primary-bg: #0B1112;
+  --cta-primary-hover: #1E2B2E;
+  --cta-primary-text: #FFFFFF;
+  --border-subtle: #CBD6D8;
+  --border-strong: #587075;
+  --hero-atmosphere: radial-gradient(ellipse 80% 55% at 50% -10%, rgba(13, 104, 89, 0.14) 0%, rgba(220, 240, 236, 0.4) 50%, rgba(248, 250, 250, 0) 100%);
+  --icon-focus-glow: 0 0 18px rgba(13, 104, 89, 0.16);
+  --status-error-bg: #FBEAE8;
+  --status-error-text: #8A1C14;
+  --status-error-border: #B8332A;
+  --status-success-bg: #E3F3EE;
+  --status-success-text: #094D3F;
+  --status-success-border: #0D6859;
+  --placeholder-bg: #E6EEEE;
+  --placeholder-text: #0B1112;
+  --placeholder-border: #587075;
+  --overlay-scrim: rgba(11, 17, 18, 0.68);
+  --elevated-shadow: 0 20px 44px rgba(11, 17, 18, 0.16);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 100%;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 0.96rem + 0.18vw, 1.06rem);
+  line-height: 1.62;
+  letter-spacing: -0.005em;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Pastikan indikator fokus selalu memenuhi kontras >= 3:1 di mode gelap maupun terang. */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 1000;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Bilah informasi template di bagian paling atas halaman agar pengguna tahu cara mengedit. */
+.template-banner {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.55rem 0;
+  font-size: 0.85rem;
+}
+
+.template-banner-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.template-banner-text {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.template-banner-text code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background-color: var(--placeholder-bg);
+  color: var(--text-primary);
+  padding: 0.12rem 0.4rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xs);
+}
+
+.placeholder-tag {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  font-weight: 600;
+  background-color: var(--placeholder-bg);
+  color: var(--placeholder-text);
+  border: 1px dashed var(--placeholder-border);
+  padding: 0.14rem 0.45rem;
+  border-radius: var(--radius-xs);
+  display: inline-block;
+  line-height: 1.4;
+}
+
+/* Header kompak sesuai referensi Dribbble (Logo di kiri, navigasi tengah, tombol pill di kanan). */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4.5rem;
+  gap: 1rem;
+}
+
+.brand-identity {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--text-primary);
+  min-height: 44px;
+  justify-content: center;
+  padding: 0.25rem 0;
+}
+
+.brand-logo-mark {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
+
+.brand-name {
+  font-size: 1.06rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.primary-nav {
+  display: none;
+}
+
+.header-cta-desktop {
+  display: none;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.92rem;
+  border-radius: var(--radius-pill);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-link:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Hierarki Radius: Tombol aksi menggunakan bentuk Pill (9999px) sesuai referensi Dribbble & Opsi A R-37. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.65rem 1.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  border-color: var(--text-primary);
+  background-color: var(--bg-elevated);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background-color: var(--cta-primary-bg);
+  color: var(--cta-primary-text);
+  border-color: var(--cta-primary-bg);
+}
+
+.btn-primary:hover {
+  background-color: var(--cta-primary-hover);
+  border-color: var(--cta-primary-hover);
+  color: var(--cta-primary-text);
+}
+
+.btn-compact {
+  padding: 0.48rem 1rem;
+  font-size: 0.85rem;
+}
+
+.mobile-menu-panel {
+  display: none;
+  border-top: 1px solid var(--border-subtle);
+  background-color: var(--bg-secondary);
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.mobile-menu-panel.is-open {
+  display: block;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.mobile-nav-list .nav-link {
+  width: 100%;
+  justify-content: flex-start;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+}
+
+/* Bagian Hero: Panggung terpusat (centered) dengan atmosfer teal di atas dan 3 panel visual di bawah. */
+.hero-section {
+  background-image: var(--hero-atmosphere);
+  padding: 3rem 0 3.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.hero-center-stage {
+  max-width: 820px;
+  margin: 0 auto 2.75rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 1.45rem + 2.4vw, 3.45rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.25rem;
+  font-weight: 500;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 0.96rem + 0.25vw, 1.15rem);
+  color: var(--text-secondary);
+  margin: 0 auto 2rem;
+  max-width: 60ch;
+  font-weight: 400;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+}
+
+/* Kanvas Showcase 3-Panel di bawah teks Hero (Mengadaptasi komposisi 3 kartu pada referensi Dribbble). */
+.hero-showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.showcase-wing-card {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.wing-card-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.wing-pill-label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+}
+
+.wing-card-heading {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.wing-ring-visual {
+  position: relative;
+  width: 152px;
+  height: 152px;
+  margin: 0.25rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.wing-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.25rem;
+}
+
+.wing-bars-visual {
+  width: 100%;
+  padding: 0.25rem 0;
+}
+
+.bars-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wing-card-footer {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.wing-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.wing-sub-label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.metric-note {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Panel Arsitektur Interaktif di tengah Showcase Hero. */
+.architecture-dossier {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dossier-header {
+  background-color: var(--bg-elevated);
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.dossier-heading {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.arch-tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-primary);
+}
+
+.arch-tab-btn {
+  min-height: 44px;
+  padding: 0.45rem 0.95rem;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 500;
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.arch-tab-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.arch-tab-btn[aria-selected="true"] {
+  background-color: var(--cta-primary-bg);
+  color: var(--cta-primary-text);
+  border-color: var(--cta-primary-bg);
+  font-weight: 600;
+}
+
+.arch-panel-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.arch-panel-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.4rem;
+}
+
+.arch-panel-summary {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  margin: 0 0 1.1rem;
+}
+
+.arch-diagram-box {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.arch-layer-label {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.45rem;
+  display: block;
+}
+
+.arch-nodes-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.arch-node {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  padding: 0.5rem 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+.arch-connector {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--accent);
+  font-weight: 600;
+  padding: 0.4rem 0;
+}
+
+.arch-gateway-bar {
+  background-color: var(--accent-subtle);
+  border: 1.5px solid var(--accent);
+  color: var(--text-primary);
+  padding: 0.65rem 0.8rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: var(--radius-sm);
+}
+
+.arch-deliverable-note {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  margin: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Struktur bab dengan motif identitas § 01 - § 05. */
+.section-block {
+  padding: 3.25rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.section-block-alt {
+  background-color: var(--bg-secondary);
+}
+
+.section-index-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.section-code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent);
+  background-color: var(--accent-subtle);
+  border: 1px solid var(--accent);
+  padding: 0.18rem 0.6rem;
+  border-radius: var(--radius-xs);
+}
+
+.section-title {
+  font-size: clamp(1.55rem, 1.25rem + 1.3vw, 2.35rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  margin: 0;
+  font-weight: 500;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 66ch;
+  margin: 0 0 2.25rem;
+}
+
+/* § 01 Kapabilitas: Panel utama lebar penuh + 3 Kartu Cetak Biru Bertingkat (Staggered Blueprint Cards). */
+.flagship-capability {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 1.6rem;
+  margin-bottom: 2.25rem;
+}
+
+.flagship-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.capability-code {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: inline-block;
+  margin-bottom: 0.45rem;
+}
+
+.flagship-title {
+  font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.7rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.flagship-desc {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.flagship-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0;
+}
+
+.spec-cell {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-strong);
+  padding: 0.95rem 1.05rem;
+  border-radius: var(--radius-sm);
+}
+
+.spec-cell dt {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.spec-cell dd {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.blueprint-cards-stagger {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.35rem;
+  align-items: start;
+}
+
+.blueprint-card {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.blueprint-card-header {
+  padding: 1.5rem 1.5rem 1.25rem;
+  background-color: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.blueprint-card-title {
+  font-size: 1.28rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.55rem;
+}
+
+.blueprint-card-desc {
+  margin: 0 0 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.93rem;
+}
+
+.supporting-scope {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.blueprint-visual-stage {
+  padding: 1.25rem 1.35rem 1.35rem;
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.blueprint-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.blueprint-output-bar {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+/* § 02 Studi Kasus: Katalog filter interaktif dengan Empty, Loading, dan Error states (R-27). */
+.explorer-toolbar {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.toolbar-top-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 500;
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.filter-btn[aria-pressed="true"] {
+  background-color: var(--cta-primary-bg);
+  color: var(--cta-primary-text);
+  border-color: var(--cta-primary-bg);
+  font-weight: 600;
+}
+
+.search-box-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 260px;
+  max-width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.55rem 0.95rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.state-simulator-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+}
+
+.state-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.state-sim-btn {
+  min-height: 44px;
+  padding: 0.4rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.state-sim-btn[aria-pressed="true"] {
+  background-color: var(--accent-subtle);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+
+.case-study-ledger {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.case-study-item {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 1.45rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.15rem;
+}
+
+.cs-meta-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.55rem;
+}
+
+.cs-sector-tag {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.22rem 0.6rem;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xs);
+}
+
+.cs-title {
+  font-size: 1.22rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.5rem;
+}
+
+.cs-summary {
+  margin: 0 0 0.95rem;
+  color: var(--text-secondary);
+  font-size: 0.94rem;
+}
+
+.cs-metrics-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  padding: 0.9rem;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.cs-stack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cs-stack-chip {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.22rem 0.55rem;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xs);
+}
+
+.cs-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.cs-action-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.showcase-wing-card:hover,
+.blueprint-card:hover,
+.case-study-item:hover,
+.team-member-row:hover,
+.flagship-capability:hover {
+  border-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Tampilan Empty, Loading, dan Error State yang jelas dan informatif (R-27). */
+.data-state-box {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 2.25rem 1.5rem;
+  text-align: left;
+}
+
+.data-state-box.is-error {
+  background-color: var(--status-error-bg);
+  border-color: var(--status-error-border);
+  color: var(--status-error-text);
+}
+
+.data-state-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.data-state-desc {
+  margin: 0 0 1.25rem;
+  max-width: 60ch;
+}
+
+/* § 03 Metodologi: 5 fase kerja terstruktur dalam matriks spesifikasi. */
+.methodology-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.methodology-layout .hero-actions {
+  justify-content: flex-start;
+}
+
+.methodology-phases {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.phase-row {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.phase-trigger {
+  width: 100%;
+  min-height: 56px;
+  padding: 1rem 1.25rem;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  text-align: left;
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+.phase-trigger:hover {
+  background-color: var(--bg-elevated);
+}
+
+.phase-trigger-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.phase-step-code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.phase-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.phase-toggle-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+.phase-content {
+  padding: 0 1.25rem 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+  background-color: var(--bg-primary);
+}
+
+.phase-content[hidden] {
+  display: none;
+}
+
+.phase-summary {
+  margin: 0.95rem 0;
+  color: var(--text-secondary);
+}
+
+.phase-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+}
+
+.phase-meta-box {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm);
+}
+
+/* § 04 Profil Perusahaan, Grid 2x2 Prinsip Berikon Glow Terukur, & Kepemimpinan. */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.profile-lead {
+  font-size: 1.18rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.profile-body {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.legal-dossier-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-primary);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.legal-dossier-table th,
+.legal-dossier-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+
+.legal-dossier-table th {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  width: 38%;
+  background-color: var(--bg-elevated);
+}
+
+/* Grid 2x2 Prinsip & Fondasi Rekayasa sesuai gambar ke-3 referensi Dribbble. */
+.principles-2x2-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.25rem 3rem;
+  margin-bottom: 3.25rem;
+  padding: 2.25rem 1.75rem;
+  background-color: var(--bg-primary);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+}
+
+.principle-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.principle-icon-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background-color: var(--accent-subtle);
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  box-shadow: var(--icon-focus-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.15rem;
+}
+
+.principle-heading {
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.55rem;
+  color: var(--text-primary);
+}
+
+.principle-text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.team-member-row {
+  background-color: var(--bg-primary);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.avatar-placeholder {
+  width: 64px;
+  height: 64px;
+  background-color: var(--accent-subtle);
+  border: 1.5px dashed var(--accent);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  padding: 0.25rem;
+  flex-shrink: 0;
+}
+
+.team-role {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.team-name {
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+}
+
+.team-bio {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* § 05 Diskusi Arsitektur & Formulir Kontak dengan validasi nyata. */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.25rem;
+  align-items: start;
+}
+
+.contact-direct-card {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 1.6rem;
+}
+
+.contact-detail-list {
+  display: grid;
+  gap: 1.1rem;
+  margin: 0 0 1.5rem;
+}
+
+.contact-detail-item dt {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.contact-detail-item dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.contact-detail-item a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.contact-form-panel {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 1.6rem;
+}
+
+.contact-form-panel .hero-actions {
+  justify-content: flex-start;
+}
+
+.form-field {
+  margin-bottom: 1.2rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-bottom: 0.4rem;
+}
+
+/* Hierarki Radius: Kolom input menggunakan radius 8px (--radius-sm) agar dibedakan secara visual dari tombol pill. */
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  scroll-margin-bottom: 8rem;
+}
+
+.form-textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.form-input[aria-invalid="true"],
+.form-select[aria-invalid="true"],
+.form-textarea[aria-invalid="true"] {
+  border-color: var(--status-error-border);
+  background-color: var(--status-error-bg);
+}
+
+.field-error-msg {
+  margin: 0.35rem 0 0;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--status-error-text);
+}
+
+.form-feedback-banner {
+  margin-top: 1.15rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--status-success-border);
+  background-color: var(--status-success-bg);
+  color: var(--status-success-text);
+  font-weight: 500;
+}
+
+.form-feedback-banner.is-error {
+  border-color: var(--status-error-border);
+  background-color: var(--status-error-bg);
+  color: var(--status-error-text);
+}
+
+/* Footer struktural dua bagian, bukan 4 kolom template. */
+.site-footer {
+  background-color: var(--bg-secondary);
+  padding: 2.5rem 0 4rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
+
+.footer-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-copy {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  margin: 0.25rem 0 0;
+}
+
+/* Dialog Modal & Panel Editor Template (komponen melayang dengan bayangan elevasi sesuai R-12). */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background-color: var(--overlay-scrim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-backdrop[hidden] {
+  display: none;
+}
+
+.modal-dialog {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevated-shadow);
+  width: 100%;
+  max-width: 720px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  padding: 1.6rem;
+}
+
+.modal-dialog .hero-actions {
+  justify-content: flex-start;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1.25rem;
+}
+
+.modal-section {
+  margin-bottom: 1.15rem;
+}
+
+.modal-section h4 {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.35rem;
+}
+
+.modal-section p {
+  margin: 0;
+}
+
+/* State ke-2: Tablet & Laptop Kecil (640px ke atas). */
+@media (min-width: 640px) {
+  .container {
+    padding: 0 1.75rem;
+  }
+
+  .arch-nodes-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .flagship-specs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .blueprint-cards-stagger {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .case-study-ledger {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cs-metrics-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .phase-meta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .principles-2x2-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2.5rem;
+  }
+
+  .team-member-row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .footer-inner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* State ke-3: Desktop Lebar (1024px ke atas). */
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 2.5rem;
+  }
+
+  .primary-nav {
+    display: block;
+  }
+
+  .header-cta-desktop {
+    display: inline-flex;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  .mobile-menu-panel {
+    display: none !important;
+  }
+
+  .hero-section {
+    padding: 4.5rem 0 5rem;
+  }
+
+  .hero-showcase-grid {
+    grid-template-columns: 3fr 6fr 3fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  .section-block {
+    padding: 4.75rem 0;
+  }
+
+  .flagship-top {
+    grid-template-columns: 5fr 7fr;
+    align-items: start;
+  }
+
+  .flagship-specs-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Efek Staggered Blueprint Cards sesuai gambar ke-2 referensi Dribbble. */
+  .blueprint-cards-stagger {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .blueprint-card-2 {
+    margin-top: 2.5rem;
+  }
+
+  .blueprint-card-3 {
+    margin-top: 5rem;
+  }
+
+  .methodology-layout {
+    grid-template-columns: 4fr 8fr;
+  }
+
+  .profile-grid {
+    grid-template-columns: 6fr 6fr;
+    align-items: start;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .team-member-row {
+    flex-direction: column;
+  }
+
+  .contact-grid {
+    grid-template-columns: 5fr 7fr;
+  }
+}
