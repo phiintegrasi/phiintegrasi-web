@@ -1,5 +1,6 @@
 // Ubah nilai pada objek ini untuk memperbarui seluruh konten company profile phiintegrasi.com.
-// Seluruh ekosistem repositori dan portofolio rekayasa dipusatkan di bawah GitHub Organization resmi: github.com/phiintegrasi.
+// Profil perusahaan, kontak, dan footer dipusatkan di GitHub Organization: github.com/phiintegrasi,
+// sementara tombol repositori proyek mengarah ke repositori aktif saat ini (harrynurbudyana/... & ivantans/...).
 export const initialSiteData = {
   brand: {
     logoPlaceholder: "[LOGO: PHI INTEGRASI]",
@@ -118,7 +119,7 @@ export const initialSiteData = {
   caseStudies: {
     sectionCode: "§ 02",
     title: "Portofolio Proyek & Cetak Biru Implementasi",
-    subtitle: "Katalog 12 proyek nyata yang dipusatkan di bawah GitHub Organization resmi github.com/phiintegrasi. Gunakan filter kategori atau kolom pencarian untuk meninjau spesifikasi arsitektur dan membuka repositori organisasi.",
+    subtitle: "Katalog 12 proyek nyata dari repositori aktif github.com/harrynurbudyana dan github.com/ivantans (ivantans.id) yang dipersiapkan untuk ekosistem organisasi github.com/phiintegrasi. Gunakan filter kategori atau kolom pencarian untuk meninjau spesifikasi arsitektur dan membuka repositori sumber.",
     items: [
       {
         id: "cs-ev-dashboard",
@@ -132,7 +133,7 @@ export const initialSiteData = {
         challenge: "Operator stasiun pengisian kendaraan listrik (CPO) membutuhkan sistem terpadu yang menghubungkan perangkat keras SPKLU dengan manajemen sesi pengisian, saldo pengguna, dan pemantauan daya secara langsung.",
         architectureSolution: "Membangun backend OCPP 1.6 berbasis WebSockets, manajemen transaksi dan pembayaran, serta dashboard pemantauan web terdockerisasi hasil kolaborasi tim rekayasa.",
         techStack: ["TypeScript", "OCPP 1.6 WebSockets", "Node.js / NestJS", "Angular / Web", "Docker"],
-        githubUrl: "https://github.com/phiintegrasi/ev-dashboard"
+        githubUrl: "https://github.com/harrynurbudyana/ev-dashboard"
       },
       {
         id: "cs-sekretariat-rust",
@@ -146,7 +147,7 @@ export const initialSiteData = {
         challenge: "Proses penomoran surat keluar lintas unit kerja dan persetujuan peminjaman ruangan membutuhkan sistem terpusat yang cepat, hemat sumber daya VPS, dan terintegrasi dengan notifikasi email otomatis.",
         architectureSolution: "Membangun backend tunggal berbasis Rust (Axum + SQLx async SQLite pool) yang menyajikan REST API sekaligus aset statis Svelte 5, dilengkapi pengirim email SMTP TLS otomatis.",
         techStack: ["Rust (Axum)", "Svelte 5", "SQLx / SQLite", "Tailwind CSS", "SMTP TLS"],
-        githubUrl: "https://github.com/phiintegrasi/layanan-sekretariat-rust"
+        githubUrl: "https://github.com/harrynurbudyana/layanan-sekretariat-rust"
       },
       {
         id: "cs-claude-md-viewer",
@@ -160,7 +161,7 @@ export const initialSiteData = {
         challenge: "Membaca berkas dokumentasi teknis (README.md, CLAUDE.md, atau catatan arsitektur) sering kali mengharuskan pembukaan kode editor berat atau aplikasi berbasis Electron berukuran ratusan megabita.",
         architectureSolution: "Membangun pembaca dokumen khusus menggunakan Rust dan Tauri yang memanfaatkan webview bawaan sistem operasi, lengkap dengan pipeline rilis lintas platform di GitHub Actions.",
         techStack: ["Rust", "Tauri", "Native OS WebView", "GitHub Actions CI/CD", "Cross-Platform"],
-        githubUrl: "https://github.com/phiintegrasi/claude-md-viewer"
+        githubUrl: "https://github.com/ivantans/claude-md-viewer"
       },
       {
         id: "cs-ktp-ocr",
@@ -174,7 +175,7 @@ export const initialSiteData = {
         challenge: "Sesuai UU No. 27/2022 tentang Pelindungan Data Pribadi, foto identitas warga tidak boleh diunggah sembarangan ke API cloud pihak ketiga, sementara input manual rawan salah ketik.",
         architectureSolution: "Menjalankan model PaddleOCR-VL secara mandiri untuk mengekstrak teks KTP menjadi struktur JSON, lalu memvalidasi kode provinsi dan tanggal lahir pada 16 digit NIK terhadap data tercetak.",
         techStack: ["Python", "PaddleOCR-VL", "Local AI Inference", "JSON Schema", "Validasi NIK"],
-        githubUrl: "https://github.com/phiintegrasi/ktp-ocr-poc"
+        githubUrl: "https://github.com/ivantans/ktp-ocr-poc"
       },
       {
         id: "cs-auth-sso",
@@ -188,7 +189,7 @@ export const initialSiteData = {
         challenge: "Ekosistem dengan banyak aplikasi internal membutuhkan satu pintu autentikasi yang aman dari kebocoran token dan mampu mencegah penyalahgunaan sesi ganda.",
         architectureSolution: "Merancang layanan otorisasi menggunakan NestJS, Passport, dan Prisma ORM yang menerapkan rotasi Refresh Token, kebijakan single-device login, RBAC, serta protokol OAuth 2.1 dengan PKCE.",
         techStack: ["NestJS", "TypeScript", "Prisma ORM", "OAuth 2.1 & PKCE", "Passport JWT"],
-        githubUrl: "https://github.com/phiintegrasi/authorization-api"
+        githubUrl: "https://github.com/ivantans/authorization-api"
       },
       {
         id: "cs-infra-devsecops",
@@ -202,7 +203,7 @@ export const initialSiteData = {
         challenge: "Ukuran kontainer ML yang besar menghambat deployment, sementara layanan produksi membutuhkan arsitektur database dan server fisik yang tetap hidup meskipun salah satu mesin mengalami gangguan.",
         architectureSolution: "Memangkas kontainer menjadi 2.65 GB, memisahkan GitLab Runner dari klaster Kubernetes utama, mengelola failover Patroni PostgreSQL/MongoDB/Oracle DB, serta mengoperasikan klaster dua mini-PC Dell OptiPlex + VPS.",
         techStack: ["Kubernetes & Docker", "GitLab CI/CD", "Patroni PostgreSQL", "Cisco Networking", "Uptime Kuma"],
-        githubUrl: "https://github.com/phiintegrasi/hardtech-web"
+        githubUrl: "https://github.com/harrynurbudyana/hardtech-web"
       },
       {
         id: "cs-ocpp-simulator",
@@ -216,7 +217,7 @@ export const initialSiteData = {
         challenge: "Pengembangan dan pengujian beban (stress-test) backend SPKLU sulit dilakukan secara berulang jika selalu bergantung pada ketersediaan unit charger fisik di lapangan.",
         architectureSolution: "Membangun simulator interaktif berbasis WebSockets (Remote Start/Stop, Status Notification, Meter Values) serta modul kontainer Azure IoT Edge untuk pemrosesan data di tingkat edge.",
         techStack: ["JavaScript / Node.js", "WebSockets", "OCPP 1.6 JSON", "Azure IoT Edge", "Docker"],
-        githubUrl: "https://github.com/phiintegrasi/ocpp16-charge-point-simulator"
+        githubUrl: "https://github.com/ivantans/ocpp16-charge-point-simulator"
       },
       {
         id: "cs-labfit-portal",
@@ -230,7 +231,7 @@ export const initialSiteData = {
         challenge: "Layanan informasi laboratorium, inventaris alat, dan tautan administrasi sebelumnya tersebar di berbagai kanal sehingga menyulitkan koordinasi harian mahasiswa dan staf.",
         architectureSolution: "Merancang portal web terpadu menggunakan Next.js, React, dan TypeScript yang terhubung langsung dengan modul operasional SIMLAB serta manajemen tautan dinamis.",
         techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js"],
-        githubUrl: "https://github.com/phiintegrasi/labfit-portal"
+        githubUrl: "https://github.com/harrynurbudyana/labfit-portal"
       },
       {
         id: "cs-taartely",
@@ -244,7 +245,7 @@ export const initialSiteData = {
         challenge: "Pemesanan produk kustom secara manual lewat obrolan sering kali tidak mencantumkan spesifikasi lengkap sehingga memperlambat perhitungan harga oleh tim produksi.",
         architectureSolution: "Membangun aplikasi web interaktif, layanan backend API (PHP/Laravel), serta antarmuka mobile berbasis Dart/Flutter (`taartely_ui` & `taartely_api`) yang menyusun rincian pesanan secara otomatis.",
         techStack: ["Flutter (Dart)", "PHP / Laravel API", "Web App", "Automated Pricing", "WhatsApp Integration"],
-        githubUrl: "https://github.com/phiintegrasi/taartely_ui"
+        githubUrl: "https://github.com/ivantans/taartely_ui"
       },
       {
         id: "cs-iot-phmeter",
@@ -258,7 +259,7 @@ export const initialSiteData = {
         challenge: "Pemantauan kualitas air dan inventaris barang fisik pada loker membutuhkan pembacaan sensor analog yang bebas derau listrik (noise-isolated) serta pengiriman data instan ke server pusat.",
         architectureSolution: "Merancang skematik PCB kustom berisolasi derau, menulis firmware akuisisi kalibrasi dalam C++ (ESP32/Arduino), dan membangun server telemetri JavaScript berbasis WebSockets.",
         techStack: ["Embedded C++", "ESP32 / Arduino", "PCB CAD", "Load-Cell & pH Sensor", "Node.js", "WebSockets"],
-        githubUrl: "https://github.com/phiintegrasi/phmeter"
+        githubUrl: "https://github.com/harrynurbudyana/phmeter"
       },
       {
         id: "cs-yolo-vision",
@@ -272,7 +273,7 @@ export const initialSiteData = {
         challenge: "Sistem bantuan pengemudi (ADAS) membutuhkan pengenalan rambu lalu lintas yang akurat dalam waktu nyata tanpa jeda komputasi yang tinggi.",
         architectureSolution: "Melatih dan mengoptimalkan model deteksi objek YOLO menggunakan Python dan OpenCV pada dataset standar pengenalan rambu lalu lintas untuk pemrosesan video langsung.",
         techStack: ["Python", "YOLO", "OpenCV", "Deep Learning", "Computer Vision"],
-        githubUrl: "https://github.com/phiintegrasi/traffic-sign-detection-using-yolo"
+        githubUrl: "https://github.com/harrynurbudyana/traffic-sign-detection-using-yolo"
       },
       {
         id: "cs-api-automation",
@@ -286,7 +287,7 @@ export const initialSiteData = {
         challenge: "Organisasi membutuhkan layanan manajemen tautan pendek mandiri yang bebas iklan serta mesin otomatisasi yang patuh terhadap batas laju (rate-limit) API eksternal.",
         architectureSolution: "Membangun layanan URL shortener modular berbasis NestJS dan TypeScript serta layanan otomatisasi Python/Node.js dengan pencatatan jejak transaksi terstruktur.",
         techStack: ["NestJS", "TypeScript", "Python", "REST API", "SQLite / PostgreSQL"],
-        githubUrl: "https://github.com/phiintegrasi/url-shortener"
+        githubUrl: "https://github.com/ivantans/url-shortener"
       }
     ]
   },

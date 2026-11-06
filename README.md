@@ -16,7 +16,7 @@ Situs ini mengintegrasikan portofolio rekayasa nyata yang dipusatkan di bawah **
 2. **Kapabilitas Rekayasa & Cetak Biru Bertingkat (`CapabilitiesSection.svelte`)**
    - Satu panel spesifikasi layanan utama lebar penuh (*Infrastruktur Jaringan Enterprise, Server HA, & Backend API*) diikuti tiga kartu cetak biru bertingkat (*staggered blueprint cards*) dengan diagram teknis SVG.
 3. **Katalog 12 Portofolio Proyek & Simulasi UI States (`CaseStudiesSection.svelte`)**
-   - Menyajikan 12 proyek nyata yang dipusatkan di organisasi `https://github.com/phiintegrasi` (`ev-dashboard`, `layanan-sekretariat-rust`, `claude-md-viewer`, `ktp-ocr-poc`, `authorization-api`, `hardtech-web`, `ocpp16-charge-point-simulator`, `labfit-portal`, `taartely_ui`, `phmeter`, `traffic-sign-detection-using-yolo`, dan `url-shortener`).
+   - Menyajikan 12 proyek nyata dari repositori aktif `github.com/harrynurbudyana` dan `github.com/ivantans` yang dinaungi di bawah ekosistem `phiintegrasi` (`ev-dashboard`, `layanan-sekretariat-rust`, `claude-md-viewer`, `ktp-ocr-poc`, `authorization-api`, `hardtech-web`, `ocpp16-charge-point-simulator`, `labfit-portal`, `taartely_ui`, `phmeter`, `traffic-sign-detection-using-yolo`, dan `url-shortener`).
    - Dilengkapi filter kategori rekayasa, pencarian kata kunci secara langsung, tautan ke repositori GitHub, modal rincian arsitektur, serta simulator status tampilan data (*Data Normal*, *Status Memuat*, *Status Kosong*, dan *Status Gangguan*).
 4. **Metodologi Rekayasa 5 Fase (`MethodologySection.svelte`)**
    - Komponen akordeon interaktif yang merinci tahapan kerja mulai dari pemetaan arsitektur hingga serah terima kode sumber dan SLA.
