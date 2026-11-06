@@ -38,26 +38,19 @@
               <th scope="row">Basis Operasional</th>
               <td>{brand.city}</td>
             </tr>
-            {#if brand.githubProfileUrl}
+            {#if brand.githubOrgUrl || brand.githubProfileUrl}
               <tr>
-                <th scope="row">Repositori Kode</th>
+                <th scope="row">GitHub Organization</th>
                 <td>
-                  <a href={brand.githubProfileUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">
-                    github.com/harrynurbudyana
+                  <a href={brand.githubOrgUrl || brand.githubProfileUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline; font-weight: 600;">
+                    github.com/phiintegrasi
                   </a>
-                  {#if brand.secondGithubProfileUrl}
-                    <span> &amp; </span>
-                    <a href={brand.secondGithubProfileUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">
-                      github.com/ivantans
-                    </a>
-                  {/if}
-                  {#if brand.secondPortfolioUrl}
-                    <span> (</span>
-                    <a href={brand.secondPortfolioUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">
-                      ivantans.id
-                    </a>
-                    <span>)</span>
-                  {/if}
+                  <span style="display: block; font-size: 0.825rem; color: var(--text-muted); margin-top: 0.35rem;">
+                    Portofolio &amp; Riset Personal:
+                    <a href="https://github.com/harrynurbudyana" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/harrynurbudyana</a> &amp;
+                    <a href="https://github.com/ivantans" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/ivantans</a>
+                    (<a href="https://ivantans.id" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">ivantans.id</a>)
+                  </span>
                 </td>
               </tr>
             {/if}

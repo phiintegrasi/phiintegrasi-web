@@ -2,7 +2,7 @@
 
 Aplikasi web profil perusahaan (*company profile*) dan katalog arsitektur rekayasa untuk **PT PHI Integrasi (`phiintegrasi.com`)**. Dibangun menggunakan **Svelte 5**, **Vite 6**, **Tailwind CSS v4**, dan **AOS (Animate On Scroll)** dengan tipografi **Helvetica Neue** serta dukungan penuh Mode Gelap (*Obsidian & Atmospheric Teal*) dan Mode Terang.
 
-Situs ini mengintegrasikan portofolio rekayasa nyata, Hak Kekayaan Intelektual (HAKI), dan rekam jejak implementasi dari:
+Situs ini mengintegrasikan portofolio rekayasa nyata yang dipusatkan di bawah **GitHub Organization resmi [github.com/phiintegrasi](https://github.com/phiintegrasi)**, Hak Kekayaan Intelektual (HAKI), dan rekam jejak implementasi kepemimpinan teknis:
 - **Nanda Harry Nurbudyana, S.T.** ([github.com/harrynurbudyana](https://github.com/harrynurbudyana))
 - **Ivan Tanjaya Sutrisna** ([github.com/ivantans](https://github.com/ivantans) | [ivantans.id](https://ivantans.id))
 
@@ -16,7 +16,7 @@ Situs ini mengintegrasikan portofolio rekayasa nyata, Hak Kekayaan Intelektual (
 2. **Kapabilitas Rekayasa & Cetak Biru Bertingkat (`CapabilitiesSection.svelte`)**
    - Satu panel spesifikasi layanan utama lebar penuh (*Infrastruktur Jaringan Enterprise, Server HA, & Backend API*) diikuti tiga kartu cetak biru bertingkat (*staggered blueprint cards*) dengan diagram teknis SVG.
 3. **Katalog 12 Portofolio Proyek & Simulasi UI States (`CaseStudiesSection.svelte`)**
-   - Menyajikan 12 proyek nyata dari GitHub (`ev-dashboard`, `layanan-sekretariat-rust`, `claude-md-viewer`, `ktp-ocr-poc`, `authorization-api`, `hardtech-web`, `ocpp16-charge-point-simulator`, `labfit-portal`, `taartely_ui`, `phmeter`, `traffic-sign-detection-using-yolo`, dan `url-shortener`).
+   - Menyajikan 12 proyek nyata yang dipusatkan di organisasi `https://github.com/phiintegrasi` (`ev-dashboard`, `layanan-sekretariat-rust`, `claude-md-viewer`, `ktp-ocr-poc`, `authorization-api`, `hardtech-web`, `ocpp16-charge-point-simulator`, `labfit-portal`, `taartely_ui`, `phmeter`, `traffic-sign-detection-using-yolo`, dan `url-shortener`).
    - Dilengkapi filter kategori rekayasa, pencarian kata kunci secara langsung, tautan ke repositori GitHub, modal rincian arsitektur, serta simulator status tampilan data (*Data Normal*, *Status Memuat*, *Status Kosong*, dan *Status Gangguan*).
 4. **Metodologi Rekayasa 5 Fase (`MethodologySection.svelte`)**
    - Komponen akordeon interaktif yang merinci tahapan kerja mulai dari pemetaan arsitektur hingga serah terima kode sumber dan SLA.

@@ -131,19 +131,16 @@
             </dd>
           </div>
           <div class="contact-detail-item">
-            <dt>PORTOFOLIO REKAYASA &amp; REPOSITORI</dt>
+            <dt>GITHUB ORGANIZATION &amp; REPOSITORI</dt>
             <dd>
-              {#if contact.githubUrl}
-                <a href={contact.githubUrl} target="_blank" rel="noopener noreferrer">github.com/harrynurbudyana</a>
-              {/if}
-              {#if contact.secondGithubUrl}
-                <span> | </span>
-                <a href={contact.secondGithubUrl} target="_blank" rel="noopener noreferrer">github.com/ivantans</a>
-              {/if}
-              {#if contact.secondPortfolioUrl}
-                <span> | </span>
-                <a href={contact.secondPortfolioUrl} target="_blank" rel="noopener noreferrer">ivantans.id</a>
-              {/if}
+              <a href={contact.githubOrgUrl || contact.githubUrl || 'https://github.com/phiintegrasi'} target="_blank" rel="noopener noreferrer">
+                github.com/phiintegrasi
+              </a>
+              <span style="display: block; font-size: 0.825rem; color: var(--text-muted); margin-top: 0.25rem;">
+                Profil Personal: 
+                <a href="https://github.com/harrynurbudyana" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/harrynurbudyana</a> &amp; 
+                <a href="https://github.com/ivantans" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/ivantans</a>
+              </span>
             </dd>
           </div>
           <div class="contact-detail-item">

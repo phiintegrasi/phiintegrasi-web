@@ -79,7 +79,7 @@
     <div>
       <strong id="footer-company-name">{siteData.brand.companyName}</strong>
       <p class="footer-copy">
-        Domain Resmi: <span id="footer-domain">{siteData.brand.domain}</span> | Portofolio Rekayasa: <a href={siteData.brand.githubProfileUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/harrynurbudyana</a> &amp; <a href={siteData.brand.secondGithubProfileUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/ivantans</a>
+        Domain Resmi: <span id="footer-domain">{siteData.brand.domain}</span> | GitHub Organization: <a href={siteData.brand.githubOrgUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/phiintegrasi</a>
       </p>
     </div>
     <nav aria-label="Tautan Cepat Footer" class="footer-nav-links">
