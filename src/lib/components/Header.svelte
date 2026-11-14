@@ -1,58 +1,86 @@
 <script>
   let { brand, onOpenConsult, onOpenEditor } = $props();
   let mobileMenuOpen = $state(false);
-  // Editor hanya untuk pengelola: aktif di mode dev atau dengan ?edit di URL.
-  const editorEnabled =
-    import.meta.env.DEV ||
-    (typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('edit'));
 
   const navLinks = [
-    { href: '#layanan', label: 'Layanan' },
-    { href: '#proyek', label: 'Proyek' },
-    { href: '#tim', label: 'Tim' },
-    { href: '#kontak', label: 'Kontak' }
+    { href: "#layanan", label: "Solusi" },
+    { href: "#keunggulan", label: "Keunggulan" },
+    { href: "#portfolio", label: "Portofolio" },
+    { href: "#tentang-kami", label: "Tentang" },
+    { href: "#wawasan", label: "Insight" }
   ];
 </script>
 
-<header class="sticky top-0 z-40 border-b border-[#dcd8cf] bg-white">
-  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-    <a href="#top" class="text-[17px] font-bold tracking-tight text-[#16181d]">
-      PHI Integrasi
+<!-- Top Utility Bar (#051118) -->
+<div class="bg-[#051118] text-xs py-2 border-b border-white/5">
+  <div class="container-wn flex flex-wrap items-center justify-between gap-2">
+    <span class="text-[#94a3b8]">
+      Mitra Transformasi Digital, IoT/EV &amp; Pengembangan Software Enterprise
+    </span>
+    <div class="flex items-center gap-4">
+      <a
+        href={brand.githubOrgUrl || "https://github.com/phiintegrasi"}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-[#94a3b8] hover:text-white transition-colors hidden sm:inline"
+      >
+        github.com/phiintegrasi ↗
+      </a>
+      <span class="font-semibold text-[#10b981]">3+ HAKI Kemenkumham RI</span>
+    </div>
+  </div>
+</div>
+
+<!-- White Sticky Navbar (#FFFFFF) -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80">
+  <div class="container-wn flex items-center justify-between gap-4 min-h-[74px]">
+    <a href="#home" class="inline-flex items-center gap-2.5" aria-label={brand.companyName}>
+      <span class="w-8 h-8 rounded-lg bg-[#1d5bff] text-white font-bold text-base flex items-center justify-center shadow-sm">
+        P
+      </span>
+      <span class="text-lg font-bold tracking-tight text-[#0f172a]">
+        PHI Integrasi<span class="text-[#1d5bff]">.com</span>
+      </span>
     </a>
 
-    <nav aria-label="Navigasi utama" class="hidden items-center gap-8 md:flex">
-      {#each navLinks as link}
-        <a href={link.href} class="text-[15px] text-[#4a4f59] transition hover:text-[#16181d]">
-          {link.label}
-        </a>
-      {/each}
+    <nav aria-label="Navigasi Utama" class="hidden lg:block">
+      <ul class="flex items-center gap-8 list-none m-0 p-0">
+        {#each navLinks as link}
+          <li>
+            <a
+              href={link.href}
+              class="text-sm font-medium text-[#475569] hover:text-[#1d5bff] transition-colors"
+            >
+              {link.label}
+            </a>
+          </li>
+        {/each}
+      </ul>
     </nav>
 
-    <div class="flex items-center gap-3">
-      {#if editorEnabled}
-        <button
-          type="button"
-          onclick={onOpenEditor}
-          class="hidden rounded-md border border-[#dcd8cf] px-3 py-1.5 text-sm text-[#4a4f59] hover:bg-[#f5f3ee] sm:inline-flex"
-        >
-          Editor
-        </button>
-      {/if}
-      <button type="button" onclick={onOpenConsult} class="btn-primary px-4 py-2 text-sm">
-        Hubungi kami
+    <div class="flex items-center gap-2.5">
+      <button
+        type="button"
+        class="hidden sm:inline-flex items-center justify-center px-3.5 h-[42px] rounded-[10px] bg-[#eef4ff] text-[#1d5bff] text-xs font-bold hover:bg-[#1d5bff] hover:text-white transition-colors cursor-pointer"
+        onclick={onOpenEditor}
+        title="Buka Editor Data Situs"
+      >
+        Editor
+      </button>
+      <button type="button" class="btn-emerald" onclick={onOpenConsult}>
+        Konsultasi Gratis
       </button>
       <button
         type="button"
+        class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 text-[#0f172a]"
+        aria-label="Menu Navigasi"
         onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
-        aria-label={mobileMenuOpen ? 'Tutup menu' : 'Buka menu'}
-        aria-expanded={mobileMenuOpen}
-        class="inline-flex h-10 w-10 items-center justify-center rounded-md text-[#16181d] md:hidden"
       >
-        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           {#if mobileMenuOpen}
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <path d="M18 6 6 18M6 6l12 12" />
           {:else}
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+            <path d="M4 7h16M4 12h16M4 17h16" />
           {/if}
         </svg>
       </button>
@@ -60,28 +88,26 @@
   </div>
 
   {#if mobileMenuOpen}
-    <nav class="border-t border-[#dcd8cf] bg-white px-5 py-2 md:hidden">
+    <div class="lg:hidden border-t border-slate-200 bg-white px-6 py-4 space-y-2">
       {#each navLinks as link}
         <a
           href={link.href}
+          class="block py-2 text-sm font-medium text-[#475569] hover:text-[#1d5bff]"
           onclick={() => (mobileMenuOpen = false)}
-          class="block py-3 text-base text-[#16181d]"
         >
           {link.label}
         </a>
       {/each}
-      {#if editorEnabled}
-        <button
-          type="button"
-          onclick={() => {
-            mobileMenuOpen = false;
-            onOpenEditor();
-          }}
-          class="block py-3 text-left text-base text-[#4a4f59]"
-        >
-          Editor
-        </button>
-      {/if}
-    </nav>
+      <button
+        type="button"
+        class="w-full mt-2 px-4 py-2.5 rounded-lg bg-[#eef4ff] text-[#1d5bff] text-xs font-bold"
+        onclick={() => {
+          mobileMenuOpen = false;
+          onOpenEditor();
+        }}
+      >
+        Buka Editor Data
+      </button>
+    </div>
   {/if}
 </header>

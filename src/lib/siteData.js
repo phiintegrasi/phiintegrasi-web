@@ -7,7 +7,7 @@ export const initialSiteData = {
     companyName: "PT PHI Integrasi",
     domain: "phiintegrasi.com",
     legalEntity: "[REAL DATA: Nama Resmi Badan Hukum PT / HardTech IT Solution]",
-    registrationNumber: "3+ HAKI Terdaftar (Kemenkumham RI)",
+    registrationNumber: "3+ HAKI Terdaftar (Kemenkumham RI) | [REAL DATA: Nomor NIB]",
     foundedYear: "2017 - Sekarang (Kolaborasi Rekayasa & Open-Source)",
     city: "Bandung, Jawa Barat, Indonesia",
     githubOrgUrl: "https://github.com/phiintegrasi",
@@ -18,9 +18,9 @@ export const initialSiteData = {
     ]
   },
   hero: {
-    headline: "Software, hardware, AI, dan jaringan. Satu tim dari Bandung.",
-    subheadline: "PT PHI Integrasi membangun aplikasi web dan desktop, merancang PCB berbasis ESP32, menjalankan model AI di server Anda sendiri, serta menyiapkan jaringan dan server. Karena dikerjakan tim yang sama, bagian-bagian itu tidak perlu dilempar ke vendor lain untuk disambungkan.",
-    primaryCtaText: "Ceritakan proyek Anda",
+    headline: "Arsitektur Integrasi Sistem, Backend Microservices, dan Ekosistem IoT/EV Enterprise",
+    subheadline: "Kami menjembatani perangkat keras fisik, infrastruktur server & jaringan berkinerja tinggi, serta arsitektur backend & aplikasi lintas platform (Rust, Svelte 5, NestJS, Tauri, dan protokol OCPP) untuk operasional korporat dan institusi.",
+    primaryCtaText: "Jadwalkan Diskusi Arsitektur",
     primaryCtaHref: "#kontak",
     secondaryCtaText: "Jelajahi Organisasi GitHub",
     secondaryCtaHref: "#studi-kasus",
@@ -116,32 +116,6 @@ export const initialSiteData = {
       }
     ]
   },
-  services: [
-    {
-      name: "Software",
-      lead: "Aplikasi web, desktop, mobile, dan API.",
-      detail: "Backend Rust (Axum) dan NestJS, antarmuka Svelte 5 dan Flutter, aplikasi desktop Tauri dengan installer 1-2 MB. Termasuk SSO OAuth 2.1, pengaturan hak akses, dan dokumentasi API.",
-      examples: "E-Office FIT Telkom University, portal SIMLAB, sistem pesanan Taartely"
-    },
-    {
-      name: "Hardware & IoT",
-      lead: "PCB, firmware, dan telemetri sensor.",
-      detail: "Skematik dan layout PCB di Eagle, firmware ESP32 dalam C++, pembacaan sensor berat, pH, dan gas, lalu pengiriman data lewat MQTT atau WebSocket ke server.",
-      examples: "Papan loker multiplexer, papan timbang HX711, telemetri pH-meter"
-    },
-    {
-      name: "Integrasi AI",
-      lead: "Model yang berjalan di server Anda.",
-      detail: "OCR dokumen dengan PaddleOCR-VL, deteksi objek dengan YOLO, dan bot yang terhubung ke sistem internal. Data pribadi tetap di infrastruktur Anda, sejalan dengan UU PDP.",
-      examples: "KTP OCR on-premise, deteksi rambu lalu lintas"
-    },
-    {
-      name: "Jaringan & Server",
-      lead: "Infrastruktur yang tetap hidup saat satu node mati.",
-      detail: "Routing dan switching Cisco, firewall Fortinet, virtualisasi Proxmox dan VMware, klaster PostgreSQL dengan Patroni, CI/CD GitLab terisolasi, dan monitoring Zabbix.",
-      examples: "Klaster server dua node, image Docker ML dari 21 GB menjadi 2,65 GB"
-    }
-  ],
   caseStudies: {
     sectionCode: "§ 02",
     title: "Portofolio Proyek & Cetak Biru Implementasi",

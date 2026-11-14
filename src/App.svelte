@@ -1,10 +1,16 @@
 <script>
+  import { onMount } from 'svelte';
+  import AOS from 'aos';
+  import 'aos/dist/aos.css';
   import { initialSiteData } from './lib/siteData.js';
   import Header from './lib/components/Header.svelte';
   import HeroSection from './lib/components/HeroSection.svelte';
-  import ServicesSection from './lib/components/ServicesSection.svelte';
-  import WorkSection from './lib/components/WorkSection.svelte';
+  import CapabilitiesSection from './lib/components/CapabilitiesSection.svelte';
+  import VisionMetricsSection from './lib/components/VisionMetricsSection.svelte';
+  import CaseStudiesSection from './lib/components/CaseStudiesSection.svelte';
   import ProfileSection from './lib/components/ProfileSection.svelte';
+  import MethodologySection from './lib/components/MethodologySection.svelte';
+  import InsightsSection from './lib/components/InsightsSection.svelte';
   import ContactSection from './lib/components/ContactSection.svelte';
   import ConsultationModal from './lib/components/ConsultationModal.svelte';
   import TemplateEditorModal from './lib/components/TemplateEditorModal.svelte';
@@ -13,6 +19,17 @@
   let editorOpen = $state(false);
   let consultOpen = $state(false);
   let lastEditorTrigger = $state(null);
+
+  onMount(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    AOS.init({
+      duration: prefersReducedMotion ? 0 : 650,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 48,
+      disable: prefersReducedMotion
+    });
+  });
 
   function openEditor(event) {
     lastEditorTrigger = event?.currentTarget ?? null;
@@ -42,13 +59,15 @@
 
 <main id="main-content">
   <HeroSection hero={siteData.hero} onOpenConsult={() => (consultOpen = true)} />
-  <ServicesSection services={siteData.services} />
-  <WorkSection caseStudies={siteData.caseStudies} />
+  <CapabilitiesSection capabilities={siteData.capabilities} onOpenConsult={() => (consultOpen = true)} />
+  <VisionMetricsSection brand={siteData.brand} />
+  <CaseStudiesSection caseStudies={siteData.caseStudies} onOpenConsult={() => (consultOpen = true)} />
   <ProfileSection brand={siteData.brand} profile={siteData.profile} />
+  <MethodologySection methodology={siteData.methodology} onOpenConsult={() => (consultOpen = true)} />
+  <InsightsSection insights={siteData.insights} />
   <ContactSection
     brand={siteData.brand}
     contact={siteData.contact}
-    methodology={siteData.methodology}
     onOpenConsult={() => (consultOpen = true)}
   />
 </main>
