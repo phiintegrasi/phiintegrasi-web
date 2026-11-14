@@ -1,148 +1,148 @@
 <script>
   let { brand, profile } = $props();
+  let showLegalDetails = $state(false);
 </script>
 
-<section id="tentang-kami" class="section-block section-block-alt" aria-labelledby="tentang-kami-title">
-  <div class="container">
-    <div class="section-index-row" data-aos="fade-up">
-      <span class="section-code">{profile.sectionCode}</span>
-      <h2 class="section-title" id="tentang-kami-title">{profile.title}</h2>
+<section id="tentang-kami" class="band-dark section-fc">
+  <div class="container-fc">
+    <div class="flex items-center justify-between gap-4 mb-12" data-aos="fade-up">
+      <div>
+        <span class="mono-tag text-[#7ed6e8] block mb-2">{profile.sectionCode} / IDENTITAS &amp; REKAM JEJAK</span>
+        <h2 class="heading-fc-lg text-white">Rekam Jejak &amp; Kepemimpinan</h2>
+      </div>
+      <a
+        href="#portfolio"
+        class="text-3xl text-white hover:text-[#7ed6e8] transition-colors"
+        aria-label="Lihat Portfolio Proyek"
+      >
+        →
+      </a>
     </div>
 
-    <div class="profile-grid">
-      <div data-aos="fade-up" data-aos-delay="80">
-        <p class="profile-lead">{profile.lead}</p>
-        <p class="profile-body">{profile.body}</p>
-      </div>
-
-      <div data-aos="fade-up" data-aos-delay="140">
-        <table class="legal-dossier-table" aria-label="Data Identitas dan Rekam Jejak Perusahaan">
-          <tbody>
-            <tr>
-              <th scope="row">Nama Entitas</th>
-              <td>{brand.companyName}</td>
-            </tr>
-            <tr>
-              <th scope="row">Badan Hukum / Unit</th>
-              <td><span class="placeholder-tag">{brand.legalEntity}</span></td>
-            </tr>
-            <tr>
-              <th scope="row">HAKI &amp; Registrasi</th>
-              <td><span class="placeholder-tag">{brand.registrationNumber}</span></td>
-            </tr>
-            <tr>
-              <th scope="row">Inisiasi Rekayasa</th>
-              <td>{brand.foundedYear}</td>
-            </tr>
-            <tr>
-              <th scope="row">Basis Operasional</th>
-              <td>{brand.city}</td>
-            </tr>
-            {#if brand.githubOrgUrl || brand.githubProfileUrl}
-              <tr>
-                <th scope="row">GitHub Organization</th>
-                <td>
-                  <a href={brand.githubOrgUrl || brand.githubProfileUrl} target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline; font-weight: 600;">
-                    github.com/phiintegrasi
-                  </a>
-                  <span style="display: block; font-size: 0.825rem; color: var(--text-muted); margin-top: 0.35rem;">
-                    Portofolio &amp; Riset Personal:
-                    <a href="https://github.com/harrynurbudyana" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/harrynurbudyana</a> &amp;
-                    <a href="https://github.com/ivantans" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/ivantans</a>
-                    (<a href="https://ivantans.id" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">ivantans.id</a>)
-                  </span>
-                </td>
-              </tr>
-            {/if}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Grid 2x2 Prinsip & Fondasi Rekayasa -->
-    <div class="principles-2x2-grid" aria-label="Prinsip Rekayasa">
-      {#each profile.principles as p, idx}
+    <!-- 2-Column Highlighted Leadership / Track Record (Matching FigCraft Client Stories layout) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 pb-12 border-b border-white/10">
+      {#each profile.team.slice(0, 2) as member, idx}
         <article
-          class="principle-block"
+          class="flex flex-col justify-between {idx === 0 ? 'lg:pr-8 lg:border-r lg:border-white/10' : 'lg:pl-4'}"
           data-aos="fade-up"
-          data-aos-delay={80 + idx * 80}
+          data-aos-delay={80 * idx}
         >
-          <div class="principle-icon-badge transition-transform duration-300 ease-out hover:scale-105" aria-hidden="true">
-            {#if idx === 0}
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9" />
-                <circle cx="12" cy="12" r="5" />
-                <circle cx="12" cy="12" r="1.5" fill="currentColor" />
-              </svg>
-            {:else if idx === 1}
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="6" cy="6" r="2.5" />
-                <circle cx="18" cy="18" r="2.5" />
-                <path d="M6 8.5v7a2.5 2.5 0 0 0 2.5 2.5h4" />
-                <path d="m10.5 15.5 2.5 2.5-2.5 2.5" />
-                <path d="M18 15.5v-7A2.5 2.5 0 0 0 15.5 6h-4" />
-              </svg>
-            {:else if idx === 2}
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 3v18" />
-                <path d="M5 7h14" />
-                <path d="m5 7-3 7h6L5 7Z" />
-                <path d="m19 7-3 7h6l-3-7Z" />
-                <path d="M8 21h8" />
-              </svg>
-            {:else}
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2 4 6v6c0 5.2 3.4 9.9 8 11 4.6-1.1 8-5.8 8-11V6l-8-4Z" />
-                <path d="m9 12 2 2 4-4" />
-              </svg>
-            {/if}
+          <div>
+            <h3 class="text-2xl font-semibold text-[#7ed6e8] mb-4">
+              {idx === 0 ? "Infrastruktur, IoT, & Full-Stack!" : "Microservices, SSO, & AI Lokal!"}
+            </h3>
+            <p class="text-sm sm:text-base leading-relaxed text-[#b4b7c9]">
+              "{member.bio}"
+            </p>
           </div>
-          <h3 class="principle-heading">{p.title}</h3>
-          <p class="principle-text">{p.text}</p>
+
+          <div class="mt-8 flex items-center justify-end gap-4 text-right">
+            <div>
+              <div class="text-sm font-semibold text-white">{member.name}</div>
+              <div class="text-xs text-[#7d819a] mt-0.5">{member.role}</div>
+            </div>
+            <div
+              class="w-14 h-14 rounded-full bg-[#2a294a] border border-[#7ed6e8]/30 flex items-center justify-center text-sm font-bold text-[#7ed6e8] shrink-0"
+              aria-hidden="true"
+            >
+              {member.initials}
+            </div>
+          </div>
         </article>
       {/each}
     </div>
 
-    {#if profile.hakiAndResearch && profile.hakiAndResearch.length > 0}
-      <h3 class="section-title" style="font-size: 1.45rem; margin-bottom: 1.25rem;" data-aos="fade-up">
-        Hak Kekayaan Intelektual (HAKI) &amp; Publikasi Riset Terdaftar
-      </h3>
-      <div class="team-grid" style="margin-bottom: 3rem;">
-        {#each profile.hakiAndResearch as item, idx}
-          <article
-            class="team-member-row transition-all duration-300 ease-out hover:-translate-y-1"
-            data-aos="fade-up"
-            data-aos-delay={80 + idx * 80}
-          >
-            <div>
-              <span class="placeholder-tag" style="margin-bottom: 0.6rem;">{item.badge}</span>
-              <h4 class="team-name">{item.title}</h4>
-              <p class="team-role" style="margin-bottom: 0.5rem;">{item.meta}</p>
-              <p class="team-bio">{item.desc}</p>
+    <!-- Ecosystem / Institutions Strip (Matching Partner Logo Strip) -->
+    <div
+      class="py-10 flex flex-wrap items-center justify-between gap-8 text-[#7d819a] border-b border-white/10"
+      data-aos="fade-up"
+    >
+      <span class="text-lg font-bold tracking-widest uppercase hover:text-white transition-colors">TELKOM UNIV</span>
+      <span class="text-lg font-semibold tracking-tight hover:text-white transition-colors">CoE Smart EV</span>
+      <span class="text-lg font-medium lowercase tracking-wide hover:text-white transition-colors">compnet</span>
+      <span class="text-lg font-semibold tracking-wide hover:text-white transition-colors">PuTI Core</span>
+      <span class="text-lg font-bold tracking-widest uppercase hover:text-white transition-colors">HARDTECH</span>
+    </div>
+
+    <!-- Compact HAKI & Legalitas Summary Bar + Toggle -->
+    <div class="mt-10 flex flex-col md:flex-row md:items-center justify-between gap-6" data-aos="fade-up">
+      <div class="max-w-2xl">
+        <p class="text-sm text-[#b4b7c9] leading-relaxed">
+          {profile.lead}
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 shrink-0">
+        <a
+          href={brand.githubOrgUrl || "https://github.com/phiintegrasi"}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-fc-outline-dark"
+          style="padding: 0.7rem 1.2rem; font-size: 0.72rem;"
+        >
+          github.com/phiintegrasi ↗
+        </a>
+        <button
+          type="button"
+          class="btn-fc-solid-cyan"
+          style="padding: 0.7rem 1.2rem; font-size: 0.72rem;"
+          onclick={() => (showLegalDetails = !showLegalDetails)}
+        >
+          {showLegalDetails ? "Tutup Legalitas & HAKI" : "Lihat Legalitas & HAKI (3+)"}
+        </button>
+      </div>
+    </div>
+
+    {#if showLegalDetails}
+      <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6 pt-8 border-t border-white/10">
+        <!-- Legalitas Table -->
+        <div class="rounded-2xl bg-[#1b1a32] border border-white/10 p-6">
+          <h3 class="text-lg font-semibold text-white mb-4">Identitas &amp; Organisasi</h3>
+          <dl class="space-y-3 text-sm">
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-1 border-b border-white/10 pb-2">
+              <dt class="text-[#7d819a]">Nama Perusahaan</dt>
+              <dd class="text-white font-medium">{brand.companyName} ({brand.domain})</dd>
             </div>
-          </article>
-        {/each}
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-1 border-b border-white/10 pb-2">
+              <dt class="text-[#7d819a]">Badan Hukum</dt>
+              <dd class="text-[#b4b7c9]">{brand.legalEntity}</dd>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-1 border-b border-white/10 pb-2">
+              <dt class="text-[#7d819a]">HAKI &amp; NIB</dt>
+              <dd class="text-[#b4b7c9]">{brand.registrationNumber}</dd>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-1 border-b border-white/10 pb-2">
+              <dt class="text-[#7d819a]">GitHub Organization</dt>
+              <dd>
+                <a href={brand.githubOrgUrl} target="_blank" rel="noopener noreferrer" class="text-[#7ed6e8] underline">
+                  github.com/phiintegrasi
+                </a>
+              </dd>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+              <dt class="text-[#7d819a]">Portofolio Arsitek</dt>
+              <dd class="text-[#b4b7c9]">
+                <a href="https://github.com/harrynurbudyana" target="_blank" rel="noopener noreferrer" class="text-[#7ed6e8] underline">harrynurbudyana</a>
+                &amp;
+                <a href="https://github.com/ivantans" target="_blank" rel="noopener noreferrer" class="text-[#7ed6e8] underline">ivantans</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- HAKI & Riset List -->
+        <div class="rounded-2xl bg-[#1b1a32] border border-white/10 p-6">
+          <h3 class="text-lg font-semibold text-white mb-4">HAKI Terdaftar &amp; Riset Terapan</h3>
+          <div class="space-y-4">
+            {#each profile.hakiAndResearch as item}
+              <div class="border-b border-white/10 last:border-b-0 pb-3 last:pb-0">
+                <span class="mono-tag text-[#7ed6e8]">{item.badge}</span>
+                <h4 class="text-sm font-semibold text-white mt-1">{item.title}</h4>
+                <p class="text-xs text-[#7d819a] mt-0.5">{item.meta}</p>
+              </div>
+            {/each}
+          </div>
+        </div>
       </div>
     {/if}
-
-    <h3 class="section-title" style="font-size: 1.45rem; margin-bottom: 1.25rem;" data-aos="fade-up">
-      Kepemimpinan &amp; Arsitek Utama
-    </h3>
-    <div class="team-grid">
-      {#each profile.team as member, idx}
-        <article
-          class="team-member-row transition-all duration-300 ease-out hover:-translate-y-1"
-          data-aos="fade-up"
-          data-aos-delay={80 + idx * 90}
-        >
-          <div class="avatar-placeholder" aria-hidden="true">{member.initials}</div>
-          <div>
-            <p class="team-role">{member.role}</p>
-            <h4 class="team-name">{member.name}</h4>
-            <p class="team-bio">{member.bio}</p>
-          </div>
-        </article>
-      {/each}
-    </div>
   </div>
 </section>

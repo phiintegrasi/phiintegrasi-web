@@ -412,5 +412,54 @@ export const initialSiteData = {
     githubUrl: "https://github.com/phiintegrasi",
     githubOrgUrl: "https://github.com/phiintegrasi",
     workingHours: "Senin s.d. Jumat, 09.00 s.d. 17.30 WIB"
+  },
+  whyChooseUs: {
+    title: "Mengapa Memilih Kami?",
+    subtitle: "Menghadirkan teknologi andal yang dirancang khusus dari perangkat keras hingga arsitektur cloud perusahaan Anda.",
+    items: [
+      {
+        id: "expertise",
+        title: "keahlian",
+        desc: "Tim arsitek berpengalaman dari PT Nusantara Compnet Integrator, PuTI & FIT Telkom University, serta CoE Smart EV."
+      },
+      {
+        id: "technology",
+        title: "teknologi",
+        desc: "Menggunakan stack modern berkinerja tinggi: Rust (~12 MB RAM), Svelte 5, NestJS, Tauri, OAuth 2.1, dan protokol OCPP 1.6/2.0."
+      },
+      {
+        id: "solusi",
+        title: "solusi",
+        desc: "Pendekatan terpadu dari desain skematik PCB & firmware ESP32, jaringan enterprise Cisco, hingga aplikasi lintas platform."
+      },
+      {
+        id: "hasil",
+        title: "hasil",
+        desc: "Rekam jejak nyata dengan 3+ HAKI Kemenkumham RI, 55+ modul repositori aktif, dan optimasi kontainer ML hingga 87% lebih ramping."
+      }
+    ]
+  },
+  insights: {
+    title: "Wawasan Teknis",
+    subtitle: "Catatan arsitektur, eksperimen efisiensi sistem, dan praktik terbaik keamanan dari tim rekayasa PHI Integrasi.",
+    left: {
+      tag: "ARSITEKTUR",
+      title: "Mengapa Rust Axum & Svelte 5 Menghemat Biaya Server hingga 80%",
+      date: "01.03",
+      repoUrl: "https://github.com/harrynurbudyana/layanan-sekretariat-rust"
+    },
+    featured: {
+      tag: "KEAMANAN & AI",
+      title: "Kepatuhan UU PDP dengan KTP OCR On-Premise Menggunakan PaddleOCR-VL",
+      meta: "Arsitektur AI Lokal  |  Tim PHI Integrasi",
+      ctaText: "LIHAT REPO",
+      repoUrl: "https://github.com/ivantans/ktp-ocr-poc"
+    },
+    right: {
+      tag: "EV & IOT",
+      title: "Simulasi Transaksi SPKLU Skala Besar dengan OCPP 1.6 Charge Point Simulator",
+      date: "20.05",
+      repoUrl: "https://github.com/ivantans/ocpp16-charge-point-simulator"
+    }
   }
 };

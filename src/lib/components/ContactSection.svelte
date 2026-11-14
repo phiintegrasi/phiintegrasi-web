@@ -1,304 +1,159 @@
 <script>
-  let { brand, contact } = $props();
+  let { brand, contact, onOpenConsult } = $props();
+  let quickEmail = $state("");
 
-  let senderName = $state('');
-  let senderEmail = $state('');
-  let senderCompany = $state('');
-  let projectScope = $state('');
-  let projectScale = $state('');
-  let projectNotes = $state('');
-
-  let errors = $state({
-    senderName: '',
-    senderEmail: '',
-    senderCompany: '',
-    projectScope: '',
-    projectScale: '',
-    projectNotes: ''
-  });
-
-  let formStatus = $state(null);
-  let mailtoHref = $state('');
-
-  function validateForm() {
-    const nextErrors = {
-      senderName:
-        senderName.trim().length >= 3
-          ? ''
-          : '[Perhatian] Mohon isi nama lengkap dan jabatan Anda (minimal 3 karakter).',
-      senderEmail: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(senderEmail.trim())
-        ? ''
-        : '[Perhatian] Masukkan alamat email aktif yang valid (contoh: nama@perusahaan.co.id).',
-      senderCompany:
-        senderCompany.trim().length >= 2
-          ? ''
-          : '[Perhatian] Mohon cantumkan nama bisnis, perusahaan, atau instansi Anda.',
-      projectScope:
-        projectScope.trim() !== ''
-          ? ''
-          : '[Perhatian] Pilih salah satu kategori layanan IT yang dibutuhkan.',
-      projectScale:
-        projectScale.trim() !== ''
-          ? ''
-          : '[Perhatian] Pilih estimasi skala kebutuhan proyek Anda.',
-      projectNotes:
-        projectNotes.trim().length >= 15
-          ? ''
-          : '[Perhatian] Jelaskan gambaran website/aplikasi, hardware IoT, atau jaringan Anda secara singkat (minimal 15 karakter).'
-    };
-    errors = nextErrors;
-    return Object.values(nextErrors).every((msg) => msg === '');
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    if (!validateForm()) {
-      formStatus = 'error';
-      return;
-    }
-
-    const subject = encodeURIComponent(
-      `[Konsultasi IT PHI Integrasi] ${projectScope.trim()} (${projectScale.trim()}) - ${senderCompany.trim()}`
+  function handleQuickMail(e) {
+    e.preventDefault();
+    const subject = encodeURIComponent("Permintaan Konsultasi Arsitektur - PHI Integrasi");
+    const body = encodeURIComponent(
+      `Halo Tim PT PHI Integrasi,\n\nMohon informasi lebih lanjut mengenai layanan IT & integrasi sistem.\nEmail pengirim: ${quickEmail || "(tidak diisi)"}`
     );
-    const bodyText = [
-      `Halo Tim Arsitektur ${brand.companyName},`,
-      '',
-      'Berikut ringkasan kebutuhan solusi IT dari organisasi kami:',
-      `- Nama & Jabatan: ${senderName.trim()}`,
-      `- Email: ${senderEmail.trim()}`,
-      `- Perusahaan / Bisnis / Instansi: ${senderCompany.trim()}`,
-      `- Kategori Layanan: ${projectScope.trim()}`,
-      `- Skala Kebutuhan: ${projectScale.trim()}`,
-      `- Deskripsi Sistem & Target: ${projectNotes.trim()}`
-    ].join('\n');
-
-    mailtoHref = `mailto:${contact.email}?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
-    formStatus = 'success';
-  }
-
-  function handleReset() {
-    senderName = '';
-    senderEmail = '';
-    senderCompany = '';
-    projectScope = '';
-    projectScale = '';
-    projectNotes = '';
-    errors = {
-      senderName: '',
-      senderEmail: '',
-      senderCompany: '',
-      projectScope: '',
-      projectScale: '',
-      projectNotes: ''
-    };
-    formStatus = null;
-    mailtoHref = '';
-  }
-
-  function handlePrint() {
-    window.print();
+    window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
   }
 </script>
 
-<section id="kontak-kami" class="section-block" aria-labelledby="kontak-title">
-  <div class="container">
-    <div class="section-index-row" data-aos="fade-up">
-      <span class="section-code">{contact.sectionCode}</span>
-      <h2 class="section-title" id="kontak-title">{contact.title}</h2>
-    </div>
-    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="60">{contact.subtitle}</p>
+<section id="kontak" class="band-dark">
+  <!-- Floating 3D Spheres matching FigCraft CTA -->
+  <div class="fc-sphere hidden sm:block" style="width: 18px; height: 18px; top: 80px; right: 32%;" aria-hidden="true"></div>
+  <div class="fc-sphere hidden sm:block" style="width: 42px; height: 42px; top: 270px; left: 18%;" aria-hidden="true"></div>
 
-    <div class="contact-grid">
-      <div class="contact-direct-card" data-aos="fade-up" data-aos-delay="100">
-        <h3 style="margin-top: 0; font-size: 1.18rem;">Saluran Komunikasi Langsung</h3>
-        <dl class="contact-detail-list">
-          <div class="contact-detail-item">
-            <dt>SURAT ELEKTRONIK UTAMA</dt>
-            <dd>
-              <a href="mailto:{contact.email}" id="contact-email-link">{contact.email}</a>
-              {#if contact.secondaryEmail}
-                <br>
-                <a href="mailto:{contact.secondaryEmail}" style="font-size: 0.88rem;">{contact.secondaryEmail}</a>
-              {/if}
-            </dd>
-          </div>
-          <div class="contact-detail-item">
-            <dt>TELEPON / WHATSAPP BISNIS</dt>
-            <dd>
-              <a href="https://wa.me/6285148443939" target="_blank" rel="noopener noreferrer">
-                {contact.phonePlaceholder}
-              </a>
-            </dd>
-          </div>
-          <div class="contact-detail-item">
-            <dt>GITHUB ORGANIZATION &amp; REPOSITORI</dt>
-            <dd>
-              <a href={contact.githubOrgUrl || contact.githubUrl || 'https://github.com/phiintegrasi'} target="_blank" rel="noopener noreferrer">
-                github.com/phiintegrasi
-              </a>
-              <span style="display: block; font-size: 0.825rem; color: var(--text-muted); margin-top: 0.25rem;">
-                Profil Personal: 
-                <a href="https://github.com/harrynurbudyana" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/harrynurbudyana</a> &amp; 
-                <a href="https://github.com/ivantans" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">github.com/ivantans</a>
-              </span>
-            </dd>
-          </div>
-          <div class="contact-detail-item">
-            <dt>LOKASI OPERASIONAL</dt>
-            <dd>{contact.addressPlaceholder}</dd>
-          </div>
-          <div class="contact-detail-item">
-            <dt>JAM OPERASIONAL KONSULTASI</dt>
-            <dd>{contact.workingHours}</dd>
-          </div>
-        </dl>
-        <button type="button" class="btn transition-all duration-200 hover:-translate-y-0.5" id="print-profile-btn" onclick={handlePrint}>
-          Cetak / Simpan PDF Ringkasan Profil
-        </button>
+  <!-- Final CTA Block -->
+  <div class="container-fc py-28 text-center" data-aos="fade-up">
+    <h2 class="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-tight">
+      Butuh Solusi IT?
+      <br />
+      <span>Mari </span><em class="font-light italic">mulai sekarang.</em>
+    </h2>
+    <p class="mt-5 mx-auto max-w-xl text-sm sm:text-base text-[#b4b7c9] leading-relaxed">
+      {contact.subtitle}
+    </p>
+
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <button type="button" class="btn-fc-outline-dark" style="padding: 0.95rem 1.85rem;" onclick={onOpenConsult}>
+        <span>KONSULTASI GRATIS</span>
+        <span aria-hidden="true">→</span>
+      </button>
+      <a
+        href="https://wa.me/6285148443939"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-fc-solid-cyan"
+        style="padding: 0.95rem 1.5rem;"
+      >
+        WhatsApp Bisnis ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- Structural Footer matching FigCraft Footer -->
+  <footer class="container-fc border-t border-white/15 pt-14 pb-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+      <!-- Brand + Social Icons -->
+      <div class="lg:col-span-4 space-y-6">
+        <div class="brand-wordmark text-2xl">
+          <span class="brand-wordmark-accent">PHI</span><span class="brand-wordmark-base">INTEGRASI</span>
+        </div>
+        <p class="text-xs text-[#7d819a] max-w-xs leading-relaxed">
+          {brand.companyName} ({brand.domain}) · {brand.city}
+        </p>
+        <div class="flex items-center gap-3">
+          <a
+            href={brand.githubOrgUrl || "https://github.com/phiintegrasi"}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 rounded bg-white text-[#141326] text-xs font-bold flex items-center justify-center hover:bg-[#7ed6e8] transition-colors"
+            title="GitHub Organization"
+          >
+            GH
+          </a>
+          <a
+            href="https://wa.me/6285148443939"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 rounded bg-white text-[#141326] text-xs font-bold flex items-center justify-center hover:bg-[#7ed6e8] transition-colors"
+            title="WhatsApp Bisnis"
+          >
+            WA
+          </a>
+          <a
+            href="mailto:{contact.email}"
+            class="w-8 h-8 rounded bg-white text-[#141326] text-xs font-bold flex items-center justify-center hover:bg-[#7ed6e8] transition-colors"
+            title="Email"
+          >
+            EM
+          </a>
+        </div>
       </div>
 
-      <div class="contact-form-panel" data-aos="fade-up" data-aos-delay="160">
-        <h3 style="margin-top: 0; font-size: 1.18rem;">Formulir Konsultasi &amp; Permintaan Penawaran IT</h3>
-        <form id="consultation-form" novalidate onsubmit={handleSubmit} onreset={handleReset}>
-          <div class="form-field">
-            <label for="sender-name" class="form-label">Nama Lengkap &amp; Jabatan *</label>
-            <input
-              type="text"
-              id="sender-name"
-              name="senderName"
-              class="form-input transition-colors duration-200"
-              bind:value={senderName}
-              placeholder="Nama Lengkap Anda (mis. Pemilik Usaha / Kepala Divisi TI)"
-              required
-              aria-invalid={errors.senderName !== ''}
-              aria-describedby="sender-name-error"
-            >
-            {#if errors.senderName}
-              <p id="sender-name-error" class="field-error-msg">{errors.senderName}</p>
-            {/if}
-          </div>
+      <!-- Explore Column -->
+      <div class="lg:col-span-2 space-y-3">
+        <h3 class="text-sm font-semibold text-white">Jelajahi</h3>
+        <ul class="space-y-2.5 text-xs text-[#b4b7c9]">
+          <li><a href="#tentang-kami" class="hover:text-[#7ed6e8]">Tentang Kami</a></li>
+          <li><a href="#layanan" class="hover:text-[#7ed6e8]">Layanan</a></li>
+          <li><a href="#portfolio" class="hover:text-[#7ed6e8]">Portfolio</a></li>
+          <li><a href="#metodologi" class="hover:text-[#7ed6e8]">Metodologi</a></li>
+          <li><a href="#wawasan" class="hover:text-[#7ed6e8]">Wawasan Teknis</a></li>
+        </ul>
+      </div>
 
-          <div class="form-field">
-            <label for="sender-email" class="form-label">Alamat Email *</label>
-            <input
-              type="email"
-              id="sender-email"
-              name="senderEmail"
-              class="form-input transition-colors duration-200"
-              bind:value={senderEmail}
-              placeholder="nama@perusahaan.co.id"
-              required
-              aria-invalid={errors.senderEmail !== ''}
-              aria-describedby="sender-email-error"
-            >
-            {#if errors.senderEmail}
-              <p id="sender-email-error" class="field-error-msg">{errors.senderEmail}</p>
-            {/if}
-          </div>
+      <!-- Contact Column -->
+      <div class="lg:col-span-3 space-y-3">
+        <h3 class="text-sm font-semibold text-white">Kontak</h3>
+        <ul class="space-y-2.5 text-xs text-[#b4b7c9]">
+          <li>
+            <a href="mailto:{contact.email}" class="hover:text-[#7ed6e8]">{contact.email}</a>
+          </li>
+          <li>
+            <a href="https://wa.me/6285148443939" target="_blank" rel="noopener noreferrer" class="hover:text-[#7ed6e8]">
+              {contact.phonePlaceholder}
+            </a>
+          </li>
+          <li class="text-[#7d819a]">{brand.city}</li>
+          <li>
+            <a href={brand.githubOrgUrl} target="_blank" rel="noopener noreferrer" class="text-[#7ed6e8] hover:underline">
+              github.com/phiintegrasi ↗
+            </a>
+          </li>
+        </ul>
+      </div>
 
-          <div class="form-field">
-            <label for="sender-company" class="form-label">Nama Bisnis / Perusahaan / Instansi *</label>
-            <input
-              type="text"
-              id="sender-company"
-              name="senderCompany"
-              class="form-input transition-colors duration-200"
-              bind:value={senderCompany}
-              placeholder="Nama Bisnis, Perusahaan, atau Instansi Anda"
-              required
-              aria-invalid={errors.senderCompany !== ''}
-              aria-describedby="sender-company-error"
-            >
-            {#if errors.senderCompany}
-              <p id="sender-company-error" class="field-error-msg">{errors.senderCompany}</p>
-            {/if}
-          </div>
-
-          <div class="form-field">
-            <label for="project-scope" class="form-label">Kategori Layanan IT yang Dibutuhkan *</label>
-            <select
-              id="project-scope"
-              name="projectScope"
-              class="form-select transition-colors duration-200"
-              bind:value={projectScope}
-              required
-              aria-invalid={errors.projectScope !== ''}
-              aria-describedby="project-scope-error"
-            >
-              <option value="">Pilih kategori layanan...</option>
-              <option value="Pembuatan Website, Aplikasi, & Software (Skala Kecil s.d. Besar)">Pembuatan Website, Aplikasi, &amp; Software (Skala Kecil s.d. Besar)</option>
-              <option value="Pengadaan Hardware IoT (Custom PCB / Perangkat Vendor)">Pengadaan Hardware IoT (Custom PCB / Perangkat Vendor)</option>
-              <option value="Pengadaan & Instalasi Perangkat Jaringan + Best Practice">Pengadaan &amp; Instalasi Perangkat Jaringan + Best Practice</option>
-              <option value="Konsultasi Arsitektur, Server HA, AI Lokal, & Layanan IT Lainnya">Konsultasi Arsitektur, Server HA, AI Lokal, &amp; Layanan IT Lainnya</option>
-            </select>
-            {#if errors.projectScope}
-              <p id="project-scope-error" class="field-error-msg">{errors.projectScope}</p>
-            {/if}
-          </div>
-
-          <div class="form-field">
-            <label for="project-scale" class="form-label">Estimasi Skala Kebutuhan *</label>
-            <select
-              id="project-scale"
-              name="projectScale"
-              class="form-select transition-colors duration-200"
-              bind:value={projectScale}
-              required
-              aria-invalid={errors.projectScale !== ''}
-              aria-describedby="project-scale-error"
-            >
-              <option value="">Pilih estimasi skala...</option>
-              <option value="Skala Kecil (UMKM / Kantor Cabang / Proyek Awal)">Skala Kecil (UMKM / Kantor Cabang / Proyek Awal)</option>
-              <option value="Skala Menengah (Gedung Kantor / Gudang / Multi-Divisi)">Skala Menengah (Gedung Kantor / Gudang / Multi-Divisi)</option>
-              <option value="Skala Besar (Enterprise / Kampus / Pabrik / Multi-Lokasi)">Skala Besar (Enterprise / Kampus / Pabrik / Multi-Lokasi)</option>
-            </select>
-            {#if errors.projectScale}
-              <p id="project-scale-error" class="field-error-msg">{errors.projectScale}</p>
-            {/if}
-          </div>
-
-          <div class="form-field">
-            <label for="project-notes" class="form-label">Deskripsi Kebutuhan &amp; Target Waktu Implementasi *</label>
-            <textarea
-              id="project-notes"
-              name="projectNotes"
-              class="form-textarea transition-colors duration-200"
-              bind:value={projectNotes}
-              placeholder="Tuliskan kebutuhan website/aplikasi, spesifikasi hardware IoT, atau jumlah titik perangkat jaringan beserta lokasi instalasinya..."
-              required
-              aria-invalid={errors.projectNotes !== ''}
-              aria-describedby="project-notes-error"
-            ></textarea>
-            {#if errors.projectNotes}
-              <p id="project-notes-error" class="field-error-msg">{errors.projectNotes}</p>
-            {/if}
-          </div>
-
-          <div class="hero-actions" style="margin-bottom: 0;">
-            <button type="submit" class="btn btn-primary transition-all duration-200 hover:-translate-y-0.5" id="submit-consultation-btn">
-              Kirim Ringkasan Kebutuhan
-            </button>
-            <button type="reset" class="btn transition-all duration-200 hover:-translate-y-0.5" id="reset-consultation-btn">
-              Kosongkan Formulir
-            </button>
-          </div>
-
-          {#if formStatus === 'error'}
-            <div id="form-feedback-box" class="form-feedback-banner is-error" role="status" aria-live="polite">
-              Formulir belum lengkap. Silakan periksa kolom yang ditandai pesan kesalahan di atas.
-            </div>
-          {:else if formStatus === 'success'}
-            <div id="form-feedback-box" class="form-feedback-banner" role="status" aria-live="polite">
-              <p style="margin: 0 0 0.75rem;">
-                [Terverifikasi] Ringkasan kebutuhan teknis untuk {senderCompany.trim()} siap dikirimkan.
-              </p>
-              <div class="hero-actions" style="margin-bottom: 0;">
-                <a href={mailtoHref} class="btn btn-primary">Buka Aplikasi Email &amp; Kirim</a>
-              </div>
-            </div>
-          {/if}
+      <!-- Quick Inquiry / Newsletter Box matching FigCraft Newsletter Input -->
+      <div class="lg:col-span-3 space-y-3">
+        <h3 class="text-sm font-semibold text-white">Diskusi Cepat</h3>
+        <p class="text-xs text-[#b4b7c9] leading-relaxed">
+          Masukkan alamat email kerja Anda untuk terhubung langsung dengan arsitek solusi kami.
+        </p>
+        <form onsubmit={handleQuickMail} class="relative mt-3">
+          <label for="footer-quick-email" class="sr-only">Alamat Email Kerja</label>
+          <input
+            id="footer-quick-email"
+            type="email"
+            bind:value={quickEmail}
+            required
+            placeholder="Masukkan Email Anda ..."
+            class="w-full rounded-lg bg-[#1b1a32] border border-white/15 pl-4 pr-11 py-3 text-xs text-white placeholder-[#7d819a] focus:border-[#7ed6e8] focus:outline-none"
+          />
+          <button
+            type="submit"
+            aria-label="Kirim Email"
+            class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-white hover:text-[#7ed6e8] cursor-pointer"
+          >
+            →
+          </button>
         </form>
       </div>
     </div>
-  </div>
+
+    <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#7d819a]">
+      <div>Copyright &copy; 2026 {brand.companyName} ({brand.domain}). All rights reserved.</div>
+      <div class="flex items-center gap-4">
+        <a href={brand.githubOrgUrl} target="_blank" rel="noopener noreferrer" class="hover:text-[#7ed6e8]">
+          github.com/phiintegrasi
+        </a>
+        <span>|</span>
+        <span>{contact.workingHours}</span>
+      </div>
+    </div>
+  </footer>
 </section>

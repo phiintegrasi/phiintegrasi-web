@@ -1,87 +1,88 @@
 <script>
-  let { brand, theme, onToggleTheme, onOpenEditor } = $props();
+  let { brand, onOpenConsult, onOpenEditor } = $props();
   let mobileMenuOpen = $state(false);
 
-  function toggleMobileMenu() {
-    mobileMenuOpen = !mobileMenuOpen;
-  }
-
-  function closeMobileMenu() {
-    mobileMenuOpen = false;
-  }
-
-  function handleKeydown(event) {
-    if (event.key === 'Escape' && mobileMenuOpen) {
-      mobileMenuOpen = false;
-    }
-  }
+  const navLinks = [
+    { href: "#tentang-kami", label: "Tentang Kami" },
+    { href: "#layanan", label: "Layanan" },
+    { href: "#portfolio", label: "Portfolio" },
+    { href: "#metodologi", label: "Metodologi" },
+    { href: "#kontak", label: "Kontak" }
+  ];
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
-
-<a href="#home" class="skip-link">Lewati ke konten utama</a>
-
-<div class="template-banner" role="region" aria-label="Panduan Template">
-  <div class="container template-banner-inner">
-    <p class="template-banner-text">
-      Mode Template Svelte Aktif: Seluruh penanda <code>[LOGO]</code> dan <code>[REAL DATA]</code> dapat diubah langsung melalui tombol Editor atau berkas <code>src/lib/siteData.js</code>.
-    </p>
-    <button type="button" class="btn btn-compact" id="open-editor-btn" aria-haspopup="dialog" onclick={onOpenEditor}>
-      Buka Editor Template
-    </button>
-  </div>
-</div>
-
 <header class="site-header">
-  <div class="container header-inner">
-    <a href="#home" class="brand-identity" aria-label="Beranda {brand.companyName}">
-      <span class="brand-logo-mark" id="brand-logo-mark">{brand.logoPlaceholder}</span>
-      <span class="brand-name" id="brand-company-name">{brand.companyName}</span>
+  <div class="container-fc header-inner">
+    <a href="#home" class="brand-wordmark" aria-label={brand.companyName}>
+      <span class="brand-wordmark-accent">PHI</span><span class="brand-wordmark-base">INTEGRASI</span>
     </a>
 
-    <nav class="primary-nav" aria-label="Navigasi Utama">
+    <nav aria-label="Navigasi Utama">
       <ul class="nav-list">
-        <li><a href="#home" class="nav-link">Home</a></li>
-        <li><a href="#tentang-kami" class="nav-link">Tentang Kami</a></li>
-        <li><a href="#layanan" class="nav-link">Layanan</a></li>
-        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-        <li><a href="#kontak-kami" class="nav-link">Kontak Kami</a></li>
+        {#each navLinks as link}
+          <li>
+            <a href={link.href} class="nav-link-fc">{link.label}</a>
+          </li>
+        {/each}
       </ul>
     </nav>
 
-    <div class="nav-controls">
+    <div class="header-actions">
       <button
         type="button"
-        class="btn btn-compact"
-        id="theme-toggle-btn"
-        aria-pressed={theme === 'dark'}
-        onclick={onToggleTheme}
+        class="btn-fc-outline-dark hidden sm:inline-flex"
+        style="padding: 0.55rem 0.95rem; font-size: 0.7rem;"
+        onclick={onOpenEditor}
+        title="Buka Editor Template Data"
       >
-        {theme === 'dark' ? 'Tema: Gelap' : 'Tema: Terang'}
+        Editor Data
       </button>
-      <a href="#kontak-kami" class="btn btn-primary btn-compact header-cta-desktop">
-        Konsultasi IT
-      </a>
       <button
         type="button"
-        class="btn btn-compact mobile-menu-toggle"
-        id="mobile-menu-btn"
-        aria-expanded={mobileMenuOpen}
-        aria-controls="mobile-menu-panel"
-        onclick={toggleMobileMenu}
+        class="btn-fc-outline-dark"
+        style="padding: 0.6rem 1.25rem;"
+        onclick={onOpenConsult}
       >
-        {mobileMenuOpen ? 'Tutup' : 'Menu'}
+        Konsultasi
+      </button>
+      <button
+        type="button"
+        class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-white/20 text-white"
+        aria-label="Menu Navigasi"
+        onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          {#if mobileMenuOpen}
+            <path d="M18 6 6 18M6 6l12 12" />
+          {:else}
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          {/if}
+        </svg>
       </button>
     </div>
   </div>
 
-  <nav id="mobile-menu-panel" class="mobile-menu-panel" class:is-open={mobileMenuOpen} aria-label="Navigasi Seluler">
-    <ul class="mobile-nav-list">
-      <li><a href="#home" class="nav-link mobile-nav-link" onclick={closeMobileMenu}>Home</a></li>
-      <li><a href="#tentang-kami" class="nav-link mobile-nav-link" onclick={closeMobileMenu}>§ 01 Tentang Kami</a></li>
-      <li><a href="#layanan" class="nav-link mobile-nav-link" onclick={closeMobileMenu}>§ 02 Layanan</a></li>
-      <li><a href="#portfolio" class="nav-link mobile-nav-link" onclick={closeMobileMenu}>§ 03 Portfolio</a></li>
-      <li><a href="#kontak-kami" class="nav-link mobile-nav-link" onclick={closeMobileMenu}>§ 04 Kontak Kami</a></li>
-    </ul>
-  </nav>
+  {#if mobileMenuOpen}
+    <div class="md:hidden border-t border-white/10 bg-[#141326] px-6 py-4 space-y-3">
+      {#each navLinks as link}
+        <a
+          href={link.href}
+          class="block py-2 text-xs font-medium tracking-widest uppercase text-[#b4b7c9] hover:text-[#7ed6e8]"
+          onclick={() => (mobileMenuOpen = false)}
+        >
+          {link.label}
+        </a>
+      {/each}
+      <button
+        type="button"
+        class="w-full btn-fc-outline-dark mt-2"
+        onclick={() => {
+          mobileMenuOpen = false;
+          onOpenEditor();
+        }}
+      >
+        Editor Data
+      </button>
+    </div>
+  {/if}
 </header>

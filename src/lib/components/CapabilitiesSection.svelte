@@ -1,205 +1,225 @@
 <script>
-  let { capabilities, methodology } = $props();
-  let expandedMap = $state({ 0: true });
+  import { fade, fly } from "svelte/transition";
+  let { capabilities, onOpenConsult } = $props();
 
-  function togglePhase(idx) {
-    expandedMap[idx] = !expandedMap[idx];
-  }
-
-  function setAllExpanded(open) {
-    const next = {};
-    if (methodology && methodology.phases) {
-      methodology.phases.forEach((_, idx) => {
-        next[idx] = open;
-      });
+  const serviceRows = $derived([
+    {
+      id: "web-desktop",
+      code: capabilities.supporting[0].code,
+      title: "Pembuatan Website, Desktop & Mobile",
+      headline: capabilities.supporting[0].title,
+      desc: capabilities.supporting[0].description,
+      tag: "SVELTE 5 · RUST TAURI · FLUTTER",
+      metric: "~12 MB RAM & 1-2 MB App",
+      badgeLabel: "LINTAS OS",
+      cards: [
+        { num: "01", title: "Web & Portal Enterprise", desc: "Svelte 5, Next.js, dan backend Rust Axum dengan footprint memori sangat hemat dan cepat." },
+        { num: "02", title: "Aplikasi Desktop Native", desc: "Dibangun di atas Rust Tauri dengan installer 1-2 MB untuk macOS, Windows, dan Linux tanpa Electron." },
+        { num: "03", title: "Mobile & API Terintegrasi", desc: "Aplikasi Flutter dan REST API terstruktur lengkap dengan hak milik kode sumber untuk klien." }
+      ]
+    },
+    {
+      id: "ev-ocpp",
+      code: capabilities.supporting[1].code,
+      title: "Ekosistem EV Charging (OCPP 1.6/2.0)",
+      headline: capabilities.supporting[1].title,
+      desc: capabilities.supporting[1].description,
+      tag: "OCPP 1.6 JSON · WEBSOCKETS",
+      metric: "Real-Time CPO & SPKLU",
+      badgeLabel: "SMART EV",
+      cards: [
+        { num: "01", title: "Central System OCPP", desc: "Manajemen sesi pengisian daya dua arah, otentikasi pengemudi, dan penagihan otomatis." },
+        { num: "02", title: "Charge Point Simulator", desc: "Pengujian beban transaksi SPKLU penuh langsung di browser tanpa ketergantungan unit fisik." },
+        { num: "03", title: "Azure IoT Edge Module", desc: "Pemrosesan telemetri daya di tingkat edge untuk keandalan koneksi lapangan." }
+      ]
+    },
+    {
+      id: "infra-security",
+      code: capabilities.flagship.code,
+      title: "Jaringan Enterprise, Server HA & Keamanan",
+      headline: capabilities.flagship.title,
+      desc: capabilities.flagship.description,
+      tag: "ZERO-TRUST & HIGH AVAILABILITY",
+      metric: "99.98% Uptime & Isolasi",
+      badgeLabel: "SOC & HA 24/7",
+      cards: [
+        { num: "01", title: "Jaringan Cisco & Firewall", desc: "Perancangan routing OSPF/BGP, segmentasi VLAN, dan pengamanan Fortinet/ASA berstandar enterprise." },
+        { num: "02", title: "Klaster Database & Dual-Node", desc: "Failover otomatis Patroni PostgreSQL, MongoDB, Oracle DB, serta pemantauan Zabbix & Uptime Kuma." },
+        { num: "03", title: "SSO OAuth 2.1 & CI/CD", desc: "Otentikasi PKCE, single-device login, isolasi GitLab Runner, dan optimasi kontainer Docker hingga 87%." }
+      ]
+    },
+    {
+      id: "iot-ai",
+      code: capabilities.supporting[2].code,
+      title: "Hardware IoT, PCB Kustom & AI Lokal",
+      headline: capabilities.supporting[2].title,
+      desc: capabilities.supporting[2].description,
+      tag: "ESP32 · PCB CAD · PADDLEOCR-VL",
+      metric: "100% Inferensi On-Premise",
+      badgeLabel: "UU PDP SAFE",
+      cards: [
+        { num: "01", title: "Skematik PCB & Firmware", desc: "Desain PCB berisolasi derau dan firmware C++ untuk sensor pH, load-cell, serta smart locker." },
+        { num: "02", title: "KTP OCR On-Premise", desc: "Ekstraksi KTP ke JSON secara lokal dengan validasi silang 16 digit NIK tanpa mengirim data ke cloud." },
+        { num: "03", title: "Computer Vision YOLO", desc: "Deteksi objek dan rambu lalu lintas real-time menggunakan Python dan OpenCV." }
+      ]
     }
-    expandedMap = next;
-  }
+  ]);
+
+  let expandedIndex = $state(2); // Default expand index 2 matching FigCraft Cyber Security showcase
+  let detailService = $state(null);
 </script>
 
-<section id="layanan" class="section-block" aria-labelledby="layanan-title">
-  <div class="container">
-    <div class="section-index-row" data-aos="fade-up">
-      <span class="section-code">{capabilities.sectionCode}</span>
-      <h2 class="section-title" id="layanan-title">{capabilities.title}</h2>
-    </div>
-    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="60">{capabilities.subtitle}</p>
-
-    <article
-      class="flagship-capability transition-all duration-300 ease-out hover:-translate-y-0.5"
-      aria-labelledby="flagship-title"
-      data-aos="fade-up"
-      data-aos-delay="120"
-    >
-      <div class="flagship-top">
-        <div>
-          <span class="capability-code">{capabilities.flagship.code}</span>
-          <h3 class="flagship-title" id="flagship-title">{capabilities.flagship.title}</h3>
-        </div>
-        <p class="flagship-desc">{capabilities.flagship.description}</p>
-      </div>
-      <dl class="flagship-specs-grid">
-        {#each capabilities.flagship.specs as spec}
-          <div class="spec-cell transition-colors duration-200">
-            <dt>{spec.label}</dt>
-            <dd>{spec.value}</dd>
-          </div>
-        {/each}
-      </dl>
-    </article>
-
-    <div class="blueprint-cards-stagger" aria-label="Pilar Layanan IT">
-      {#each capabilities.supporting as item, idx}
-        <article
-          class="blueprint-card blueprint-card-{idx + 1} transition-all duration-300 ease-out hover:-translate-y-1.5"
-          data-aos="fade-up"
-          data-aos-delay={140 + idx * 110}
-        >
-          <div class="blueprint-card-header">
-            <span class="capability-code">{item.code}</span>
-            <h3 class="blueprint-card-title">{item.title}</h3>
-            <p class="blueprint-card-desc">{item.description}</p>
-            <p class="supporting-scope">Cakupan: {item.scope}</p>
-          </div>
-
-          <div class="blueprint-visual-stage" aria-hidden="true">
-            {#if idx === 0}
-              <!-- Visual 1: Pembuatan Website, Aplikasi, & Software (Skala Kecil s.d. Besar) -->
-              <svg viewBox="0 0 320 185" class="blueprint-svg">
-                <defs>
-                  <linearGradient id="trajGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.32" />
-                    <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.0" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M 24 168 Q 270 112 260 66 Q 250 28 36 32 L 36 168 Z"
-                  fill="url(#trajGlow)"
-                />
-                <path
-                  d="M 24 168 Q 270 112 260 66 Q 250 28 36 32"
-                  fill="none"
-                  stroke="var(--accent)"
-                  stroke-width="2"
-                />
-                <line x1="88" y1="95" x2="88" y2="165" stroke="var(--border-subtle)" stroke-width="1" />
-                <circle cx="88" cy="142" r="3.5" fill="var(--text-primary)" />
-                <text x="82" y="122" fill="var(--text-secondary)" font-size="10" text-anchor="end">Skala Kecil/Web</text>
-
-                <line x1="252" y1="45" x2="252" y2="145" stroke="var(--border-subtle)" stroke-width="1" />
-                <circle cx="252" cy="78" r="3.5" fill="var(--text-primary)" />
-                <text x="242" y="68" fill="var(--text-secondary)" font-size="10" text-anchor="end">Mobile &amp; Desktop</text>
-
-                <line x1="132" y1="12" x2="132" y2="90" stroke="var(--border-subtle)" stroke-width="1" />
-                <circle cx="132" cy="34" r="4" fill="var(--text-primary)" />
-                <text x="140" y="28" fill="var(--text-primary)" font-size="10" font-weight="600">Skala Enterprise</text>
-              </svg>
-            {:else if idx === 1}
-              <!-- Visual 2: Pengadaan Hardware IoT (Custom PCB & Vendor Resmi) -->
-              <svg viewBox="0 0 320 185" class="blueprint-svg">
-                <rect x="16" y="14" width="76" height="44" rx="10" fill="var(--bg-elevated)" stroke="var(--border-subtle)" />
-                <rect x="228" y="14" width="76" height="44" rx="10" fill="var(--bg-elevated)" stroke="var(--border-subtle)" />
-                <rect x="16" y="74" width="64" height="44" rx="10" fill="var(--bg-elevated)" stroke="var(--border-subtle)" />
-                <rect x="240" y="74" width="64" height="44" rx="10" fill="var(--bg-elevated)" stroke="var(--border-subtle)" />
-                <rect x="88" y="136" width="144" height="36" rx="10" fill="var(--bg-elevated)" stroke="var(--border-subtle)" />
-
-                <line x1="80" y1="96" x2="124" y2="96" stroke="var(--border-strong)" stroke-width="1.2" />
-                <line x1="196" y1="96" x2="240" y2="96" stroke="var(--border-strong)" stroke-width="1.2" />
-                <line x1="160" y1="128" x2="160" y2="136" stroke="var(--border-strong)" stroke-width="1.2" />
-                <path d="M 92 36 L 128 36 L 128 60" fill="none" stroke="var(--border-strong)" stroke-width="1.2" stroke-dasharray="3 3" />
-                <path d="M 228 36 L 192 36 L 192 60" fill="none" stroke="var(--border-strong)" stroke-width="1.2" stroke-dasharray="3 3" />
-
-                <rect x="124" y="60" width="72" height="68" rx="16" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.5" />
-                <circle cx="160" cy="82" r="3.5" fill="var(--text-primary)" />
-                <circle cx="147" cy="104" r="3.5" fill="var(--text-primary)" />
-                <circle cx="173" cy="104" r="3.5" fill="var(--text-primary)" />
-                <path d="M 152 86 A 14 14 0 0 0 146 98" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" />
-                <path d="M 168 86 A 14 14 0 0 1 174 98" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" />
-                <path d="M 153 107 A 14 14 0 0 0 167 107" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" />
-              </svg>
-            {:else}
-              <!-- Visual 3: Pengadaan Perangkat Jaringan Skala Kecil s.d. Besar + Best Practice -->
-              <svg viewBox="0 0 320 185" class="blueprint-svg">
-                <path
-                  d="M 28 148 C 110 142, 165 55, 250 34 L 304 34"
-                  fill="none"
-                  stroke="var(--border-strong)"
-                  stroke-width="1.5"
-                  stroke-dasharray="4 4"
-                />
-                <line x1="78" y1="88" x2="78" y2="164" stroke="var(--border-subtle)" stroke-width="1" />
-                <circle cx="78" cy="128" r="3" fill="var(--text-secondary)" />
-
-                <line x1="250" y1="14" x2="250" y2="164" stroke="var(--border-subtle)" stroke-width="1" />
-                <circle cx="250" cy="34" r="4" fill="var(--text-primary)" />
-
-                <rect x="64" y="138" width="28" height="28" rx="14" fill="var(--bg-elevated)" stroke="var(--border-subtle)" />
-                <rect x="106" y="120" width="28" height="46" rx="14" fill="var(--bg-elevated)" stroke="var(--border-subtle)" />
-                <rect x="148" y="96" width="28" height="70" rx="14" fill="var(--bg-elevated)" stroke="var(--border-subtle)" />
-                <rect x="190" y="70" width="28" height="96" rx="14" fill="var(--bg-elevated)" stroke="var(--border-subtle)" />
-                <rect x="234" y="44" width="32" height="122" rx="16" fill="var(--accent)" />
-              </svg>
-            {/if}
-            <p class="blueprint-output-bar">Hasil Kerja: {item.output}</p>
-          </div>
-        </article>
-      {/each}
+<section id="layanan" class="band-light section-fc">
+  <div class="container-fc">
+    <div class="text-center mb-14" data-aos="fade-up">
+      <span class="mono-tag text-[#4a4d65] block mb-2">{capabilities.sectionCode} / LAYANAN UTAMA</span>
+      <h2 class="heading-fc-lg text-[#141326]">Layanan</h2>
     </div>
 
-    {#if methodology && methodology.phases}
-      <div class="methodology-layout" style="margin-top: 3.5rem; padding-top: 2.75rem; border-top: 1px solid var(--border-subtle);">
-        <div data-aos="fade-up">
-          <div class="section-index-row">
-            <span class="section-code">{methodology.sectionCode}</span>
-            <h3 class="section-title" style="font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.85rem);">{methodology.title}</h3>
-          </div>
-          <p class="section-subtitle">{methodology.subtitle}</p>
-          <div class="hero-actions">
-            <button type="button" class="btn btn-compact" id="expand-all-phases-btn" onclick={() => setAllExpanded(true)}>
-              Buka Semua Tahapan
-            </button>
-            <button type="button" class="btn btn-compact" id="collapse-all-phases-btn" onclick={() => setAllExpanded(false)}>
-              Tutup Semua Tahapan
-            </button>
-          </div>
-        </div>
+    <div class="max-w-5xl mx-auto" data-aos="fade-up" data-aos-delay="80">
+      {#each serviceRows as svc, idx}
+        {@const isOpen = expandedIndex === idx}
+        <div class="service-row-fc">
+          <button
+            type="button"
+            class="service-row-trigger"
+            aria-expanded={isOpen}
+            onclick={() => (expandedIndex = isOpen ? -1 : idx)}
+          >
+            <span class="service-row-title {isOpen ? 'active' : ''}">{svc.title}</span>
+            <span class="text-2xl text-[#141326] shrink-0 transition-transform duration-200 {isOpen ? 'rotate-90' : ''}" aria-hidden="true">
+              →
+            </span>
+          </button>
 
-        <div class="methodology-phases" data-aos="fade-up" data-aos-delay="100">
-          {#each methodology.phases as phase, idx}
-            {@const isOpen = !!expandedMap[idx]}
-            <div class="phase-row">
-              <button
-                type="button"
-                class="phase-trigger"
-                aria-expanded={isOpen}
-                aria-controls="phase-content-{idx}"
-                onclick={() => togglePhase(idx)}
-              >
-                <span class="phase-trigger-left">
-                  <span class="phase-step-code">{phase.step}</span>
-                  <span class="phase-name">{phase.name}</span>
-                </span>
-                <span class="phase-toggle-indicator">
-                  {isOpen ? 'Sembunyikan' : 'Lihat Detail'}
-                </span>
-              </button>
-              <div class="phase-content" id="phase-content-{idx}" hidden={!isOpen}>
-                <p class="phase-summary">{phase.summary}</p>
-                <div class="phase-meta-grid">
-                  <div class="phase-meta-box">
-                    <strong>Estimasi Durasi: </strong>
-                    <span class="placeholder-tag">{phase.duration}</span>
+          {#if isOpen}
+            <div
+              class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+              transition:fly={{ y: 10, duration: 220 }}
+            >
+              <div class="lg:col-span-6 space-y-5">
+                <p class="text-sm sm:text-base leading-relaxed text-[#4a4d65]">
+                  {svc.desc}
+                </p>
+                <div class="flex flex-wrap items-center gap-4">
+                  <button
+                    type="button"
+                    class="btn-fc-solid-dark"
+                    onclick={() => (detailService = svc)}
+                  >
+                    <span>DETAIL LAYANAN</span>
+                    <span aria-hidden="true">→</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="text-xs font-semibold uppercase tracking-widest text-[#141326] hover:underline"
+                    onclick={onOpenConsult}
+                  >
+                    Minta Estimasi ↗
+                  </button>
+                </div>
+              </div>
+
+              <!-- Right Dark Preview Card matching FigCraft Svc Cyber Preview -->
+              <div class="lg:col-span-6">
+                <div class="rounded-2xl bg-[#22253a] p-5 flex flex-col sm:flex-row items-stretch gap-4 shadow-xl">
+                  <div class="flex-1 rounded-xl bg-[#141326] p-5 flex flex-col justify-between">
+                    <div>
+                      <span class="mono-tag text-[#7ed6e8]">{svc.tag}</span>
+                      <div class="mt-2 text-lg font-bold text-white">{svc.metric}</div>
+                    </div>
+                    <div class="mt-5 space-y-2.5">
+                      <div class="h-2.5 w-4/5 rounded-full bg-[#7ed6e8]"></div>
+                      <div class="h-2.5 w-3/5 rounded-full bg-[#495378]"></div>
+                    </div>
                   </div>
-                  <div class="phase-meta-box">
-                    <strong>Keluaran Tahap: </strong>
-                    {phase.deliverable}
+                  <div class="sm:w-36 rounded-xl bg-[#2e3350] p-4 flex flex-col items-center justify-center text-center border border-white/10">
+                    <div class="w-10 h-10 rounded-full border border-[#7ed6e8]/50 flex items-center justify-center text-[#7ed6e8] mb-2">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2 4 6v6c0 5.2 3.4 9.9 8 11 4.6-1.1 8-5.8 8-11V6l-8-4Z" />
+                        <path d="m9 12 2 2 4-4" />
+                      </svg>
+                    </div>
+                    <span class="mono-tag text-[#7ed6e8] font-semibold">{svc.badgeLabel}</span>
                   </div>
                 </div>
               </div>
             </div>
-          {/each}
+          {/if}
         </div>
-      </div>
-    {/if}
+      {/each}
+    </div>
   </div>
 </section>
+
+<!-- Frame 2: Service Detail Modal matching FigCraft 02 - Service Detail -->
+{#if detailService}
+  <div
+    class="modal-backdrop-fc"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    aria-label={detailService.headline}
+    transition:fade={{ duration: 160 }}
+    onkeydown={(e) => {
+      if (e.key === "Escape") detailService = null;
+    }}
+    onclick={(e) => {
+      if (e.target === e.currentTarget) detailService = null;
+    }}
+  >
+    <div
+      class="w-full max-w-4xl rounded-3xl bg-[#141326] border border-white/15 p-6 sm:p-10 text-white shadow-2xl"
+      transition:fly={{ y: 20, duration: 220 }}
+    >
+      <div class="flex items-center justify-between gap-4 pb-6 border-b border-white/10">
+        <div class="brand-wordmark text-lg">
+          <span class="brand-wordmark-accent">PHI</span><span class="brand-wordmark-base">INTEGRASI</span>
+        </div>
+        <button
+          type="button"
+          class="btn-fc-outline-dark"
+          style="padding: 0.55rem 1rem; font-size: 0.72rem;"
+          onclick={() => (detailService = null)}
+        >
+          ← TUTUP DETAIL
+        </button>
+      </div>
+
+      <div class="mt-8">
+        <span class="mono-tag text-[#7ed6e8]">LAYANAN / {detailService.title.toUpperCase()}</span>
+        <h3 class="mt-3 text-2xl sm:text-4xl font-bold leading-tight text-white max-w-2xl">
+          {detailService.headline}
+        </h3>
+        <p class="mt-4 text-sm sm:text-base text-[#b4b7c9] max-w-2xl leading-relaxed">
+          {detailService.desc}
+        </p>
+        <div class="mt-7">
+          <button
+            type="button"
+            class="btn-fc-solid-cyan"
+            onclick={() => {
+              detailService = null;
+              onOpenConsult();
+            }}
+          >
+            <span>AJUKAN DISKUSI ARSITEKTUR</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5">
+        {#each detailService.cards as card}
+          <div class="rounded-2xl bg-[#1b1a32] border border-white/10 p-6 flex flex-col justify-between">
+            <div>
+              <div class="text-2xl font-bold text-[#7ed6e8] mb-3">{card.num}</div>
+              <h4 class="text-lg font-semibold text-white mb-2">{card.title}</h4>
+              <p class="text-xs sm:text-sm text-[#b4b7c9] leading-relaxed">{card.desc}</p>
+            </div>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </div>
+{/if}
