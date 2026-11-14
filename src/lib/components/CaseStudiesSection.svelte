@@ -1,229 +1,178 @@
 <script>
-  import { fade, fly } from "svelte/transition";
+  import { fade } from 'svelte/transition';
   let { caseStudies, onOpenConsult } = $props();
 
   const categories = $derived([
-    "Semua",
+    'Semua',
     ...new Set(caseStudies.items.map((item) => item.sector))
   ]);
 
-  let activeCategory = $state("Semua");
-  let searchQuery = $state("");
+  let activeCategory = $state('Semua');
+  let searchQuery = $state('');
   let selectedCase = $state(null);
 
-  const featuredDark = $derived(caseStudies.items[0]);
-  const featuredWhite = $derived(caseStudies.items[1]);
+  const featuredPrimary = $derived(caseStudies.items[0]);
+  const featuredSecondary = $derived(caseStudies.items[1]);
 
   const filteredItems = $derived(
     caseStudies.items.filter((item) => {
-      const matchCat = activeCategory === "Semua" || item.sector === activeCategory;
+      const matchCat = activeCategory === 'Semua' || item.sector === activeCategory;
       const q = searchQuery.trim().toLowerCase();
       if (!q) return matchCat;
-      const hay = `${item.title} ${item.summary} ${item.sector} ${item.techStack.join(" ")}`.toLowerCase();
+      const hay = `${item.title} ${item.summary} ${item.sector} ${item.techStack.join(' ')}`.toLowerCase();
       return matchCat && hay.includes(q);
     })
   );
 </script>
 
-<section id="portfolio" class="bg-[#f4f7fb] py-20 lg:py-24">
-  <div class="container-wn">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12" data-aos="fade-up">
-      <div class="lg:col-span-6">
-        <div class="eyebrow-wn mb-3">
-          <span class="eyebrow-dot" aria-hidden="true"></span>
-          <span>SOROTAN PORTOFOLIO</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-[2.65rem] font-bold tracking-tight leading-[1.15] text-[#0f172a]">
-          Inovasi dalam <span class="text-[#1d5bff]">Aksi Nyata</span>
+<section id="studi-kasus" class="bg-white py-16 sm:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-between gap-4 border-b border-[#d0d7de] pb-6 md:flex-row md:items-end">
+      <div class="max-w-2xl">
+        <span class="section-label">{caseStudies.sectionCode} / Portofolio & Bukti Kode</span>
+        <h2 class="mt-2 text-2xl font-bold tracking-tight text-[#0b1220] sm:text-3xl">
+          {caseStudies.title}
         </h2>
       </div>
-      <div class="lg:col-span-6 lg:pl-8">
-        <p class="text-sm sm:text-base text-[#475569] leading-relaxed">
-          {caseStudies.subtitle}
-        </p>
-      </div>
+      <p class="max-w-xl text-sm leading-relaxed text-slate-600">
+        {caseStudies.subtitle}
+      </p>
     </div>
 
-    <!-- 2 Featured Side-by-Side Showcase Cards (Dark #071822 + White #FFFFFF) -->
-    {#if featuredDark && featuredWhite}
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-14" data-aos="fade-up" data-aos-delay="80">
-        <!-- Card 1: Dark #071822 -->
-        <article class="rounded-3xl bg-[#071822] p-8 sm:p-10 text-white flex flex-col justify-between shadow-xl">
-          <div>
-            <span class="inline-block px-3.5 py-1.5 rounded-full bg-[#1d5bff] text-white mono-tag font-bold text-[11px]">
-              EV &amp; SMART MOBILITY
-            </span>
-            <h3 class="mt-6 text-2xl sm:text-3xl font-bold leading-snug text-white">
-              {featuredDark.title}
-            </h3>
-            <p class="mt-3 text-sm text-[#94a3b8] leading-relaxed">
-              {featuredDark.summary}
-            </p>
-          </div>
-
-          <div class="mt-8 space-y-6">
-            <div class="rounded-2xl bg-[#0e222e] p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <div class="text-xl font-bold text-[#10b981]">OCPP 1.6 JSON</div>
-                <div class="text-xs text-[#94a3b8] mt-1">WebSockets 2-Arah Real-Time</div>
+    <!-- Sorotan Proyek Utama (2-kolom bordered, tanpa rounded-3xl atau gimmick kontras gelap-terang) -->
+    {#if featuredPrimary && featuredSecondary}
+      <div class="mt-8 grid gap-6 lg:grid-cols-2">
+        {#each [featuredPrimary, featuredSecondary] as feat}
+          <article class="flex flex-col justify-between rounded-lg border border-[#d0d7de] bg-[#f6f8fa] p-6 sm:p-7">
+            <div>
+              <div class="flex items-center justify-between gap-3">
+                <span class="font-mono-tech text-xs font-semibold text-[#1d5bff]">
+                  {feat.code} · {feat.sector}
+                </span>
+                <span class="rounded border border-emerald-300 bg-emerald-50 px-2 py-0.5 font-mono-tech text-xs font-medium text-emerald-800">
+                  Unggulan
+                </span>
               </div>
-              <div>
-                <div class="text-xl font-bold text-white">HAKI Resmi</div>
-                <div class="text-xs text-[#94a3b8] mt-1">Kemenkumham RI (2024-2025)</div>
-              </div>
+              <h3 class="mt-3 text-xl font-bold leading-snug text-[#0b1220]">
+                {feat.title}
+              </h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-slate-600">
+                {feat.summary}
+              </p>
             </div>
 
-            <div class="flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                class="px-5 py-3 rounded-xl bg-white text-[#0f172a] text-xs font-bold hover:bg-[#eef4ff] transition-colors cursor-pointer"
-                onclick={() => (selectedCase = featuredDark)}
-              >
-                Pelajari Studi Kasus →
-              </button>
-              <a
-                href={featuredDark.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-xs font-semibold text-[#38bdf8] hover:underline"
-              >
-                Repositori GitHub ↗
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 2: White #FFFFFF -->
-        <article class="rounded-3xl bg-white p-8 sm:p-10 text-[#0f172a] border border-slate-200/80 flex flex-col justify-between shadow-sm">
-          <div>
-            <span class="inline-block px-3.5 py-1.5 rounded-full bg-[#eef4ff] text-[#1d5bff] mono-tag font-bold text-[11px]">
-              WEB &amp; RUST BACKEND
-            </span>
-            <h3 class="mt-6 text-2xl sm:text-3xl font-bold leading-snug text-[#0f172a]">
-              {featuredWhite.title}
-            </h3>
-            <p class="mt-3 text-sm text-[#475569] leading-relaxed">
-              {featuredWhite.summary}
-            </p>
-          </div>
-
-          <div class="mt-8 space-y-6">
-            <div class="rounded-2xl bg-[#f4f7fb] p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <div class="text-xl font-bold text-[#1d5bff]">~12-18 MB RAM</div>
-                <div class="text-xs text-[#475569] mt-1">Single-Process Rust Serving</div>
+            <div class="mt-6 space-y-4">
+              <div class="rounded-md border border-[#d0d7de] bg-white px-4 py-3">
+                <span class="block font-mono-tech text-xs font-semibold uppercase text-slate-500">Dampak / Hasil</span>
+                <span class="mt-1 block text-sm font-semibold text-[#0b1220]">{feat.impactPlaceholder}</span>
               </div>
-              <div>
-                <div class="text-xl font-bold text-[#0f172a]">Svelte 5 + SQLx</div>
-                <div class="text-xs text-[#475569] mt-1">Notifikasi SMTP TLS Otomatis</div>
+
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <button
+                  type="button"
+                  onclick={() => (selectedCase = feat)}
+                  class="btn-primary px-4 py-2 text-xs sm:text-sm"
+                >
+                  Baca Spesifikasi
+                </button>
+                <a
+                  href={feat.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-mono-tech text-xs font-semibold text-[#1d5bff] hover:underline"
+                >
+                  Repositori GitHub -&gt;
+                </a>
               </div>
             </div>
-
-            <div class="flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                class="btn-blue"
-                onclick={() => (selectedCase = featuredWhite)}
-              >
-                Pelajari Studi Kasus →
-              </button>
-              <a
-                href={featuredWhite.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-xs font-semibold text-[#1d5bff] hover:underline"
-              >
-                Repositori GitHub ↗
-              </a>
-            </div>
-          </div>
-        </article>
+          </article>
+        {/each}
       </div>
     {/if}
 
-    <!-- Filter Pills & Live Search for All 12 Active GitHub Projects -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pt-8 border-t border-slate-200">
-      <div class="flex flex-wrap gap-2" role="group" aria-label="Filter Kategori Portofolio">
+    <!-- Filter Kategori & Pencarian -->
+    <div class="mt-10 flex flex-col justify-between gap-4 border-y border-[#d0d7de] py-4 lg:flex-row lg:items-center">
+      <div class="flex flex-wrap gap-2" role="group" aria-label="Filter sektor portofolio">
         {#each categories as cat}
           <button
             type="button"
-            class="px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border {activeCategory === cat
-              ? 'bg-[#1d5bff] text-white border-[#1d5bff]'
-              : 'bg-white text-[#475569] border-slate-200 hover:border-[#1d5bff] hover:text-[#1d5bff]'}"
             onclick={() => (activeCategory = cat)}
+            class="rounded-md border px-3 py-1.5 text-xs font-semibold transition {activeCategory === cat
+              ? 'border-[#0b1220] bg-[#0b1220] text-white'
+              : 'border-[#d0d7de] bg-white text-slate-700 hover:bg-slate-50'}"
           >
             {cat}
           </button>
         {/each}
       </div>
 
-      <div class="w-full md:w-72">
-        <label for="portfolio-search" class="sr-only">Cari proyek atau teknologi</label>
+      <div class="w-full lg:w-72">
+        <label for="case-search" class="sr-only">Cari proyek atau teknologi</label>
         <input
-          id="portfolio-search"
+          id="case-search"
           type="search"
           bind:value={searchQuery}
-          placeholder="Cari teknologi (Rust, OCPP, YOLO...)"
-          class="w-full rounded-xl bg-white border border-slate-200 px-4 py-2.5 text-sm text-[#0f172a] placeholder-[#64748b] focus:border-[#1d5bff] focus:outline-none"
+          placeholder="Cari stack (mis. Rust, OCPP, Svelte)..."
+          class="w-full rounded-md border border-[#d0d7de] bg-white px-3.5 py-2 text-sm text-[#0b1220] placeholder:text-slate-400 focus:border-[#1d5bff] focus:outline-none"
         />
       </div>
     </div>
 
-    <!-- 12 Real Projects Grid -->
+    <!-- Ledger Portofolio -->
     {#if filteredItems.length === 0}
-      <div class="rounded-2xl bg-white border border-slate-200 p-10 text-center">
-        <p class="text-[#0f172a] font-semibold">Tidak ada proyek yang cocok dengan pencarian "{searchQuery}".</p>
+      <div class="mt-8 rounded-lg border border-[#d0d7de] bg-[#f6f8fa] p-8 text-center">
+        <p class="text-sm text-slate-600">Tidak ada studi kasus yang cocok dengan filter saat ini.</p>
         <button
           type="button"
-          class="mt-4 btn-light-outline"
           onclick={() => {
-            activeCategory = "Semua";
-            searchQuery = "";
+            activeCategory = 'Semua';
+            searchQuery = '';
           }}
+          class="mt-3 font-mono-tech text-xs font-semibold text-[#1d5bff] hover:underline"
         >
-          Reset Filter
+          Reset filter
         </button>
       </div>
     {:else}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {#each filteredItems as item (item.id)}
-          <article class="rounded-2xl bg-white border border-slate-200/80 p-6 flex flex-col justify-between hover:border-[#1d5bff]/50 hover:shadow-md transition-all">
+      <div class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {#each filteredItems as item}
+          <article class="flex flex-col justify-between rounded-lg border border-[#d0d7de] bg-white p-5 transition hover:border-slate-400">
             <div>
-              <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="mono-tag font-bold text-[#1d5bff]">{item.code}</span>
-                <span class="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#eef4ff] text-[#1d5bff]">
-                  {item.sector}
-                </span>
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-mono-tech text-xs font-semibold text-[#1d5bff]">{item.code}</span>
+                <span class="font-mono-tech text-xs text-slate-500">{item.sector}</span>
               </div>
-              <h3 class="text-lg font-bold text-[#0f172a] leading-snug">{item.title}</h3>
-              <p class="mt-2.5 text-xs sm:text-sm text-[#475569] leading-relaxed line-clamp-3">
+              <h3 class="mt-2.5 text-base font-bold leading-snug text-[#0b1220]">
+                {item.title}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">
                 {item.summary}
               </p>
 
               <div class="mt-4 flex flex-wrap gap-1.5">
                 {#each item.techStack.slice(0, 4) as tech}
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-[#f4f7fb] text-[#475569] border border-slate-200/80">
+                  <span class="rounded border border-[#d0d7de] bg-[#f6f8fa] px-2 py-0.5 font-mono-tech text-xs text-slate-700">
                     {tech}
                   </span>
                 {/each}
               </div>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+            <div class="mt-5 flex items-center justify-between border-t border-slate-200 pt-3.5">
               <button
                 type="button"
-                class="text-xs font-bold text-[#0f172a] hover:text-[#1d5bff] transition-colors cursor-pointer"
                 onclick={() => (selectedCase = item)}
+                class="text-xs font-bold text-[#0b1220] hover:text-[#1d5bff]"
               >
-                Rincian Studi Kasus →
+                Rincian -&gt;
               </button>
               <a
                 href={item.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-xs font-bold text-[#1d5bff] hover:underline"
+                class="font-mono-tech text-xs font-semibold text-[#1d5bff] hover:underline"
               >
-                Kode GitHub ↗
+                GitHub
               </a>
             </div>
           </article>
@@ -233,94 +182,89 @@
   </div>
 </section>
 
-<!-- Frame 3: 03 - Studi Kasus Modal (#071822 Header + #F4F7FB Body + White Metric Cards + #10B981 CTA) -->
+<!-- Modal Detail Studi Kasus -->
 {#if selectedCase}
   <div
-    class="modal-backdrop-wn"
+    class="modal-backdrop-solid fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
     role="dialog"
     aria-modal="true"
     tabindex="-1"
     aria-label={selectedCase.title}
-    transition:fade={{ duration: 150 }}
+    transition:fade={{ duration: 120 }}
     onkeydown={(e) => {
-      if (e.key === "Escape") selectedCase = null;
+      if (e.key === 'Escape') selectedCase = null;
     }}
     onclick={(e) => {
       if (e.target === e.currentTarget) selectedCase = null;
     }}
   >
-    <div
-      class="w-full max-w-4xl rounded-3xl overflow-hidden bg-[#f4f7fb] text-[#0f172a] shadow-2xl border border-slate-200"
-      transition:fly={{ y: 20, duration: 220 }}
-    >
-      <!-- Dark Hero Header (#071822) -->
-      <div class="bg-[#071822] p-6 sm:p-10 text-white">
+    <div class="w-full max-w-3xl overflow-hidden rounded-lg border border-[#d0d7de] bg-white text-[#0b1220] shadow-xl">
+      <div class="border-b border-slate-800 bg-[#0b1220] p-6 text-white sm:p-8">
         <div class="flex items-center justify-between gap-4">
-          <span class="mono-tag font-bold text-[#10b981]">STUDI KASUS PHI INTEGRASI · {selectedCase.code}</span>
+          <span class="font-mono-tech text-xs font-semibold text-[#60a5fa]">
+            {selectedCase.code} · {selectedCase.sector}
+          </span>
           <button
             type="button"
-            class="px-4 py-2 rounded-lg bg-[#0e222e] text-white text-xs font-bold hover:bg-[#1d5bff] transition-colors cursor-pointer"
             onclick={() => (selectedCase = null)}
+            class="rounded-md border border-slate-700 bg-slate-900 px-3 py-1.5 font-mono-tech text-xs font-medium text-slate-200 hover:bg-slate-800"
           >
-            ← Tutup
+            Tutup [Esc]
           </button>
         </div>
-
-        <h3 class="mt-6 text-2xl sm:text-4xl font-bold text-white leading-tight">
+        <h3 class="mt-4 text-xl font-bold leading-snug text-white sm:text-2xl">
           {selectedCase.title}
         </h3>
-        <p class="mt-3 text-sm sm:text-base text-[#94a3b8] max-w-2xl leading-relaxed">
+        <p class="mt-2 text-sm leading-relaxed text-slate-300">
           {selectedCase.summary}
         </p>
       </div>
 
-      <!-- Body (#F4F7FB) with 3 White Metric Cards (#1D5BFF values) -->
-      <div class="p-6 sm:p-10 space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="rounded-2xl bg-white p-5 border border-slate-200/70">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#475569]">Dampak Terukur</div>
-            <div class="mt-2 text-base font-bold text-[#1d5bff] leading-snug">{selectedCase.impactPlaceholder}</div>
+      <div class="space-y-5 p-6 sm:p-8">
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="rounded-md border border-[#d0d7de] bg-[#f6f8fa] p-4">
+            <div class="font-mono-tech text-xs font-semibold uppercase text-slate-500">Dampak</div>
+            <div class="mt-1.5 text-sm font-bold text-[#0b1220]">{selectedCase.impactPlaceholder}</div>
           </div>
-          <div class="rounded-2xl bg-white p-5 border border-slate-200/70">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#475569]">Status &amp; Periode</div>
-            <div class="mt-2 text-base font-bold text-[#1d5bff] leading-snug">{selectedCase.durationPlaceholder}</div>
+          <div class="rounded-md border border-[#d0d7de] bg-[#f6f8fa] p-4">
+            <div class="font-mono-tech text-xs font-semibold uppercase text-slate-500">Periode</div>
+            <div class="mt-1.5 text-sm font-bold text-[#0b1220]">{selectedCase.durationPlaceholder}</div>
           </div>
-          <div class="rounded-2xl bg-white p-5 border border-slate-200/70">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#475569]">Teknologi Inti</div>
-            <div class="mt-2 text-sm font-bold text-[#0f172a] leading-snug">{selectedCase.techStack.join(", ")}</div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-2xl p-6 border border-slate-200/70">
-          <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-[#475569] mb-2">Tantangan Teknis</h4>
-            <p class="text-sm text-[#0f172a] leading-relaxed">{selectedCase.challenge}</p>
-          </div>
-          <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-[#475569] mb-2">Solusi Arsitektur</h4>
-            <p class="text-sm text-[#0f172a] leading-relaxed">{selectedCase.architectureSolution}</p>
+          <div class="rounded-md border border-[#d0d7de] bg-[#f6f8fa] p-4">
+            <div class="font-mono-tech text-xs font-semibold uppercase text-slate-500">Stack</div>
+            <div class="mt-1.5 font-mono-tech text-xs font-medium text-[#0b1220]">{selectedCase.techStack.join(', ')}</div>
           </div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+        <div class="grid gap-6 border-t border-[#d0d7de] pt-5 sm:grid-cols-2">
+          <div>
+            <h4 class="font-mono-tech text-xs font-semibold uppercase text-slate-500">Tantangan Teknis</h4>
+            <p class="mt-2 text-sm leading-relaxed text-slate-700">{selectedCase.challenge}</p>
+          </div>
+          <div>
+            <h4 class="font-mono-tech text-xs font-semibold uppercase text-slate-500">Solusi Arsitektur</h4>
+            <p class="mt-2 text-sm leading-relaxed text-slate-700">{selectedCase.architectureSolution}</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 border-t border-[#d0d7de] pt-5">
           <a
             href={selectedCase.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-light-outline"
+            class="rounded-md border border-[#d0d7de] bg-white px-4 py-2 font-mono-tech text-xs font-semibold text-[#0b1220] hover:bg-slate-50"
           >
-            Buka Repositori GitHub ↗
+            Buka Repositori GitHub -&gt;
           </a>
           <button
             type="button"
-            class="btn-emerald"
             onclick={() => {
               selectedCase = null;
               onOpenConsult();
             }}
+            class="btn-primary px-4 py-2 text-xs sm:text-sm"
           >
-            <span>Diskusikan Proyek Serupa</span>
-            <span aria-hidden="true">→</span>
+            Diskusikan Proyek Serupa
           </button>
         </div>
       </div>

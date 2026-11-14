@@ -1,54 +1,62 @@
 <script>
   let { brand } = $props();
 
-  const trustCards = [
+  const benchmarks = [
     {
-      val: "55+",
-      title: "Modul & Repositori Aktif",
-      desc: "Kode teruji dari kolaborasi rekayasa dan riset di ekosistem github.com/phiintegrasi."
+      code: 'BENCH-01',
+      metric: '~12 MB',
+      label: 'Jejak Memori Runtime Rust (Axum)',
+      detail: 'Efisiensi server layanan sekretariat & API dibanding implementasi runtime berat.'
     },
     {
-      val: "3+ HAKI",
-      title: "Terdaftar Kemenkumham RI",
-      desc: "Kekayaan intelektual resmi untuk sistem SPKLU KedaiCas & simulator kendaraan listrik."
+      code: 'BENCH-02',
+      metric: '1-2 MB',
+      label: 'Ukuran Installer Desktop Tauri',
+      detail: 'Aplikasi desktop lintas OS berbasis Rust + Svelte 5 tanpa beban Chromium bundel.'
     },
     {
-      val: "~12 MB",
-      title: "Konsumsi RAM Backend",
-      desc: "Efisiensi server ekstrem dengan Rust Axum, Svelte 5, serta installer desktop Tauri 1-2 MB."
+      code: 'BENCH-03',
+      metric: '87% Lebih Ramping',
+      label: 'Optimasi Image Kontainer ML',
+      detail: 'Pemangkasan ukuran image produksi AI/OCR dari 21 GB menjadi 2,65 GB.'
     },
     {
-      val: "24/7",
-      title: "Pemantauan & Reliabilitas",
-      desc: "Klaster database HA Patroni PostgreSQL, isolasi CI/CD, Zabbix & Uptime Kuma."
+      code: 'BENCH-04',
+      metric: '3+ HAKI',
+      label: 'Hak Cipta Terdaftar Kemenkumham RI',
+      detail: 'Sistem SPKLU/OCPP, simulator konversi EV, dan aplikasi manajemen arsip.'
     }
   ];
 </script>
 
-<section id="keunggulan" class="bg-white py-20 lg:py-24">
-  <div class="container-wn">
-    <div class="max-w-3xl mb-12" data-aos="fade-up">
-      <div class="eyebrow-wn mb-3">
-        <span class="eyebrow-dot" aria-hidden="true"></span>
-        <span>KEUNGGULAN PHI INTEGRASI</span>
+<section id="tolok-ukur" class="border-y border-[#d0d7de] bg-[#f6f8fa] py-12 sm:py-14">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-between gap-4 border-b border-[#d0d7de] pb-6 md:flex-row md:items-end">
+      <div>
+        <span class="section-label">Tolok Ukur Terukur</span>
+        <h2 class="mt-1.5 text-xl font-bold tracking-tight text-[#0b1220] sm:text-2xl">
+          Angka Rekayasa Nyata, Bukan Klaim Kosong
+        </h2>
       </div>
-      <h2 class="text-3xl sm:text-4xl lg:text-[2.65rem] font-bold tracking-tight leading-[1.15] text-[#0f172a]">
-        Mengembangkan Masa Depan
-        <span class="text-[#1d5bff]">Industri Anda</span>
-      </h2>
-      <p class="mt-4 text-sm sm:text-base text-[#475569] leading-relaxed">
-        Standar rekayasa perangkat lunak dan infrastruktur enterprise dengan pengalaman nyata di PT Nusantara Compnet Integrator,
-        Direktorat PuTI &amp; FIT Telkom University, serta CoE Smart EV.
+      <p class="max-w-xl text-sm text-slate-600">
+        Ringkasan efisiensi sistem dari repositori produksi dan riset terapan {brand.companyName}.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" data-aos="fade-up" data-aos-delay="80">
-      {#each trustCards as card}
-        <article class="rounded-2xl bg-[#f4f7fb] p-7 border border-slate-200/60 hover:border-[#1d5bff]/40 transition-colors">
-          <div class="text-3xl sm:text-4xl font-bold text-[#1d5bff] tracking-tight">{card.val}</div>
-          <h3 class="mt-4 text-base font-bold text-[#0f172a]">{card.title}</h3>
-          <p class="mt-2 text-xs sm:text-sm text-[#475569] leading-relaxed">{card.desc}</p>
-        </article>
+    <div class="grid divide-y divide-[#d0d7de] sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x">
+      {#each benchmarks as item}
+        <div class="py-6 sm:px-6 lg:first:pl-0 lg:last:pr-0">
+          <span class="font-mono-tech text-xs font-semibold text-slate-500">{item.code}</span>
+          <div class="mt-2 font-mono-tech text-2xl font-bold tracking-tight text-[#1d5bff] sm:text-3xl">
+            {item.metric}
+          </div>
+          <div class="mt-1.5 text-sm font-bold text-[#0b1220]">
+            {item.label}
+          </div>
+          <p class="mt-1.5 text-xs leading-relaxed text-slate-600">
+            {item.detail}
+          </p>
+        </div>
       {/each}
     </div>
   </div>

@@ -1,56 +1,52 @@
 <script>
-  import { slide } from "svelte/transition";
+  import { slide } from 'svelte/transition';
   let { methodology, onOpenConsult } = $props();
   let openPhaseIdx = $state(0);
 </script>
 
-<section id="metodologi" class="bg-[#f4f7fb] py-20 lg:py-24 border-b border-slate-200/70">
-  <div class="container-wn">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-      <div class="lg:col-span-5" data-aos="fade-up">
-        <div class="eyebrow-wn mb-3">
-          <span class="eyebrow-dot" aria-hidden="true"></span>
-          <span>METODOLOGI &amp; SLA</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.15] text-[#0f172a]">
-          5 Fase Rekayasa <span class="text-[#1d5bff]">Terukur</span>
+<section id="metodologi" class="border-t border-[#d0d7de] bg-white py-16 sm:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-5">
+        <span class="section-label">§ 04 / Metodologi & SLA</span>
+        <h2 class="mt-2 text-2xl font-bold tracking-tight text-[#0b1220] sm:text-3xl">
+          5 Fase Rekayasa Terukur
         </h2>
-        <p class="mt-4 text-sm sm:text-base text-[#475569] leading-relaxed">
+        <p class="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
           {methodology.subtitle}
         </p>
 
-        <div class="mt-8">
-          <button type="button" class="btn-blue" onclick={onOpenConsult}>
-            <span>Konsultasi Kebutuhan Proyek</span>
-            <span aria-hidden="true">→</span>
+        <div class="mt-6">
+          <button type="button" onclick={onOpenConsult} class="btn-primary px-5 py-2.5 text-sm">
+            Konsultasi Kebutuhan Proyek
           </button>
         </div>
       </div>
 
-      <div class="lg:col-span-7 space-y-3" data-aos="fade-up" data-aos-delay="80">
+      <div class="divide-y divide-[#d0d7de] rounded-lg border border-[#d0d7de] bg-white lg:col-span-7">
         {#each methodology.phases as phase, idx}
           {@const isOpen = openPhaseIdx === idx}
-          <div class="rounded-2xl bg-white border {isOpen ? 'border-[#1d5bff]/50 shadow-sm' : 'border-slate-200/80'} overflow-hidden transition-all">
+          <div>
             <button
               type="button"
-              class="w-full px-6 py-5 flex items-center justify-between gap-4 text-left cursor-pointer"
+              class="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-slate-50"
               aria-expanded={isOpen}
               onclick={() => (openPhaseIdx = isOpen ? -1 : idx)}
             >
-              <span class="text-sm sm:text-base font-bold {isOpen ? 'text-[#1d5bff]' : 'text-[#0f172a]'}">
-                <span class="mono-tag text-[#1d5bff] mr-3">{phase.step}</span>
+              <span class="text-sm font-bold sm:text-base {isOpen ? 'text-[#1d5bff]' : 'text-[#0b1220]'}">
+                <span class="font-mono-tech mr-3 text-xs font-semibold text-[#1d5bff]">{phase.step}</span>
                 {phase.name}
               </span>
-              <span class="text-xl font-bold text-[#1d5bff] shrink-0" aria-hidden="true">
-                {isOpen ? "−" : "+"}
+              <span class="font-mono-tech text-sm font-bold text-slate-500" aria-hidden="true">
+                {isOpen ? '[-]' : '[+]'}
               </span>
             </button>
 
             {#if isOpen}
-              <div class="px-6 pb-5 text-sm text-[#475569] leading-relaxed space-y-2 border-t border-slate-100 pt-4" transition:slide={{ duration: 180 }}>
+              <div class="border-t border-slate-200 bg-[#f6f8fa] px-5 py-4 text-sm leading-relaxed text-slate-700" transition:slide={{ duration: 150 }}>
                 <p>{phase.summary}</p>
-                <div class="flex flex-wrap gap-4 pt-1 text-xs text-[#64748b]">
-                  <span>Estimasi: <strong class="text-[#0f172a]">{phase.duration}</strong></span>
+                <div class="mt-3 flex flex-wrap gap-6 font-mono-tech text-xs text-slate-600">
+                  <span>Estimasi: <strong class="text-[#0b1220]">{phase.duration}</strong></span>
                   <span>Luaran: <strong class="text-[#1d5bff]">{phase.deliverable}</strong></span>
                 </div>
               </div>

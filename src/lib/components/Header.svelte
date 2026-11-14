@@ -3,84 +3,73 @@
   let mobileMenuOpen = $state(false);
 
   const navLinks = [
-    { href: "#layanan", label: "Solusi" },
-    { href: "#keunggulan", label: "Keunggulan" },
-    { href: "#portfolio", label: "Portofolio" },
-    { href: "#tentang-kami", label: "Tentang" },
-    { href: "#wawasan", label: "Insight" }
+    { href: '#kapabilitas', label: 'Kapabilitas' },
+    { href: '#tolok-ukur', label: 'Tolok Ukur' },
+    { href: '#studi-kasus', label: 'Portofolio' },
+    { href: '#profil', label: 'Profil & HAKI' },
+    { href: '#metodologi', label: 'Metodologi' },
+    { href: '#repositori', label: 'Repositori' }
   ];
+
+  function closeMobile() {
+    mobileMenuOpen = false;
+  }
 </script>
 
-<!-- Top Utility Bar (#051118) -->
-<div class="bg-[#051118] text-xs py-2 border-b border-white/5">
-  <div class="container-wn flex flex-wrap items-center justify-between gap-2">
-    <span class="text-[#94a3b8]">
-      Mitra Transformasi Digital, IoT/EV &amp; Pengembangan Software Enterprise
-    </span>
-    <div class="flex items-center gap-4">
-      <a
-        href={brand.githubOrgUrl || "https://github.com/phiintegrasi"}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-[#94a3b8] hover:text-white transition-colors hidden sm:inline"
-      >
-        github.com/phiintegrasi ↗
-      </a>
-      <span class="font-semibold text-[#10b981]">3+ HAKI Kemenkumham RI</span>
-    </div>
-  </div>
-</div>
-
-<!-- White Sticky Navbar (#FFFFFF) -->
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80">
-  <div class="container-wn flex items-center justify-between gap-4 min-h-[74px]">
-    <a href="#home" class="inline-flex items-center gap-2.5" aria-label={brand.companyName}>
-      <span class="w-8 h-8 rounded-lg bg-[#1d5bff] text-white font-bold text-base flex items-center justify-center shadow-sm">
-        P
+<header class="sticky top-0 z-40 border-b border-[#d0d7de] bg-white">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <a href="#top" class="flex items-center gap-2.5 text-[#0b1220] transition hover:opacity-85">
+      <span class="flex h-8 w-8 items-center justify-center rounded-md bg-[#0b1220] font-mono-tech text-xs font-bold tracking-tight text-white">
+        PHI
       </span>
-      <span class="text-lg font-bold tracking-tight text-[#0f172a]">
-        PHI Integrasi<span class="text-[#1d5bff]">.com</span>
-      </span>
+      <div class="leading-none">
+        <span class="block text-sm font-bold tracking-tight text-[#0b1220]">
+          {brand.companyName}
+        </span>
+        <span class="block font-mono-tech text-[11px] text-slate-500">
+          {brand.domain}
+        </span>
+      </div>
     </a>
 
-    <nav aria-label="Navigasi Utama" class="hidden lg:block">
-      <ul class="flex items-center gap-8 list-none m-0 p-0">
-        {#each navLinks as link}
-          <li>
-            <a
-              href={link.href}
-              class="text-sm font-medium text-[#475569] hover:text-[#1d5bff] transition-colors"
-            >
-              {link.label}
-            </a>
-          </li>
-        {/each}
-      </ul>
+    <nav aria-label="Navigasi utama" class="hidden items-center gap-6 lg:flex">
+      {#each navLinks as link}
+        <a
+          href={link.href}
+          class="text-sm font-medium text-slate-700 transition hover:text-[#1d5bff]"
+        >
+          {link.label}
+        </a>
+      {/each}
     </nav>
 
     <div class="flex items-center gap-2.5">
       <button
         type="button"
-        class="hidden sm:inline-flex items-center justify-center px-3.5 h-[42px] rounded-[10px] bg-[#eef4ff] text-[#1d5bff] text-xs font-bold hover:bg-[#1d5bff] hover:text-white transition-colors cursor-pointer"
         onclick={onOpenEditor}
-        title="Buka Editor Data Situs"
+        class="hidden rounded-md border border-[#d0d7de] bg-white px-3 py-1.5 font-mono-tech text-xs font-medium text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 sm:inline-flex"
       >
-        Editor
-      </button>
-      <button type="button" class="btn-emerald" onclick={onOpenConsult}>
-        Konsultasi Gratis
+        Editor Data
       </button>
       <button
         type="button"
-        class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 text-[#0f172a]"
-        aria-label="Menu Navigasi"
-        onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
+        onclick={onOpenConsult}
+        class="btn-primary px-4 py-2 text-xs sm:text-sm"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        Diskusi Teknis
+      </button>
+      <button
+        type="button"
+        onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
+        aria-label={mobileMenuOpen ? 'Tutup menu' : 'Buka menu'}
+        aria-expanded={mobileMenuOpen}
+        class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-[#d0d7de] text-slate-700 lg:hidden"
+      >
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           {#if mobileMenuOpen}
-            <path d="M18 6 6 18M6 6l12 12" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           {:else}
-            <path d="M4 7h16M4 12h16M4 17h16" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           {/if}
         </svg>
       </button>
@@ -88,26 +77,28 @@
   </div>
 
   {#if mobileMenuOpen}
-    <div class="lg:hidden border-t border-slate-200 bg-white px-6 py-4 space-y-2">
-      {#each navLinks as link}
-        <a
-          href={link.href}
-          class="block py-2 text-sm font-medium text-[#475569] hover:text-[#1d5bff]"
-          onclick={() => (mobileMenuOpen = false)}
+    <div class="border-t border-[#d0d7de] bg-white px-4 py-3 lg:hidden">
+      <nav class="flex flex-col gap-1.5">
+        {#each navLinks as link}
+          <a
+            href={link.href}
+            onclick={closeMobile}
+            class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+          >
+            {link.label}
+          </a>
+        {/each}
+        <button
+          type="button"
+          onclick={() => {
+            closeMobile();
+            onOpenEditor();
+          }}
+          class="mt-1 rounded-md border border-[#d0d7de] px-3 py-2 text-left font-mono-tech text-xs font-medium text-slate-700"
         >
-          {link.label}
-        </a>
-      {/each}
-      <button
-        type="button"
-        class="w-full mt-2 px-4 py-2.5 rounded-lg bg-[#eef4ff] text-[#1d5bff] text-xs font-bold"
-        onclick={() => {
-          mobileMenuOpen = false;
-          onOpenEditor();
-        }}
-      >
-        Buka Editor Data
-      </button>
+          Editor Data
+        </button>
+      </nav>
     </div>
   {/if}
 </header>

@@ -1,146 +1,145 @@
 <script>
   let { hero, onOpenConsult } = $props();
+  let activeTabIndex = $state(0);
+
+  let activeArch = $derived(hero.architectureTabs?.[activeTabIndex] ?? hero.architectureTabs?.[0]);
 </script>
 
-<section id="home" class="relative overflow-hidden bg-[#071822] text-white py-16 lg:py-20">
-  <!-- Ambient Blue & Emerald Glows matching FigCraft Hero Glow 1 & 2 -->
-  <div
-    class="pointer-events-none absolute -top-24 left-1/4 w-[480px] h-[480px] rounded-full opacity-20 blur-3xl"
-    style="background: #1d5bff;"
-    aria-hidden="true"
-  ></div>
-  <div
-    class="pointer-events-none absolute -bottom-24 right-1/4 w-[340px] h-[340px] rounded-full opacity-15 blur-3xl"
-    style="background: #10b981;"
-    aria-hidden="true"
-  ></div>
+<section id="top" class="bg-[#0b1220] bg-tech-grid border-b border-slate-800 text-white">
+  <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <div class="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+      <!-- Kolom Kiri: Posisi Teknis & Bukti Nyata -->
+      <div class="lg:col-span-6">
+        <p class="font-mono-tech text-xs font-semibold uppercase tracking-wider text-slate-400">
+          PT PHI Integrasi / Bandung, Indonesia
+        </p>
 
-  <div class="container-wn">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      <!-- Left Column: Copy, CTAs, 4 Inline Stats -->
-      <div class="lg:col-span-6" data-aos="fade-up">
-        <span class="mono-tag font-bold text-[#10b981] tracking-widest block mb-4">
-          PT PHI INTEGRASI INDONESIA
-        </span>
-        <h1 class="text-4xl sm:text-5xl lg:text-[3.35rem] font-bold tracking-tight leading-[1.1] text-white">
-          Mitra Solusi AI, Cloud, IoT &amp; Aplikasi Enterprise
+        <h1 class="mt-3 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-[2.65rem] lg:leading-[1.14]">
+          {hero.headline}
         </h1>
-        <p class="mt-5 text-base text-[#94a3b8] leading-relaxed max-w-xl">
+
+        <p class="mt-5 text-base leading-relaxed text-slate-300">
           {hero.subheadline}
         </p>
 
-        <div class="mt-8 flex flex-wrap items-center gap-3.5">
-          <button type="button" class="btn-emerald px-6 py-3.5" onclick={onOpenConsult}>
-            <span>Jadwalkan Konsultasi</span>
-            <span aria-hidden="true">→</span>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onclick={onOpenConsult}
+            class="btn-primary px-5 py-3 text-sm"
+          >
+            {hero.primaryCtaText}
           </button>
-          <a href="#portfolio" class="btn-dark-outline px-6 py-3.5">
-            Lihat Portofolio
+          <a
+            href="https://github.com/phiintegrasi"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secondary-dark px-5 py-3 text-sm"
+          >
+            github.com/phiintegrasi
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </a>
         </div>
 
-        <!-- 4 Hero Stats -->
-        <div class="mt-12 pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-6">
-          <div>
-            <div class="text-3xl font-bold text-white tracking-tight">8+</div>
-            <div class="text-xs text-[#94a3b8] mt-1">Tahun Kolaborasi</div>
-          </div>
-          <div>
-            <div class="text-3xl font-bold text-white tracking-tight">55+</div>
-            <div class="text-xs text-[#94a3b8] mt-1">Modul &amp; Repo</div>
-          </div>
-          <div>
-            <div class="text-3xl font-bold text-white tracking-tight">3+</div>
-            <div class="text-xs text-[#94a3b8] mt-1">HAKI Kemenkumham</div>
-          </div>
-          <div>
-            <div class="text-3xl font-bold text-white tracking-tight">99.9%</div>
-            <div class="text-xs text-[#94a3b8] mt-1">Target SLA</div>
-          </div>
-        </div>
+        <!-- Fakta Terverifikasi (tanpa kartu mengambang) -->
+        <dl class="mt-10 grid grid-cols-1 gap-4 border-t border-slate-800 pt-7 sm:grid-cols-3">
+          {#each hero.metrics as metric}
+            <div>
+              <dt class="font-mono-tech text-xs font-medium text-slate-400">{metric.label}</dt>
+              <dd class="mt-1 text-base font-bold text-white">{metric.value}</dd>
+              <dd class="mt-1 text-xs leading-snug text-slate-400">{metric.note}</dd>
+            </div>
+          {/each}
+        </dl>
       </div>
 
-      <!-- Right Column: Dark Dashboard Mockup Card matching FigCraft Hero Card Outer -->
-      <div class="lg:col-span-6" data-aos="fade-up" data-aos-delay="120">
-        <div class="rounded-3xl bg-[#0e222e] border border-white/10 p-5 sm:p-6 shadow-2xl">
-          <!-- Window Top Bar (#112a38) -->
-          <div class="rounded-xl bg-[#112a38] px-4 py-3 flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b]"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-[#10b981]"></span>
-            </div>
-            <span class="text-xs font-medium text-[#94a3b8]">PHI Integrasi Enterprise Platform</span>
-            <span class="w-8"></span>
-          </div>
-
-          <!-- 2 KPI Metric Boxes -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            <div class="rounded-2xl bg-[#0b1e29] border border-white/5 p-5">
-              <span class="mono-tag font-semibold text-[#10b981] text-[10px]">EFISIENSI BACKEND</span>
-              <div class="mt-2 text-3xl sm:text-4xl font-bold text-white tracking-tight">~12 MB</div>
-              <div class="mt-1.5 text-xs text-[#94a3b8]">RAM Rust Axum &amp; Svelte 5</div>
-            </div>
-            <div class="rounded-2xl bg-[#1d5bff] p-5 shadow-lg">
-              <span class="mono-tag font-semibold text-[#eef4ff] text-[10px]">UPTIME KLASTER</span>
-              <div class="mt-2 text-3xl sm:text-4xl font-bold text-white tracking-tight">99.99%</div>
-              <div class="mt-1.5 text-xs text-[#eef4ff]">Arsitektur High-Availability</div>
-            </div>
-          </div>
-
-          <!-- Integrated Systems Pipeline Box (#0b1e29) -->
-          <div class="rounded-2xl bg-[#0b1e29] border border-white/5 p-5 space-y-4">
-            <span class="mono-tag font-bold text-[#38bdf8] text-[11px] block">SISTEM TERINTEGRASI</span>
-
-            <div>
-              <div class="flex items-center justify-between text-xs mb-1.5">
-                <span class="font-medium text-white">EV Charging (OCPP 1.6) &amp; IoT</span>
-                <span class="font-semibold text-[#10b981]">Aktif</span>
-              </div>
-              <div class="h-1.5 w-full rounded-full bg-[#16303f] overflow-hidden">
-                <div class="h-full w-[82%] rounded-full bg-[#10b981]"></div>
-              </div>
+      <!-- Kolom Kanan: Interactive Architecture Spec Explorer (menggantikan fake dashboard) -->
+      {#if activeArch}
+        <div class="lg:col-span-6">
+          <div class="rounded-lg border border-slate-700 bg-[#0f172a]">
+            <!-- Tab Switcher Spesifikasi -->
+            <div class="flex flex-wrap border-b border-slate-700 bg-[#0d1424]" role="tablist" aria-label="Spesifikasi Arsitektur Sistem">
+              {#each hero.architectureTabs as tab, idx}
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={activeTabIndex === idx}
+                  onclick={() => (activeTabIndex = idx)}
+                  class="flex-1 border-r border-slate-800 px-4 py-3 text-left transition last:border-r-0 {activeTabIndex === idx
+                    ? 'bg-[#172542] text-white border-b-2 border-b-[#1d5bff]'
+                    : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'}"
+                >
+                  <span class="block font-mono-tech text-xs font-semibold text-[#60a5fa]">{tab.code}</span>
+                  <span class="mt-0.5 block text-xs font-medium leading-snug">{tab.title.split('(')[0].trim()}</span>
+                </button>
+              {/each}
             </div>
 
-            <div>
-              <div class="flex items-center justify-between text-xs mb-1.5">
-                <span class="font-medium text-white">SSO OAuth 2.1 + PKCE &amp; Microservices</span>
-                <span class="font-semibold text-[#10b981]">Optimal</span>
+            <!-- Konten Blueprint Arsitektur -->
+            <div class="p-5 sm:p-6">
+              <div class="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
+                <div>
+                  <span class="font-mono-tech text-xs font-semibold text-[#60a5fa]">{activeArch.code} / BLUEPRINT</span>
+                  <h2 class="mt-1 text-lg font-bold text-white">{activeArch.title}</h2>
+                </div>
               </div>
-              <div class="h-1.5 w-full rounded-full bg-[#16303f] overflow-hidden">
-                <div class="h-full w-[90%] rounded-full bg-[#1d5bff]"></div>
-              </div>
-            </div>
 
-            <div>
-              <div class="flex items-center justify-between text-xs mb-1.5">
-                <span class="font-medium text-white">KTP OCR On-Premise &amp; AI Lokal</span>
-                <span class="font-semibold text-[#10b981]">UU PDP Safe</span>
+              <p class="mt-4 text-sm leading-relaxed text-slate-300">
+                {activeArch.summary}
+              </p>
+
+              <!-- Alur Sistem Nyata -->
+              <div class="mt-5 space-y-3">
+                <div class="rounded-md border border-slate-800 bg-[#0b1220] p-3.5">
+                  <div class="font-mono-tech text-xs font-semibold uppercase tracking-wide text-slate-400">
+                    Input / Perangkat / Sumber
+                  </div>
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    {#each activeArch.sourceNodes as node}
+                      <span class="rounded border border-slate-700 bg-slate-900 px-2.5 py-1 font-mono-tech text-xs text-slate-200">
+                        {node}
+                      </span>
+                    {/each}
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 pl-2 font-mono-tech text-xs text-[#60a5fa]">
+                  <span>v</span>
+                  <span>Lapisan Integrasi & Pemrosesan</span>
+                </div>
+
+                <div class="rounded-md border border-[#1d5bff]/60 bg-[#132244] p-3.5">
+                  <div class="text-sm font-semibold text-white">
+                    {activeArch.gatewayLabel}
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 pl-2 font-mono-tech text-xs text-[#34d399]">
+                  <span>v</span>
+                  <span>Output Produksi</span>
+                </div>
+
+                <div class="rounded-md border border-slate-800 bg-[#0b1220] p-3.5">
+                  <div class="flex flex-wrap gap-2">
+                    {#each activeArch.targetNodes as target}
+                      <span class="rounded border border-emerald-800/70 bg-emerald-950/60 px-2.5 py-1 font-mono-tech text-xs text-emerald-300">
+                        {target}
+                      </span>
+                    {/each}
+                  </div>
+                </div>
               </div>
-              <div class="h-1.5 w-full rounded-full bg-[#16303f] overflow-hidden">
-                <div class="h-full w-[86%] rounded-full bg-[#10b981]"></div>
+
+              <div class="mt-5 border-t border-slate-800 pt-4">
+                <span class="font-mono-tech text-xs font-semibold uppercase text-slate-400">Deliverables: </span>
+                <span class="text-xs leading-relaxed text-slate-300">{activeArch.deliverables}</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      {/if}
     </div>
   </div>
 </section>
-
-<!-- Client & Ecosystem Trust Strip (#FFFFFF) -->
-<div class="bg-white border-b border-slate-200/80 py-9">
-  <div class="container-wn">
-    <p class="text-center text-[11px] font-bold tracking-[0.14em] uppercase text-[#475569] mb-6">
-      DIPERCAYA &amp; BERKOLABORASI DALAM EKOSISTEM TEKNOLOGI INDONESIA
-    </p>
-    <div class="flex flex-wrap items-center justify-center sm:justify-between gap-8 text-[#64748b]">
-      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">TELKOM UNIVERSITY</span>
-      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">CoE SMART EV</span>
-      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">PT COMPNET</span>
-      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">PuTI CORE</span>
-      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">FIT TEL-U</span>
-      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">HARDTECH</span>
-    </div>
-  </div>
-</div>

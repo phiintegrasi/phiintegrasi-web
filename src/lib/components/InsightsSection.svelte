@@ -1,62 +1,55 @@
 <script>
   let { insights } = $props();
 
-  const cards = $derived([
-    {
-      tag: insights.left.tag,
-      title: insights.left.title,
-      meta: "12 Nov 2026  ·  Rust & Svelte 5",
-      url: insights.left.repoUrl
-    },
-    {
-      tag: insights.featured.tag,
-      title: insights.featured.title,
-      meta: "05 Nov 2026  ·  PaddleOCR-VL",
-      url: insights.featured.repoUrl
-    },
-    {
-      tag: insights.right.tag,
-      title: insights.right.title,
-      meta: "28 Okt 2026  ·  OCPP 1.6 JSON",
-      url: insights.right.repoUrl
-    }
-  ]);
+  let entries = $derived([
+    insights.left,
+    insights.featured,
+    insights.right
+  ].filter(Boolean));
 </script>
 
-<section id="wawasan" class="bg-white py-20 lg:py-24">
-  <div class="container-wn">
-    <div class="max-w-2xl mb-12" data-aos="fade-up">
-      <div class="eyebrow-wn mb-3">
-        <span class="eyebrow-dot" aria-hidden="true"></span>
-        <span>INSIGHT &amp; ARTIKEL</span>
+<section id="repositori" class="border-t border-[#d0d7de] bg-[#f6f8fa] py-16 sm:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-between gap-4 border-b border-[#d0d7de] pb-6 md:flex-row md:items-end">
+      <div>
+        <span class="section-label">§ 05 / Artefak & Repositori Open-Source</span>
+        <h2 class="mt-2 text-2xl font-bold tracking-tight text-[#0b1220] sm:text-3xl">
+          Implementasi Kode & Catatan Teknis
+        </h2>
       </div>
-      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.15] text-[#0f172a]">
-        Wawasan Terbaru Seputar <span class="text-[#1d5bff]">AI &amp; Cloud</span>
-      </h2>
-      <p class="mt-3 text-sm sm:text-base text-[#475569] leading-relaxed">
+      <p class="max-w-xl text-sm leading-relaxed text-slate-600">
         {insights.subtitle}
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="80">
-      {#each cards as c}
-        <a
-          href={c.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group rounded-2xl bg-white border border-slate-200/80 p-7 flex flex-col justify-between hover:border-[#1d5bff]/50 hover:shadow-md transition-all min-h-[215px]"
-        >
-          <div>
-            <span class="mono-tag font-bold text-[#1d5bff]">{c.tag}</span>
-            <h3 class="mt-3 text-lg font-bold text-[#0f172a] leading-snug group-hover:text-[#1d5bff] transition-colors">
-              {c.title}
+    <!-- Tabel / Ledger Repositori Nyata (tanpa tanggal blog fiktif) -->
+    <div class="mt-8 divide-y divide-[#d0d7de] rounded-lg border border-[#d0d7de] bg-white">
+      {#each entries as item}
+        <article class="grid items-center gap-4 px-6 py-5 transition hover:bg-slate-50 md:grid-cols-12">
+          <div class="md:col-span-2">
+            <span class="inline-block rounded border border-[#d0d7de] bg-[#f6f8fa] px-2.5 py-1 font-mono-tech text-xs font-semibold text-[#1d5bff]">
+              {item.tag}
+            </span>
+          </div>
+          <div class="md:col-span-7">
+            <h3 class="text-base font-bold leading-snug text-[#0b1220]">
+              {item.title}
             </h3>
+            <p class="mt-1 font-mono-tech text-xs text-slate-500">
+              {item.repoUrl.replace('https://', '')}
+            </p>
           </div>
-          <div class="mt-6 flex items-center justify-between text-xs text-[#475569]">
-            <span>{c.meta}</span>
-            <span class="font-bold text-[#1d5bff]">Buka Repo ↗</span>
+          <div class="md:col-span-3 md:text-right">
+            <a
+              href={item.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-md border border-[#d0d7de] bg-white px-3.5 py-2 font-mono-tech text-xs font-semibold text-[#0b1220] transition hover:border-[#1d5bff] hover:text-[#1d5bff]"
+            >
+              Lihat Repositori -&gt;
+            </a>
           </div>
-        </a>
+        </article>
       {/each}
     </div>
   </div>
