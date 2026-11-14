@@ -28,7 +28,7 @@
     role="dialog"
     aria-modal="true"
     tabindex="-1"
-    aria-label="Jadwalkan Diskusi Teknis"
+    aria-label="Ceritakan Proyek Anda"
     transition:fade={{ duration: 120 }}
     onkeydown={(e) => {
       if (e.key === 'Escape') onClose();
@@ -37,24 +37,21 @@
       if (e.target === e.currentTarget) onClose();
     }}
   >
-    <div class="w-full max-w-lg rounded-lg border border-[#d0d7de] bg-white p-6 text-[#0b1220] shadow-xl sm:p-8">
-      <div class="flex items-center justify-between gap-4 border-b border-[#d0d7de] pb-4">
-        <div>
-          <span class="font-mono-tech text-xs font-semibold uppercase text-[#1d5bff]">Diskusi Teknis</span>
-          <h3 class="mt-0.5 text-lg font-bold text-[#0b1220]">Kirim Ringkasan Kebutuhan</h3>
-        </div>
+    <div class="w-full max-w-lg rounded-md border border-[#dcd8cf] bg-white p-6 text-[#16181d] shadow-xl sm:p-8">
+      <div class="flex items-center justify-between gap-4 border-b border-[#dcd8cf] pb-4">
+        <h3 class="text-lg font-bold text-[#16181d]">Ceritakan proyek Anda</h3>
         <button
           type="button"
           onclick={onClose}
-          class="rounded-md border border-[#d0d7de] px-3 py-1.5 font-mono-tech text-xs font-medium text-slate-700 hover:bg-slate-50"
+          class="rounded-md border border-[#dcd8cf] px-3 py-1.5 text-xs font-medium text-[#4a4f59] hover:bg-[#f5f3ee]"
         >
-          Tutup [Esc]
+          Tutup
         </button>
       </div>
 
       <form onsubmit={handleSubmit} class="mt-5 space-y-4">
         <div>
-          <label for="consult-name" class="block text-xs font-semibold text-[#0b1220]">
+          <label for="consult-name" class="block text-sm font-semibold text-[#16181d]">
             Nama & Perusahaan / Institusi
           </label>
           <input
@@ -62,12 +59,12 @@
             type="text"
             bind:value={name}
             placeholder="Contoh: Budi Santoso - PT Maju Jaya"
-            class="mt-1.5 w-full rounded-md border border-[#d0d7de] bg-[#f6f8fa] px-3.5 py-2.5 text-sm text-[#0b1220] focus:border-[#1d5bff] focus:bg-white focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-[#dcd8cf] bg-[#f5f3ee] px-3.5 py-2.5 text-sm text-[#16181d] focus:border-[#c2410c] focus:bg-white focus:outline-none"
           />
         </div>
 
         <div>
-          <label for="consult-email" class="block text-xs font-semibold text-[#0b1220]">
+          <label for="consult-email" class="block text-sm font-semibold text-[#16181d]">
             Email Kerja
           </label>
           <input
@@ -75,25 +72,25 @@
             type="email"
             bind:value={workEmail}
             placeholder="nama@perusahaan.co.id"
-            class="mt-1.5 w-full rounded-md border border-[#d0d7de] bg-[#f6f8fa] px-3.5 py-2.5 text-sm text-[#0b1220] focus:border-[#1d5bff] focus:bg-white focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-[#dcd8cf] bg-[#f5f3ee] px-3.5 py-2.5 text-sm text-[#16181d] focus:border-[#c2410c] focus:bg-white focus:outline-none"
           />
         </div>
 
         <div>
-          <label for="consult-brief" class="block text-xs font-semibold text-[#0b1220]">
-            Ruang Lingkup Teknis (Backend, Jaringan HA, EV/OCPP, atau IoT)
+          <label for="consult-brief" class="block text-sm font-semibold text-[#16181d]">
+            Ringkasan Kebutuhan (Software, Hardware/IoT, AI, atau Jaringan)
           </label>
           <textarea
             id="consult-brief"
             rows="4"
             bind:value={projectBrief}
-            placeholder="Jelaskan target sistem, integrasi API, atau kendala infrastruktur yang ingin diselesaikan..."
-            class="mt-1.5 w-full rounded-md border border-[#d0d7de] bg-[#f6f8fa] px-3.5 py-2.5 text-sm text-[#0b1220] focus:border-[#1d5bff] focus:bg-white focus:outline-none"
+            placeholder="Apa yang ingin dibangun, apa yang sudah ada, dan kapan target mulainya..."
+            class="mt-1.5 w-full rounded-md border border-[#dcd8cf] bg-[#f5f3ee] px-3.5 py-2.5 text-sm text-[#16181d] focus:border-[#c2410c] focus:bg-white focus:outline-none"
           ></textarea>
         </div>
 
         {#if statusMsg}
-          <p class="rounded-md border border-slate-200 bg-[#f6f8fa] px-3.5 py-2.5 text-xs font-medium text-slate-700">
+          <p class="rounded-md border border-[#dcd8cf] bg-[#f5f3ee] px-3.5 py-2.5 text-xs font-medium text-[#16181d]">
             {statusMsg}
           </p>
         {/if}
@@ -102,11 +99,11 @@
           <button
             type="button"
             onclick={onClose}
-            class="rounded-md border border-[#d0d7de] px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+            class="rounded-md border border-[#dcd8cf] px-4 py-2 text-sm font-semibold text-[#4a4f59] hover:bg-[#f5f3ee]"
           >
             Batal
           </button>
-          <button type="submit" class="btn-primary px-5 py-2 text-xs sm:text-sm">
+          <button type="submit" class="btn-primary px-5 py-2 text-sm">
             Buka Draf Email
           </button>
         </div>

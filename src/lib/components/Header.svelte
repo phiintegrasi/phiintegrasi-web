@@ -7,75 +7,52 @@
     (typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('edit'));
 
   const navLinks = [
-    { href: '#kapabilitas', label: 'Kapabilitas' },
-    { href: '#tolok-ukur', label: 'Tolok Ukur' },
-    { href: '#studi-kasus', label: 'Portofolio' },
-    { href: '#profil', label: 'Profil & HAKI' },
-    { href: '#metodologi', label: 'Metodologi' },
-    { href: '#repositori', label: 'Repositori' }
+    { href: '#layanan', label: 'Layanan' },
+    { href: '#proyek', label: 'Proyek' },
+    { href: '#tim', label: 'Tim' },
+    { href: '#kontak', label: 'Kontak' }
   ];
-
-  function closeMobile() {
-    mobileMenuOpen = false;
-  }
 </script>
 
-<header class="sticky top-0 z-40 border-b border-[#d0d7de] bg-white">
-  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-    <a href="#top" class="flex items-center gap-2.5 text-[#0b1220] transition hover:opacity-85">
-      <span class="flex h-8 w-8 items-center justify-center rounded-md bg-[#0b1220] font-mono-tech text-xs font-bold tracking-tight text-white">
-        PHI
-      </span>
-      <div class="leading-none">
-        <span class="block text-sm font-bold tracking-tight text-[#0b1220]">
-          {brand.companyName}
-        </span>
-        <span class="block font-mono-tech text-[11px] text-slate-500">
-          {brand.domain}
-        </span>
-      </div>
+<header class="sticky top-0 z-40 border-b border-[#dcd8cf] bg-white">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+    <a href="#top" class="text-[17px] font-bold tracking-tight text-[#16181d]">
+      PHI Integrasi
     </a>
 
-    <nav aria-label="Navigasi utama" class="hidden items-center gap-6 lg:flex">
+    <nav aria-label="Navigasi utama" class="hidden items-center gap-8 md:flex">
       {#each navLinks as link}
-        <a
-          href={link.href}
-          class="text-sm font-medium text-slate-700 transition hover:text-[#1d5bff]"
-        >
+        <a href={link.href} class="text-[15px] text-[#4a4f59] transition hover:text-[#16181d]">
           {link.label}
         </a>
       {/each}
     </nav>
 
-    <div class="flex items-center gap-2.5">
+    <div class="flex items-center gap-3">
       {#if editorEnabled}
-      <button
-        type="button"
-        onclick={onOpenEditor}
-        class="hidden rounded-md border border-[#d0d7de] bg-white px-3 py-1.5 font-mono-tech text-xs font-medium text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 sm:inline-flex"
-      >
-        Editor Data
-      </button>
+        <button
+          type="button"
+          onclick={onOpenEditor}
+          class="hidden rounded-md border border-[#dcd8cf] px-3 py-1.5 text-sm text-[#4a4f59] hover:bg-[#f5f3ee] sm:inline-flex"
+        >
+          Editor
+        </button>
       {/if}
-      <button
-        type="button"
-        onclick={onOpenConsult}
-        class="btn-primary px-4 py-2 text-xs sm:text-sm"
-      >
-        Diskusi Teknis
+      <button type="button" onclick={onOpenConsult} class="btn-primary px-4 py-2 text-sm">
+        Hubungi kami
       </button>
       <button
         type="button"
         onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
         aria-label={mobileMenuOpen ? 'Tutup menu' : 'Buka menu'}
         aria-expanded={mobileMenuOpen}
-        class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-[#d0d7de] text-slate-700 lg:hidden"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-md text-[#16181d] md:hidden"
       >
         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           {#if mobileMenuOpen}
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           {:else}
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
           {/if}
         </svg>
       </button>
@@ -83,30 +60,28 @@
   </div>
 
   {#if mobileMenuOpen}
-    <div class="border-t border-[#d0d7de] bg-white px-4 py-3 lg:hidden">
-      <nav class="flex flex-col gap-1.5">
-        {#each navLinks as link}
-          <a
-            href={link.href}
-            onclick={closeMobile}
-            class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
-          >
-            {link.label}
-          </a>
-        {/each}
-        {#if editorEnabled}
+    <nav class="border-t border-[#dcd8cf] bg-white px-5 py-2 md:hidden">
+      {#each navLinks as link}
+        <a
+          href={link.href}
+          onclick={() => (mobileMenuOpen = false)}
+          class="block py-3 text-base text-[#16181d]"
+        >
+          {link.label}
+        </a>
+      {/each}
+      {#if editorEnabled}
         <button
           type="button"
           onclick={() => {
-            closeMobile();
+            mobileMenuOpen = false;
             onOpenEditor();
           }}
-          class="mt-1 rounded-md border border-[#d0d7de] px-3 py-2 text-left font-mono-tech text-xs font-medium text-slate-700"
+          class="block py-3 text-left text-base text-[#4a4f59]"
         >
-          Editor Data
+          Editor
         </button>
-        {/if}
-      </nav>
-    </div>
+      {/if}
+    </nav>
   {/if}
 </header>

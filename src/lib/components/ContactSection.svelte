@@ -1,88 +1,57 @@
 <script>
-  let { brand, contact, onOpenConsult } = $props();
+  let { brand, contact, methodology, onOpenConsult } = $props();
+  const waNumber = $derived(contact.phonePlaceholder.replace(/[^0-9]/g, ''));
 </script>
 
-<section id="kontak" class="border-t border-slate-800 bg-[#0b1220] bg-tech-grid py-16 text-white sm:py-20">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid items-start gap-10 lg:grid-cols-12">
-      <div class="lg:col-span-7">
-        <span class="font-mono-tech text-xs font-semibold uppercase tracking-wider text-[#60a5fa]">
-          {contact.sectionCode} / Konsultasi Arsitektur
-        </span>
-        <h2 class="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-          {contact.title}
-        </h2>
-        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
-          {contact.subtitle}
-        </p>
+<section id="kontak" class="bg-[#16181d] text-white">
+  <div class="mx-auto grid max-w-6xl gap-14 px-5 py-16 sm:px-8 lg:grid-cols-2 lg:py-24">
+    <div>
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Ceritakan sistem yang ingin Anda bangun</h2>
+      <p class="mt-5 max-w-lg text-[17px] leading-relaxed text-[#c9ccd3]">
+        Cukup beberapa kalimat: apa yang ingin dicapai, apa yang sudah ada, dan kapan dibutuhkan. Kami balas dengan
+        pertanyaan lanjutan atau perkiraan awal.
+      </p>
+      <button type="button" onclick={onOpenConsult} class="btn-primary mt-8 px-5 py-3 text-[15px]">
+        Tulis ringkasan proyek
+      </button>
 
-        <div class="mt-7 flex flex-wrap items-center gap-3">
-          <button type="button" onclick={onOpenConsult} class="btn-primary px-5 py-3 text-sm">
-            Kirim Ringkasan Proyek
-          </button>
-          <a
-            href={contact.githubOrgUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-secondary-dark px-5 py-3 text-sm"
-          >
-            github.com/phiintegrasi -&gt;
-          </a>
+      <dl class="mt-10 space-y-4 text-[15px]">
+        <div>
+          <dt class="text-[#9ca1ab]">Email</dt>
+          <dd class="mt-0.5"><a href="mailto:{contact.email}" class="font-semibold text-white underline underline-offset-4 hover:text-[#fdba74]">{contact.email}</a></dd>
         </div>
-      </div>
+        <div>
+          <dt class="text-[#9ca1ab]">WhatsApp</dt>
+          <dd class="mt-0.5"><a href="https://wa.me/{waNumber}" target="_blank" rel="noopener noreferrer" class="font-semibold text-white underline underline-offset-4 hover:text-[#fdba74]">{contact.phonePlaceholder}</a></dd>
+        </div>
+        <div>
+          <dt class="text-[#9ca1ab]">Lokasi</dt>
+          <dd class="mt-0.5 text-[#e4e6ea]">{contact.addressPlaceholder}</dd>
+          <dd class="mt-0.5 text-[#9ca1ab]">{contact.workingHours}</dd>
+        </div>
+      </dl>
+    </div>
 
-      <!-- Spesifikasi Kontak Langsung -->
-      <div class="rounded-lg border border-slate-700 bg-[#0f172a] p-6 lg:col-span-5">
-        <h3 class="font-mono-tech text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Kanal Resmi
-        </h3>
-        <dl class="mt-4 space-y-4 text-sm">
-          <div>
-            <dt class="font-mono-tech text-xs text-slate-400">Email Teknis</dt>
-            <dd class="mt-0.5 font-medium text-white">
-              <a href="mailto:{contact.email}" class="hover:text-[#60a5fa] hover:underline">{contact.email}</a>
-              <span class="mx-2 text-slate-600">/</span>
-              <a href="mailto:{contact.secondaryEmail}" class="hover:text-[#60a5fa] hover:underline">{contact.secondaryEmail}</a>
-            </dd>
-          </div>
-          <div>
-            <dt class="font-mono-tech text-xs text-slate-400">Telepon / WhatsApp</dt>
-            <dd class="mt-0.5 font-mono-tech font-medium text-white">{contact.phonePlaceholder}</dd>
-          </div>
-          <div>
-            <dt class="font-mono-tech text-xs text-slate-400">Lokasi & Jam Operasional</dt>
-            <dd class="mt-0.5 text-slate-300">{contact.addressPlaceholder}</dd>
-            <dd class="mt-0.5 font-mono-tech text-xs text-slate-400">{contact.workingHours}</dd>
-          </div>
-        </dl>
-      </div>
+    <div class="lg:border-l lg:border-[#33363d] lg:pl-14">
+      <h3 class="text-lg font-bold">Setelah Anda menghubungi kami</h3>
+      <ol class="mt-6 space-y-6">
+        {#each methodology.phases as phase, idx}
+          <li class="grid grid-cols-[2rem_1fr] gap-3">
+            <span class="text-lg font-bold text-[#9ca1ab]">{idx + 1}</span>
+            <div>
+              <p class="font-semibold text-white">{phase.name}</p>
+              <p class="mt-1 text-sm text-[#9ca1ab]">{phase.duration}</p>
+            </div>
+          </li>
+        {/each}
+      </ol>
     </div>
   </div>
 </section>
 
-<footer class="border-t border-slate-800 bg-[#080d18] py-10 text-slate-400">
-  <div class="mx-auto flex max-w-7xl flex-col justify-between gap-8 px-4 sm:px-6 md:flex-row lg:px-8">
-    <div class="max-w-md space-y-2">
-      <div class="flex items-center gap-2 text-white">
-        <span class="flex h-6 w-6 items-center justify-center rounded bg-[#1d5bff] font-mono-tech text-xs font-bold text-white">
-          PHI
-        </span>
-        <span class="text-sm font-bold">{brand.companyName} ({brand.domain})</span>
-      </div>
-      <p class="text-xs leading-relaxed text-slate-400">
-        {brand.registrationNumber} · {brand.city}
-      </p>
-    </div>
-
-    <div class="flex flex-wrap gap-x-8 gap-y-3 text-xs">
-      <a href="#kapabilitas" class="hover:text-white">Kapabilitas</a>
-      <a href="#tolok-ukur" class="hover:text-white">Tolok Ukur</a>
-      <a href="#studi-kasus" class="hover:text-white">Portofolio</a>
-      <a href="#profil" class="hover:text-white">Profil & HAKI</a>
-      <a href="#repositori" class="hover:text-white">Repositori</a>
-      <a href={brand.githubOrgUrl} target="_blank" rel="noopener noreferrer" class="font-mono-tech text-[#60a5fa] hover:underline">
-        GitHub Org
-      </a>
-    </div>
+<footer class="border-t border-[#33363d] bg-[#16181d] text-[#9ca1ab]">
+  <div class="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-8 text-sm sm:px-8 md:flex-row md:items-center md:justify-between">
+    <p>{brand.companyName} · {brand.city}</p>
+    <a href={brand.githubOrgUrl} target="_blank" rel="noopener noreferrer" class="hover:text-white">github.com/phiintegrasi</a>
   </div>
 </footer>
