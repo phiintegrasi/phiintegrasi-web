@@ -1,56 +1,55 @@
 <script>
-  let { hero } = $props();
+  let { brand } = $props();
+
+  const trustCards = [
+    {
+      val: "55+",
+      title: "Modul & Repositori Aktif",
+      desc: "Kode teruji dari kolaborasi rekayasa dan riset di ekosistem github.com/phiintegrasi."
+    },
+    {
+      val: "3+ HAKI",
+      title: "Terdaftar Kemenkumham RI",
+      desc: "Kekayaan intelektual resmi untuk sistem SPKLU KedaiCas & simulator kendaraan listrik."
+    },
+    {
+      val: "~12 MB",
+      title: "Konsumsi RAM Backend",
+      desc: "Efisiensi server ekstrem dengan Rust Axum, Svelte 5, serta installer desktop Tauri 1-2 MB."
+    },
+    {
+      val: "24/7",
+      title: "Pemantauan & Reliabilitas",
+      desc: "Klaster database HA Patroni PostgreSQL, isolasi CI/CD, Zabbix & Uptime Kuma."
+    }
+  ];
 </script>
 
-<section class="band-light section-fc" aria-label="Visi dan Metrik Utama">
-  <!-- Subtle Diagonal Architectural Stripes matching FigCraft Vision BG -->
-  <svg
-    class="pointer-events-none absolute inset-0 w-full h-full opacity-20"
-    viewBox="0 0 1440 780"
-    fill="none"
-    preserveAspectRatio="none"
-    aria-hidden="true"
-  >
-    {#each [-200, 0, 200, 400, 600, 800, 1000, 1200] as xPos}
-      <line x1={xPos} y1="780" x2={xPos + 520} y2="0" stroke="#ffffff" stroke-width="40" stroke-opacity="0.38" />
-    {/each}
-  </svg>
-
-  <!-- Floating Torus -->
-  <div
-    class="fc-torus hidden sm:block"
-    style="width: 68px; height: 48px; top: 48px; left: 50%; transform: translateX(-50%) rotate(12deg); border-width: 11px;"
-    aria-hidden="true"
-  ></div>
-
-  <div class="container-fc pt-10 pb-6" data-aos="fade-up">
-    <h2 class="vision-statement">
-      <span>Kami percaya bahwa </span>
-      <em class="vision-italic">teknologi</em>
-      <br class="hidden sm:inline" />
-      <span>dapat </span>
-      <span class="vision-outline">mengubah</span>
-      <span> operasional Anda.</span>
-    </h2>
-
-    <p class="mt-8 mx-auto max-w-2xl text-center text-sm sm:text-base leading-relaxed text-[#4a4d65]">
-      Itulah mengapa kami berkomitmen menghadirkan rekayasa sistem terintegrasi dari level perangkat keras IoT/EV,
-      jaringan enterprise, hingga arsitektur perangkat lunak modern yang efisien dan terukur bagi institusi serta korporasi.
-    </p>
-
-    <div class="stats-fc-grid">
-      <div class="stat-fc-item" data-aos="fade-up" data-aos-delay="50">
-        <div class="stat-fc-val">55+</div>
-        <div class="stat-fc-label">Repositori &amp; Modul Aktif</div>
+<section id="keunggulan" class="bg-white py-20 lg:py-24">
+  <div class="container-wn">
+    <div class="max-w-3xl mb-12" data-aos="fade-up">
+      <div class="eyebrow-wn mb-3">
+        <span class="eyebrow-dot" aria-hidden="true"></span>
+        <span>KEUNGGULAN PHI INTEGRASI</span>
       </div>
-      <div class="stat-fc-item" data-aos="fade-up" data-aos-delay="120">
-        <div class="stat-fc-val">3+</div>
-        <div class="stat-fc-label">HAKI Terdaftar Kemenkumham</div>
-      </div>
-      <div class="stat-fc-item" data-aos="fade-up" data-aos-delay="190">
-        <div class="stat-fc-val">99.9%</div>
-        <div class="stat-fc-label">Target SLA &amp; Uptime Klaster</div>
-      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-[2.65rem] font-bold tracking-tight leading-[1.15] text-[#0f172a]">
+        Mengembangkan Masa Depan
+        <span class="text-[#1d5bff]">Industri Anda</span>
+      </h2>
+      <p class="mt-4 text-sm sm:text-base text-[#475569] leading-relaxed">
+        Standar rekayasa perangkat lunak dan infrastruktur enterprise dengan pengalaman nyata di PT Nusantara Compnet Integrator,
+        Direktorat PuTI &amp; FIT Telkom University, serta CoE Smart EV.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" data-aos="fade-up" data-aos-delay="80">
+      {#each trustCards as card}
+        <article class="rounded-2xl bg-[#f4f7fb] p-7 border border-slate-200/60 hover:border-[#1d5bff]/40 transition-colors">
+          <div class="text-3xl sm:text-4xl font-bold text-[#1d5bff] tracking-tight">{card.val}</div>
+          <h3 class="mt-4 text-base font-bold text-[#0f172a]">{card.title}</h3>
+          <p class="mt-2 text-xs sm:text-sm text-[#475569] leading-relaxed">{card.desc}</p>
+        </article>
+      {/each}
     </div>
   </div>
 </section>

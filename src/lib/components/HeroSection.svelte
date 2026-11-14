@@ -1,120 +1,146 @@
 <script>
-  let { hero, whyChooseUs } = $props();
+  let { hero, onOpenConsult } = $props();
 </script>
 
-<section id="home" class="band-dark">
-  <!-- Background Wave Lines matching FigCraft Hero Wave 1..6 -->
-  <svg
-    class="pointer-events-none absolute inset-x-0 top-24 w-full h-[460px] opacity-25"
-    viewBox="0 0 1440 460"
-    fill="none"
-    preserveAspectRatio="none"
-    aria-hidden="true"
-  >
-    {#each [0, 18, 36, 54, 72, 90] as offset, i}
-      <path
-        d="M-40 {220 + offset} C 280 {110 + offset}, 520 {330 + offset}, 860 {200 + offset} C 1140 {95 + offset}, 1300 {270 + offset}, 1480 {175 + offset}"
-        stroke={i % 2 === 0 ? "#7ed6e8" : "#7d819a"}
-        stroke-width="1"
-        stroke-opacity={0.45 - i * 0.05}
-      />
-    {/each}
-  </svg>
-
-  <!-- Subtle Radial Ambient Glow -->
+<section id="home" class="relative overflow-hidden bg-[#071822] text-white py-16 lg:py-20">
+  <!-- Ambient Blue & Emerald Glows matching FigCraft Hero Glow 1 & 2 -->
   <div
-    class="pointer-events-none absolute top-[-120px] left-1/2 -translate-x-1/2 w-[820px] h-[520px] rounded-full opacity-25 blur-3xl"
-    style="background: radial-gradient(circle, rgba(126,214,232,0.35) 0%, rgba(20,19,38,0) 70%);"
+    class="pointer-events-none absolute -top-24 left-1/4 w-[480px] h-[480px] rounded-full opacity-20 blur-3xl"
+    style="background: #1d5bff;"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="pointer-events-none absolute -bottom-24 right-1/4 w-[340px] h-[340px] rounded-full opacity-15 blur-3xl"
+    style="background: #10b981;"
     aria-hidden="true"
   ></div>
 
-  <!-- 3D Floating Spheres & Torus -->
-  <div class="fc-sphere hidden md:block" style="width: 20px; height: 20px; top: 36px; right: 20%;" aria-hidden="true"></div>
-  <div class="fc-sphere hidden sm:block" style="width: 42px; height: 42px; top: 215px; left: 11%;" aria-hidden="true"></div>
-  <div class="fc-torus hidden md:block" style="width: 92px; height: 66px; top: 385px; right: 9%; transform: rotate(-18deg);" aria-hidden="true"></div>
-  <div class="fc-sphere hidden md:block" style="width: 22px; height: 22px; top: 535px; left: 26%;" aria-hidden="true"></div>
-
-  <div class="container-fc hero-fc">
-    <div data-aos="fade-up" data-aos-duration="700">
-      <h1 class="hero-fc-title">
-        <span class="hero-fc-title-cyan">MITRA TERBAIK</span>
-        <span>
-          <em class="hero-fc-title-italic">IT</em><span>ENTERPRISE</span>
+  <div class="container-wn">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Left Column: Copy, CTAs, 4 Inline Stats -->
+      <div class="lg:col-span-6" data-aos="fade-up">
+        <span class="mono-tag font-bold text-[#10b981] tracking-widest block mb-4">
+          PT PHI INTEGRASI INDONESIA
         </span>
-      </h1>
+        <h1 class="text-4xl sm:text-5xl lg:text-[3.35rem] font-bold tracking-tight leading-[1.1] text-white">
+          Mitra Solusi AI, Cloud, IoT &amp; Aplikasi Enterprise
+        </h1>
+        <p class="mt-5 text-base text-[#94a3b8] leading-relaxed max-w-xl">
+          {hero.subheadline}
+        </p>
 
-      <p class="hero-fc-sub">
-        {hero.subheadline}
-      </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3.5">
+          <button type="button" class="btn-emerald px-6 py-3.5" onclick={onOpenConsult}>
+            <span>Jadwalkan Konsultasi</span>
+            <span aria-hidden="true">→</span>
+          </button>
+          <a href="#portfolio" class="btn-dark-outline px-6 py-3.5">
+            Lihat Portofolio
+          </a>
+        </div>
 
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href="#layanan" class="btn-fc-outline-dark" style="min-width: 220px; padding: 0.95rem 1.85rem;">
-          <span>JELAJAHI SOLUSI</span>
-          <span aria-hidden="true">→</span>
-        </a>
-        <a
-          href="https://github.com/phiintegrasi"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-xs font-medium tracking-widest uppercase text-[#7ed6e8] hover:underline px-3 py-2"
-        >
-          github.com/phiintegrasi ↗
-        </a>
+        <!-- 4 Hero Stats -->
+        <div class="mt-12 pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div>
+            <div class="text-3xl font-bold text-white tracking-tight">8+</div>
+            <div class="text-xs text-[#94a3b8] mt-1">Tahun Kolaborasi</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-white tracking-tight">55+</div>
+            <div class="text-xs text-[#94a3b8] mt-1">Modul &amp; Repo</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-white tracking-tight">3+</div>
+            <div class="text-xs text-[#94a3b8] mt-1">HAKI Kemenkumham</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-white tracking-tight">99.9%</div>
+            <div class="text-xs text-[#94a3b8] mt-1">Target SLA</div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Why Choose Us? (4 Columns with Wireframe Geometric Icons) -->
-    <div class="mt-28 pt-10" id="keunggulan">
-      <div class="max-w-xl" data-aos="fade-up">
-        <h2 class="heading-fc-lg text-white">{whyChooseUs.title}</h2>
-        <p class="mt-3 text-sm text-[#7d819a]">{whyChooseUs.subtitle}</p>
-      </div>
-
-      <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        {#each whyChooseUs.items as item, idx}
-          <article class="group" data-aos="fade-up" data-aos-delay={80 * idx}>
-            <!-- Wireframe Geometric Vector Icon -->
-            <div class="mb-6 h-16 flex items-center text-[#7ed6e8] transition-transform duration-300 group-hover:-translate-y-1">
-              {#if idx === 0}
-                <!-- Wireframe Torus/Mesh -->
-                <svg width="68" height="62" viewBox="0 0 68 62" fill="none" stroke="currentColor" stroke-width="0.9">
-                  <ellipse cx="34" cy="31" rx="28" ry="18" stroke-opacity="0.7" />
-                  <ellipse cx="34" cy="31" rx="20" ry="25" stroke-opacity="0.55" transform="rotate(25 34 31)" />
-                  <ellipse cx="34" cy="31" rx="20" ry="25" stroke-opacity="0.55" transform="rotate(-25 34 31)" />
-                  <circle cx="34" cy="31" r="9" stroke-opacity="0.85" />
-                </svg>
-              {:else if idx === 1}
-                <!-- Wireframe Hourglass / Server Stack -->
-                <svg width="56" height="62" viewBox="0 0 56 62" fill="none" stroke="currentColor" stroke-width="0.9">
-                  <rect x="8" y="6" width="40" height="50" rx="4" stroke-opacity="0.55" />
-                  <path d="M12 10 L44 52 M44 10 L12 52" stroke-opacity="0.6" />
-                  <ellipse cx="28" cy="18" rx="14" ry="5" stroke-opacity="0.75" />
-                  <ellipse cx="28" cy="44" rx="14" ry="5" stroke-opacity="0.75" />
-                  <circle cx="28" cy="31" r="6" stroke-opacity="0.9" />
-                </svg>
-              {:else if idx === 2}
-                <!-- Wireframe Ribbon / Wave Architecture -->
-                <svg width="74" height="60" viewBox="0 0 74 60" fill="none" stroke="currentColor" stroke-width="0.9">
-                  <path d="M6 46 L24 12 L37 32 L50 12 L68 46 Z" stroke-opacity="0.65" />
-                  <path d="M12 46 L26 20 L37 37 L48 20 L62 46" stroke-opacity="0.5" />
-                  <path d="M18 46 L28 28 L37 42 L46 28 L56 46" stroke-opacity="0.4" />
-                  <line x1="6" y1="46" x2="68" y2="46" stroke-opacity="0.8" />
-                </svg>
-              {:else}
-                <!-- Wireframe Crystal / Network Sphere -->
-                <svg width="62" height="60" viewBox="0 0 62 60" fill="none" stroke="currentColor" stroke-width="0.9">
-                  <circle cx="31" cy="30" r="22" stroke-opacity="0.6" />
-                  <ellipse cx="31" cy="30" rx="22" ry="9" stroke-opacity="0.55" />
-                  <ellipse cx="31" cy="30" rx="9" ry="22" stroke-opacity="0.55" />
-                  <path d="M14 16 L48 44 M48 16 L14 44" stroke-opacity="0.5" />
-                </svg>
-              {/if}
+      <!-- Right Column: Dark Dashboard Mockup Card matching FigCraft Hero Card Outer -->
+      <div class="lg:col-span-6" data-aos="fade-up" data-aos-delay="120">
+        <div class="rounded-3xl bg-[#0e222e] border border-white/10 p-5 sm:p-6 shadow-2xl">
+          <!-- Window Top Bar (#112a38) -->
+          <div class="rounded-xl bg-[#112a38] px-4 py-3 flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b]"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#10b981]"></span>
             </div>
-            <h3 class="text-xl font-semibold text-white tracking-tight mb-3">{item.title}</h3>
-            <p class="text-sm leading-relaxed text-[#b4b7c9]">{item.desc}</p>
-          </article>
-        {/each}
+            <span class="text-xs font-medium text-[#94a3b8]">PHI Integrasi Enterprise Platform</span>
+            <span class="w-8"></span>
+          </div>
+
+          <!-- 2 KPI Metric Boxes -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div class="rounded-2xl bg-[#0b1e29] border border-white/5 p-5">
+              <span class="mono-tag font-semibold text-[#10b981] text-[10px]">EFISIENSI BACKEND</span>
+              <div class="mt-2 text-3xl sm:text-4xl font-bold text-white tracking-tight">~12 MB</div>
+              <div class="mt-1.5 text-xs text-[#94a3b8]">RAM Rust Axum &amp; Svelte 5</div>
+            </div>
+            <div class="rounded-2xl bg-[#1d5bff] p-5 shadow-lg">
+              <span class="mono-tag font-semibold text-[#eef4ff] text-[10px]">UPTIME KLASTER</span>
+              <div class="mt-2 text-3xl sm:text-4xl font-bold text-white tracking-tight">99.99%</div>
+              <div class="mt-1.5 text-xs text-[#eef4ff]">Arsitektur High-Availability</div>
+            </div>
+          </div>
+
+          <!-- Integrated Systems Pipeline Box (#0b1e29) -->
+          <div class="rounded-2xl bg-[#0b1e29] border border-white/5 p-5 space-y-4">
+            <span class="mono-tag font-bold text-[#38bdf8] text-[11px] block">SISTEM TERINTEGRASI</span>
+
+            <div>
+              <div class="flex items-center justify-between text-xs mb-1.5">
+                <span class="font-medium text-white">EV Charging (OCPP 1.6) &amp; IoT</span>
+                <span class="font-semibold text-[#10b981]">Aktif</span>
+              </div>
+              <div class="h-1.5 w-full rounded-full bg-[#16303f] overflow-hidden">
+                <div class="h-full w-[82%] rounded-full bg-[#10b981]"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs mb-1.5">
+                <span class="font-medium text-white">SSO OAuth 2.1 + PKCE &amp; Microservices</span>
+                <span class="font-semibold text-[#10b981]">Optimal</span>
+              </div>
+              <div class="h-1.5 w-full rounded-full bg-[#16303f] overflow-hidden">
+                <div class="h-full w-[90%] rounded-full bg-[#1d5bff]"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs mb-1.5">
+                <span class="font-medium text-white">KTP OCR On-Premise &amp; AI Lokal</span>
+                <span class="font-semibold text-[#10b981]">UU PDP Safe</span>
+              </div>
+              <div class="h-1.5 w-full rounded-full bg-[#16303f] overflow-hidden">
+                <div class="h-full w-[86%] rounded-full bg-[#10b981]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Client & Ecosystem Trust Strip (#FFFFFF) -->
+<div class="bg-white border-b border-slate-200/80 py-9">
+  <div class="container-wn">
+    <p class="text-center text-[11px] font-bold tracking-[0.14em] uppercase text-[#475569] mb-6">
+      DIPERCAYA &amp; BERKOLABORASI DALAM EKOSISTEM TEKNOLOGI INDONESIA
+    </p>
+    <div class="flex flex-wrap items-center justify-center sm:justify-between gap-8 text-[#64748b]">
+      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">TELKOM UNIVERSITY</span>
+      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">CoE SMART EV</span>
+      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">PT COMPNET</span>
+      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">PuTI CORE</span>
+      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">FIT TEL-U</span>
+      <span class="text-sm sm:text-base font-bold tracking-wider uppercase">HARDTECH</span>
+    </div>
+  </div>
+</div>

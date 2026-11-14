@@ -3,51 +3,76 @@
   let mobileMenuOpen = $state(false);
 
   const navLinks = [
-    { href: "#tentang-kami", label: "Tentang Kami" },
-    { href: "#layanan", label: "Layanan" },
-    { href: "#portfolio", label: "Portfolio" },
-    { href: "#metodologi", label: "Metodologi" },
-    { href: "#kontak", label: "Kontak" }
+    { href: "#layanan", label: "Solusi" },
+    { href: "#keunggulan", label: "Keunggulan" },
+    { href: "#portfolio", label: "Portofolio" },
+    { href: "#tentang-kami", label: "Tentang" },
+    { href: "#wawasan", label: "Insight" }
   ];
 </script>
 
-<header class="site-header">
-  <div class="container-fc header-inner">
-    <a href="#home" class="brand-wordmark" aria-label={brand.companyName}>
-      <span class="brand-wordmark-accent">PHI</span><span class="brand-wordmark-base">INTEGRASI</span>
+<!-- Top Utility Bar (#051118) -->
+<div class="bg-[#051118] text-xs py-2 border-b border-white/5">
+  <div class="container-wn flex flex-wrap items-center justify-between gap-2">
+    <span class="text-[#94a3b8]">
+      Mitra Transformasi Digital, IoT/EV &amp; Pengembangan Software Enterprise
+    </span>
+    <div class="flex items-center gap-4">
+      <a
+        href={brand.githubOrgUrl || "https://github.com/phiintegrasi"}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-[#94a3b8] hover:text-white transition-colors hidden sm:inline"
+      >
+        github.com/phiintegrasi ↗
+      </a>
+      <span class="font-semibold text-[#10b981]">3+ HAKI Kemenkumham RI</span>
+    </div>
+  </div>
+</div>
+
+<!-- White Sticky Navbar (#FFFFFF) -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80">
+  <div class="container-wn flex items-center justify-between gap-4 min-h-[74px]">
+    <a href="#home" class="inline-flex items-center gap-2.5" aria-label={brand.companyName}>
+      <span class="w-8 h-8 rounded-lg bg-[#1d5bff] text-white font-bold text-base flex items-center justify-center shadow-sm">
+        P
+      </span>
+      <span class="text-lg font-bold tracking-tight text-[#0f172a]">
+        PHI Integrasi<span class="text-[#1d5bff]">.com</span>
+      </span>
     </a>
 
-    <nav aria-label="Navigasi Utama">
-      <ul class="nav-list">
+    <nav aria-label="Navigasi Utama" class="hidden lg:block">
+      <ul class="flex items-center gap-8 list-none m-0 p-0">
         {#each navLinks as link}
           <li>
-            <a href={link.href} class="nav-link-fc">{link.label}</a>
+            <a
+              href={link.href}
+              class="text-sm font-medium text-[#475569] hover:text-[#1d5bff] transition-colors"
+            >
+              {link.label}
+            </a>
           </li>
         {/each}
       </ul>
     </nav>
 
-    <div class="header-actions">
+    <div class="flex items-center gap-2.5">
       <button
         type="button"
-        class="btn-fc-outline-dark hidden sm:inline-flex"
-        style="padding: 0.55rem 0.95rem; font-size: 0.7rem;"
+        class="hidden sm:inline-flex items-center justify-center px-3.5 h-[42px] rounded-[10px] bg-[#eef4ff] text-[#1d5bff] text-xs font-bold hover:bg-[#1d5bff] hover:text-white transition-colors cursor-pointer"
         onclick={onOpenEditor}
-        title="Buka Editor Template Data"
+        title="Buka Editor Data Situs"
       >
-        Editor Data
+        Editor
+      </button>
+      <button type="button" class="btn-emerald" onclick={onOpenConsult}>
+        Konsultasi Gratis
       </button>
       <button
         type="button"
-        class="btn-fc-outline-dark"
-        style="padding: 0.6rem 1.25rem;"
-        onclick={onOpenConsult}
-      >
-        Konsultasi
-      </button>
-      <button
-        type="button"
-        class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-white/20 text-white"
+        class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 text-[#0f172a]"
         aria-label="Menu Navigasi"
         onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
       >
@@ -63,11 +88,11 @@
   </div>
 
   {#if mobileMenuOpen}
-    <div class="md:hidden border-t border-white/10 bg-[#141326] px-6 py-4 space-y-3">
+    <div class="lg:hidden border-t border-slate-200 bg-white px-6 py-4 space-y-2">
       {#each navLinks as link}
         <a
           href={link.href}
-          class="block py-2 text-xs font-medium tracking-widest uppercase text-[#b4b7c9] hover:text-[#7ed6e8]"
+          class="block py-2 text-sm font-medium text-[#475569] hover:text-[#1d5bff]"
           onclick={() => (mobileMenuOpen = false)}
         >
           {link.label}
@@ -75,13 +100,13 @@
       {/each}
       <button
         type="button"
-        class="w-full btn-fc-outline-dark mt-2"
+        class="w-full mt-2 px-4 py-2.5 rounded-lg bg-[#eef4ff] text-[#1d5bff] text-xs font-bold"
         onclick={() => {
           mobileMenuOpen = false;
           onOpenEditor();
         }}
       >
-        Editor Data
+        Buka Editor Data
       </button>
     </div>
   {/if}

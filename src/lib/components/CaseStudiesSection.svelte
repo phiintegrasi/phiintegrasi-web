@@ -11,8 +11,8 @@
   let searchQuery = $state("");
   let selectedCase = $state(null);
 
-  const featuredLight = $derived(caseStudies.items[0]);
-  const featuredCyan = $derived(caseStudies.items[1]);
+  const featuredDark = $derived(caseStudies.items[0]);
+  const featuredWhite = $derived(caseStudies.items[1]);
 
   const filteredItems = $derived(
     caseStudies.items.filter((item) => {
@@ -25,97 +25,131 @@
   );
 </script>
 
-<section id="portfolio" class="band-dark section-fc">
-  <div class="container-fc">
-    <!-- Split Header matching FigCraft Projects -->
+<section id="portfolio" class="bg-[#f4f7fb] py-20 lg:py-24">
+  <div class="container-wn">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12" data-aos="fade-up">
-      <div class="lg:col-span-5">
-        <span class="mono-tag text-[#7ed6e8] block mb-2">{caseStudies.sectionCode} / KATALOG REPOSITORI NYATA</span>
-        <h2 class="heading-fc-lg text-white">Portfolio</h2>
+      <div class="lg:col-span-6">
+        <div class="eyebrow-wn mb-3">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          <span>SOROTAN PORTOFOLIO</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-[2.65rem] font-bold tracking-tight leading-[1.15] text-[#0f172a]">
+          Inovasi dalam <span class="text-[#1d5bff]">Aksi Nyata</span>
+        </h2>
       </div>
-      <div class="lg:col-span-7">
-        <p class="text-sm sm:text-base text-[#b4b7c9] leading-relaxed">
+      <div class="lg:col-span-6 lg:pl-8">
+        <p class="text-sm sm:text-base text-[#475569] leading-relaxed">
           {caseStudies.subtitle}
         </p>
       </div>
     </div>
 
-    <!-- 2 Featured Showcase Cards matching FigCraft (Light Card + Cyan Card) -->
-    {#if featuredLight && featuredCyan}
+    <!-- 2 Featured Side-by-Side Showcase Cards (Dark #071822 + White #FFFFFF) -->
+    {#if featuredDark && featuredWhite}
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-14" data-aos="fade-up" data-aos-delay="80">
-        <!-- Left Light Card (#F3F5FA) -->
-        <article class="project-card-light">
-          <div class="rounded-xl bg-[#1e2033] p-6 text-center text-white mb-6 relative overflow-hidden">
-            <span class="mono-tag text-[#7ed6e8] block mb-2">OCPP 1.6 WEBSOCKETS</span>
-            <div class="text-4xl sm:text-5xl font-bold tracking-tight">SPKLU</div>
-            <div class="text-xs text-[#b4b7c9] mt-2">Real-Time Central System &amp; CPO Dashboard</div>
+        <!-- Card 1: Dark #071822 -->
+        <article class="rounded-3xl bg-[#071822] p-8 sm:p-10 text-white flex flex-col justify-between shadow-xl">
+          <div>
+            <span class="inline-block px-3.5 py-1.5 rounded-full bg-[#1d5bff] text-white mono-tag font-bold text-[11px]">
+              EV &amp; SMART MOBILITY
+            </span>
+            <h3 class="mt-6 text-2xl sm:text-3xl font-bold leading-snug text-white">
+              {featuredDark.title}
+            </h3>
+            <p class="mt-3 text-sm text-[#94a3b8] leading-relaxed">
+              {featuredDark.summary}
+            </p>
           </div>
 
-          <div class="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <span class="text-xs font-semibold text-[#4a4d65]">2024 - 2025 · HAKI Kemenkumham</span>
-              <h3 class="text-2xl font-bold text-[#141326] mt-1">{featuredLight.title}</h3>
+          <div class="mt-8 space-y-6">
+            <div class="rounded-2xl bg-[#0e222e] p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <div class="text-xl font-bold text-[#10b981]">OCPP 1.6 JSON</div>
+                <div class="text-xs text-[#94a3b8] mt-1">WebSockets 2-Arah Real-Time</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold text-white">HAKI Resmi</div>
+                <div class="text-xs text-[#94a3b8] mt-1">Kemenkumham RI (2024-2025)</div>
+              </div>
             </div>
-            <div class="flex items-center gap-2">
+
+            <div class="flex flex-wrap items-center gap-4">
               <button
                 type="button"
-                class="btn-fc-solid-dark"
-                style="padding: 0.6rem 1.1rem; font-size: 0.72rem;"
-                onclick={() => (selectedCase = featuredLight)}
+                class="px-5 py-3 rounded-xl bg-white text-[#0f172a] text-xs font-bold hover:bg-[#eef4ff] transition-colors cursor-pointer"
+                onclick={() => (selectedCase = featuredDark)}
               >
-                Detail
+                Pelajari Studi Kasus →
               </button>
               <a
-                href={featuredLight.githubUrl}
+                href={featuredDark.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-xs font-semibold text-[#141326] underline px-2 py-1"
+                class="text-xs font-semibold text-[#38bdf8] hover:underline"
               >
-                GitHub ↗
+                Repositori GitHub ↗
               </a>
             </div>
           </div>
         </article>
 
-        <!-- Right Cyan Card (#95DCEB) -->
-        <article class="project-card-cyan text-center items-center justify-center">
-          <span class="mono-tag text-[#141326] font-semibold">APLIKASI WEB &amp; RUST BACKEND</span>
-          <h3 class="text-3xl sm:text-4xl font-bold text-[#141326] mt-3 leading-tight max-w-md">
-            FIT E-Office (Rust Axum)
-          </h3>
-          <p class="mt-3 text-sm text-[#141326]/85 max-w-md leading-relaxed">
-            {featuredCyan.summary}
-          </p>
-          <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
-            <button
-              type="button"
-              class="rounded-lg bg-white text-[#141326] px-6 py-3 text-xs font-bold tracking-widest uppercase hover:bg-[#141326] hover:text-white transition-colors cursor-pointer"
-              onclick={() => (selectedCase = featuredCyan)}
-            >
-              BACA SELENGKAPNYA
-            </button>
-            <a
-              href={featuredCyan.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="rounded-lg border border-[#141326]/40 text-[#141326] px-4 py-3 text-xs font-bold tracking-widest uppercase hover:bg-[#141326]/10 transition-colors"
-            >
-              GitHub ↗
-            </a>
+        <!-- Card 2: White #FFFFFF -->
+        <article class="rounded-3xl bg-white p-8 sm:p-10 text-[#0f172a] border border-slate-200/80 flex flex-col justify-between shadow-sm">
+          <div>
+            <span class="inline-block px-3.5 py-1.5 rounded-full bg-[#eef4ff] text-[#1d5bff] mono-tag font-bold text-[11px]">
+              WEB &amp; RUST BACKEND
+            </span>
+            <h3 class="mt-6 text-2xl sm:text-3xl font-bold leading-snug text-[#0f172a]">
+              {featuredWhite.title}
+            </h3>
+            <p class="mt-3 text-sm text-[#475569] leading-relaxed">
+              {featuredWhite.summary}
+            </p>
+          </div>
+
+          <div class="mt-8 space-y-6">
+            <div class="rounded-2xl bg-[#f4f7fb] p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <div class="text-xl font-bold text-[#1d5bff]">~12-18 MB RAM</div>
+                <div class="text-xs text-[#475569] mt-1">Single-Process Rust Serving</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold text-[#0f172a]">Svelte 5 + SQLx</div>
+                <div class="text-xs text-[#475569] mt-1">Notifikasi SMTP TLS Otomatis</div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                class="btn-blue"
+                onclick={() => (selectedCase = featuredWhite)}
+              >
+                Pelajari Studi Kasus →
+              </button>
+              <a
+                href={featuredWhite.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs font-semibold text-[#1d5bff] hover:underline"
+              >
+                Repositori GitHub ↗
+              </a>
+            </div>
           </div>
         </article>
       </div>
     {/if}
 
-    <!-- Filter & Search Bar for All 12 Active GitHub Projects -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pt-6 border-t border-white/10">
-      <div class="flex flex-wrap gap-2" role="group" aria-label="Filter Kategori Portfolio">
+    <!-- Filter Pills & Live Search for All 12 Active GitHub Projects -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pt-8 border-t border-slate-200">
+      <div class="flex flex-wrap gap-2" role="group" aria-label="Filter Kategori Portofolio">
         {#each categories as cat}
           <button
             type="button"
-            class="px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer border {activeCategory === cat
-              ? 'bg-[#7ed6e8] text-[#141326] border-[#7ed6e8]'
-              : 'bg-transparent text-[#b4b7c9] border-white/15 hover:border-[#7ed6e8] hover:text-white'}"
+            class="px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border {activeCategory === cat
+              ? 'bg-[#1d5bff] text-white border-[#1d5bff]'
+              : 'bg-white text-[#475569] border-slate-200 hover:border-[#1d5bff] hover:text-[#1d5bff]'}"
             onclick={() => (activeCategory = cat)}
           >
             {cat}
@@ -130,18 +164,18 @@
           type="search"
           bind:value={searchQuery}
           placeholder="Cari teknologi (Rust, OCPP, YOLO...)"
-          class="w-full rounded-lg bg-[#1b1a32] border border-white/15 px-4 py-2.5 text-sm text-white placeholder-[#7d819a] focus:border-[#7ed6e8] focus:outline-none"
+          class="w-full rounded-xl bg-white border border-slate-200 px-4 py-2.5 text-sm text-[#0f172a] placeholder-[#64748b] focus:border-[#1d5bff] focus:outline-none"
         />
       </div>
     </div>
 
     <!-- 12 Real Projects Grid -->
     {#if filteredItems.length === 0}
-      <div class="rounded-2xl bg-[#1b1a32] border border-white/10 p-10 text-center">
-        <p class="text-white font-semibold">Tidak ada proyek yang cocok dengan pencarian "{searchQuery}".</p>
+      <div class="rounded-2xl bg-white border border-slate-200 p-10 text-center">
+        <p class="text-[#0f172a] font-semibold">Tidak ada proyek yang cocok dengan pencarian "{searchQuery}".</p>
         <button
           type="button"
-          class="mt-4 btn-fc-outline-dark"
+          class="mt-4 btn-light-outline"
           onclick={() => {
             activeCategory = "Semua";
             searchQuery = "";
@@ -153,41 +187,41 @@
     {:else}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {#each filteredItems as item (item.id)}
-          <article class="project-card-dark">
+          <article class="rounded-2xl bg-white border border-slate-200/80 p-6 flex flex-col justify-between hover:border-[#1d5bff]/50 hover:shadow-md transition-all">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="mono-tag text-[#7ed6e8]">{item.code}</span>
-                <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-white/5 text-[#b4b7c9] border border-white/10">
+                <span class="mono-tag font-bold text-[#1d5bff]">{item.code}</span>
+                <span class="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#eef4ff] text-[#1d5bff]">
                   {item.sector}
                 </span>
               </div>
-              <h3 class="text-lg font-semibold text-white leading-snug">{item.title}</h3>
-              <p class="mt-2.5 text-xs sm:text-sm text-[#b4b7c9] leading-relaxed line-clamp-3">
+              <h3 class="text-lg font-bold text-[#0f172a] leading-snug">{item.title}</h3>
+              <p class="mt-2.5 text-xs sm:text-sm text-[#475569] leading-relaxed line-clamp-3">
                 {item.summary}
               </p>
 
               <div class="mt-4 flex flex-wrap gap-1.5">
                 {#each item.techStack.slice(0, 4) as tech}
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-[#141326] text-[#7d819a] border border-white/10">
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-[#f4f7fb] text-[#475569] border border-slate-200/80">
                     {tech}
                   </span>
                 {/each}
               </div>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
               <button
                 type="button"
-                class="text-xs font-semibold uppercase tracking-wider text-white hover:text-[#7ed6e8] transition-colors cursor-pointer"
+                class="text-xs font-bold text-[#0f172a] hover:text-[#1d5bff] transition-colors cursor-pointer"
                 onclick={() => (selectedCase = item)}
               >
-                Rincian Arsitektur →
+                Rincian Studi Kasus →
               </button>
               <a
                 href={item.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-xs font-semibold text-[#7ed6e8] hover:underline"
+                class="text-xs font-bold text-[#1d5bff] hover:underline"
               >
                 Kode GitHub ↗
               </a>
@@ -199,15 +233,15 @@
   </div>
 </section>
 
-<!-- Frame 3: Case Study Detail Modal matching FigCraft 03 - Case Study -->
+<!-- Frame 3: 03 - Studi Kasus Modal (#071822 Header + #F4F7FB Body + White Metric Cards + #10B981 CTA) -->
 {#if selectedCase}
   <div
-    class="modal-backdrop-fc"
+    class="modal-backdrop-wn"
     role="dialog"
     aria-modal="true"
     tabindex="-1"
     aria-label={selectedCase.title}
-    transition:fade={{ duration: 160 }}
+    transition:fade={{ duration: 150 }}
     onkeydown={(e) => {
       if (e.key === "Escape") selectedCase = null;
     }}
@@ -216,58 +250,55 @@
     }}
   >
     <div
-      class="w-full max-w-4xl rounded-3xl overflow-hidden bg-[#dfe2ee] text-[#141326] shadow-2xl"
+      class="w-full max-w-4xl rounded-3xl overflow-hidden bg-[#f4f7fb] text-[#0f172a] shadow-2xl border border-slate-200"
       transition:fly={{ y: 20, duration: 220 }}
     >
-      <!-- Cyan Header matching Case Header BG #95dceb -->
-      <div class="bg-[#95dceb] p-6 sm:p-10">
+      <!-- Dark Hero Header (#071822) -->
+      <div class="bg-[#071822] p-6 sm:p-10 text-white">
         <div class="flex items-center justify-between gap-4">
-          <span class="mono-tag font-bold text-[#141326]">PHI INTEGRASI CASE STUDY · {selectedCase.code}</span>
+          <span class="mono-tag font-bold text-[#10b981]">STUDI KASUS PHI INTEGRASI · {selectedCase.code}</span>
           <button
             type="button"
-            class="rounded-lg bg-white text-[#141326] px-4 py-2 text-xs font-bold tracking-wider uppercase hover:bg-[#141326] hover:text-white transition-colors cursor-pointer"
+            class="px-4 py-2 rounded-lg bg-[#0e222e] text-white text-xs font-bold hover:bg-[#1d5bff] transition-colors cursor-pointer"
             onclick={() => (selectedCase = null)}
           >
-            ← TUTUP
+            ← Tutup
           </button>
         </div>
 
-        <div class="mt-6">
-          <span class="mono-tag font-semibold text-[#141326]/80">{selectedCase.sector.toUpperCase()} · {selectedCase.clientPlaceholder}</span>
-          <h3 class="mt-2 text-2xl sm:text-4xl font-bold text-[#141326] leading-tight">
-            {selectedCase.title}
-          </h3>
-          <p class="mt-3 text-sm sm:text-base text-[#141326]/90 max-w-2xl leading-relaxed">
-            {selectedCase.summary}
-          </p>
-        </div>
+        <h3 class="mt-6 text-2xl sm:text-4xl font-bold text-white leading-tight">
+          {selectedCase.title}
+        </h3>
+        <p class="mt-3 text-sm sm:text-base text-[#94a3b8] max-w-2xl leading-relaxed">
+          {selectedCase.summary}
+        </p>
       </div>
 
-      <!-- Ice Mist Body matching #dfe2ee with White Metric Cards -->
+      <!-- Body (#F4F7FB) with 3 White Metric Cards (#1D5BFF values) -->
       <div class="p-6 sm:p-10 space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="rounded-2xl bg-white p-5">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#4a4d65]">Dampak Terukur</div>
-            <div class="mt-2 text-sm font-bold text-[#141326] leading-snug">{selectedCase.impactPlaceholder}</div>
+          <div class="rounded-2xl bg-white p-5 border border-slate-200/70">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#475569]">Dampak Terukur</div>
+            <div class="mt-2 text-base font-bold text-[#1d5bff] leading-snug">{selectedCase.impactPlaceholder}</div>
           </div>
-          <div class="rounded-2xl bg-white p-5">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#4a4d65]">Status &amp; Periode</div>
-            <div class="mt-2 text-sm font-bold text-[#141326] leading-snug">{selectedCase.durationPlaceholder}</div>
+          <div class="rounded-2xl bg-white p-5 border border-slate-200/70">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#475569]">Status &amp; Periode</div>
+            <div class="mt-2 text-base font-bold text-[#1d5bff] leading-snug">{selectedCase.durationPlaceholder}</div>
           </div>
-          <div class="rounded-2xl bg-white p-5">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#4a4d65]">Teknologi Inti</div>
-            <div class="mt-2 text-sm font-bold text-[#141326] leading-snug">{selectedCase.techStack.join(", ")}</div>
+          <div class="rounded-2xl bg-white p-5 border border-slate-200/70">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#475569]">Teknologi Inti</div>
+            <div class="mt-2 text-sm font-bold text-[#0f172a] leading-snug">{selectedCase.techStack.join(", ")}</div>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-2xl p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-2xl p-6 border border-slate-200/70">
           <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-[#4a4d65] mb-2">Tantangan Teknis</h4>
-            <p class="text-sm text-[#141326] leading-relaxed">{selectedCase.challenge}</p>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[#475569] mb-2">Tantangan Teknis</h4>
+            <p class="text-sm text-[#0f172a] leading-relaxed">{selectedCase.challenge}</p>
           </div>
           <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-[#4a4d65] mb-2">Solusi Arsitektur</h4>
-            <p class="text-sm text-[#141326] leading-relaxed">{selectedCase.architectureSolution}</p>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[#475569] mb-2">Solusi Arsitektur</h4>
+            <p class="text-sm text-[#0f172a] leading-relaxed">{selectedCase.architectureSolution}</p>
           </div>
         </div>
 
@@ -276,19 +307,19 @@
             href={selectedCase.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-fc-outline-light"
+            class="btn-light-outline"
           >
             Buka Repositori GitHub ↗
           </a>
           <button
             type="button"
-            class="btn-fc-solid-dark"
+            class="btn-emerald"
             onclick={() => {
               selectedCase = null;
               onOpenConsult();
             }}
           >
-            <span>MULAI PROYEK SERUPA</span>
+            <span>Diskusikan Proyek Serupa</span>
             <span aria-hidden="true">→</span>
           </button>
         </div>

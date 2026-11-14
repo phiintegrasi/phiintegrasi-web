@@ -1,60 +1,57 @@
 <script>
   import { slide } from "svelte/transition";
   let { methodology, onOpenConsult } = $props();
-  let openPhaseIdx = $state(2);
+  let openPhaseIdx = $state(0);
 </script>
 
-<section id="metodologi" class="band-dark section-fc border-t border-white/10">
-  <div class="container-fc">
+<section id="metodologi" class="bg-[#f4f7fb] py-20 lg:py-24 border-b border-slate-200/70">
+  <div class="container-wn">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-      <!-- Left Column matching FigCraft FAQ Heading + Sphere + Ask Question button -->
-      <div class="lg:col-span-5 relative" data-aos="fade-up">
-        <span class="mono-tag text-[#7ed6e8] block mb-2">{methodology.sectionCode} / METODOLOGI &amp; FAQ</span>
-        <h2 class="heading-fc-lg text-white">
-          Ada
-          <br />
-          Pertanyaan?
+      <div class="lg:col-span-5" data-aos="fade-up">
+        <div class="eyebrow-wn mb-3">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          <span>METODOLOGI &amp; SLA</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.15] text-[#0f172a]">
+          5 Fase Rekayasa <span class="text-[#1d5bff]">Terukur</span>
         </h2>
-        <p class="mt-4 text-sm text-[#b4b7c9] max-w-sm leading-relaxed">
+        <p class="mt-4 text-sm sm:text-base text-[#475569] leading-relaxed">
           {methodology.subtitle}
         </p>
 
-        <div class="fc-sphere hidden sm:block" style="width: 26px; height: 26px; right: 20%; top: 135px;" aria-hidden="true"></div>
-
-        <div class="mt-10">
-          <button type="button" class="btn-fc-outline-dark" onclick={onOpenConsult}>
-            <span>TANYA ARSITEK</span>
+        <div class="mt-8">
+          <button type="button" class="btn-blue" onclick={onOpenConsult}>
+            <span>Konsultasi Kebutuhan Proyek</span>
             <span aria-hidden="true">→</span>
           </button>
         </div>
       </div>
 
-      <!-- Right Column Accordion matching FigCraft FAQ 1..4 -->
-      <div class="lg:col-span-7" data-aos="fade-up" data-aos-delay="80">
+      <div class="lg:col-span-7 space-y-3" data-aos="fade-up" data-aos-delay="80">
         {#each methodology.phases as phase, idx}
           {@const isOpen = openPhaseIdx === idx}
-          <div class="faq-item-fc">
+          <div class="rounded-2xl bg-white border {isOpen ? 'border-[#1d5bff]/50 shadow-sm' : 'border-slate-200/80'} overflow-hidden transition-all">
             <button
               type="button"
-              class="faq-btn-fc {isOpen ? 'open' : ''}"
+              class="w-full px-6 py-5 flex items-center justify-between gap-4 text-left cursor-pointer"
               aria-expanded={isOpen}
               onclick={() => (openPhaseIdx = isOpen ? -1 : idx)}
             >
-              <span>
-                <span class="mono-tag text-[#7ed6e8] mr-3">{phase.step}</span>
+              <span class="text-sm sm:text-base font-bold {isOpen ? 'text-[#1d5bff]' : 'text-[#0f172a]'}">
+                <span class="mono-tag text-[#1d5bff] mr-3">{phase.step}</span>
                 {phase.name}
               </span>
-              <span class="text-2xl font-light shrink-0" aria-hidden="true">
+              <span class="text-xl font-bold text-[#1d5bff] shrink-0" aria-hidden="true">
                 {isOpen ? "−" : "+"}
               </span>
             </button>
 
             {#if isOpen}
-              <div class="mt-3 pr-8 text-sm text-[#b4b7c9] leading-relaxed space-y-2" transition:slide={{ duration: 180 }}>
+              <div class="px-6 pb-5 text-sm text-[#475569] leading-relaxed space-y-2 border-t border-slate-100 pt-4" transition:slide={{ duration: 180 }}>
                 <p>{phase.summary}</p>
-                <div class="flex flex-wrap gap-4 pt-1 text-xs text-[#7d819a]">
-                  <span>Estimasi: <strong class="text-white">{phase.duration}</strong></span>
-                  <span>Luaran: <strong class="text-[#7ed6e8]">{phase.deliverable}</strong></span>
+                <div class="flex flex-wrap gap-4 pt-1 text-xs text-[#64748b]">
+                  <span>Estimasi: <strong class="text-[#0f172a]">{phase.duration}</strong></span>
+                  <span>Luaran: <strong class="text-[#1d5bff]">{phase.deliverable}</strong></span>
                 </div>
               </div>
             {/if}
