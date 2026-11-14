@@ -7,7 +7,7 @@ export const initialSiteData = {
     companyName: "PT PHI Integrasi",
     domain: "phiintegrasi.com",
     legalEntity: "[REAL DATA: Nama Resmi Badan Hukum PT / HardTech IT Solution]",
-    registrationNumber: "3+ HAKI Terdaftar (Kemenkumham RI) | [REAL DATA: Nomor NIB]",
+    registrationNumber: "3+ HAKI Terdaftar (Kemenkumham RI)",
     foundedYear: "2017 - Sekarang (Kolaborasi Rekayasa & Open-Source)",
     city: "Bandung, Jawa Barat, Indonesia",
     githubOrgUrl: "https://github.com/phiintegrasi",

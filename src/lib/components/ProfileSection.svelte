@@ -88,7 +88,7 @@
 
       {#if showLegal}
         <div class="divide-y divide-[#d0d7de]">
-          {#each profile.achievements as item}
+          {#each profile.hakiAndResearch ?? [] as item}
             <div class="grid gap-3 px-6 py-4 md:grid-cols-12 md:items-start">
               <div class="md:col-span-3">
                 <span class="inline-block rounded border border-emerald-300 bg-emerald-50 px-2 py-0.5 font-mono-tech text-xs font-medium text-emerald-800">

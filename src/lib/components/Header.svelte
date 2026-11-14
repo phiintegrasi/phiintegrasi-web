@@ -1,6 +1,10 @@
 <script>
   let { brand, onOpenConsult, onOpenEditor } = $props();
   let mobileMenuOpen = $state(false);
+  // Editor hanya untuk pengelola: aktif di mode dev atau dengan ?edit di URL.
+  const editorEnabled =
+    import.meta.env.DEV ||
+    (typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('edit'));
 
   const navLinks = [
     { href: '#kapabilitas', label: 'Kapabilitas' },
@@ -44,6 +48,7 @@
     </nav>
 
     <div class="flex items-center gap-2.5">
+      {#if editorEnabled}
       <button
         type="button"
         onclick={onOpenEditor}
@@ -51,6 +56,7 @@
       >
         Editor Data
       </button>
+      {/if}
       <button
         type="button"
         onclick={onOpenConsult}
@@ -88,6 +94,7 @@
             {link.label}
           </a>
         {/each}
+        {#if editorEnabled}
         <button
           type="button"
           onclick={() => {
@@ -98,6 +105,7 @@
         >
           Editor Data
         </button>
+        {/if}
       </nav>
     </div>
   {/if}
